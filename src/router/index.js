@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import ContentCategoriesOverview from "../views/ContentCategoriesOverview";
 
 Vue.use(VueRouter)
 
@@ -10,6 +11,11 @@ Vue.use(VueRouter)
     name: 'Home',
     component: Home
   },
+    {
+      path: '/contentcategoriesoverview',
+      name: 'ContentCategoriesOverview',
+      component: ContentCategoriesOverview
+    },
   {
     path: '/about',
     name: 'About',
