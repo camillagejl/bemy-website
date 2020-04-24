@@ -78,6 +78,11 @@
 
     /* Texts */
 
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+
     h1,
     h2 {
         font-family: var(--font-family-header);

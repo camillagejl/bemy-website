@@ -1,17 +1,27 @@
 <template>
     <div class="header">
         <nav>
-            <div class="header_link">
+
+            <router-link
+                class="header_link"
+                :to="{ name: 'About' }"
+            >
                 Om os
-            </div>
+            </router-link>
 
-            <div class="header_logo">
+            <router-link
+                class="header_logo"
+                :to="{ name: 'Home' }"
+            >
                 BEMY
-            </div>
+            </router-link>
 
-            <div class="header_link">
+            <router-link
+                class="header_link"
+                :to="{ name: 'Inspiration' }"
+            >
                 Inspiration
-            </div>
+            </router-link>
         </nav>
     </div>
 </template>
@@ -33,7 +43,7 @@
             display: flex;
             align-items: center;
 
-            div {
+            a {
                 flex: 1;
                 text-align: center;
             }
