@@ -1,21 +1,21 @@
 <template>
     <div id="app">
-            <Header/>
+        <Header/>
 
-            <main>
-                <router-view/>
-            </main>
+        <main>
+            <router-view/>
+        </main>
 
-            <MenuMobile/>
-<!--                  <router-link to="/">Home</router-link> |-->
-<!--                  <router-link to="/about">About</router-link>-->
-        </div>
+        <MenuMobile/>
+        <!--                  <router-link to="/">Home</router-link> |-->
+        <!--                  <router-link to="/about">About</router-link>-->
+    </div>
 </template>
 
 <script>
     import Home from "./views/Home";
     import Header from "./components/Header";
-    import MenuMobile from "./components/MenuMobile";
+    import MenuMobile from "./components/MobileMenu";
 
     export default {
         components: {MenuMobile, Header, Home}
@@ -38,7 +38,7 @@
 
         --colour-secondary-100: #F9FCFF;
 
-        --colour-grey-100: #FCFCFC;
+        --colour-grey-100: 252, 252, 252;
         --colour-grey-200: #F5F5F5;
         --colour-grey-300: #DCDADE;
         --colour-grey-400: #CBC9CD;
@@ -56,10 +56,17 @@
 
         /* Body font */
         --font-family-primary: 'Roboto', sans-serif;
+        --font-size-primary: 16px;
 
         /* Shadows */
         --box-shadow-400: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         --box-shadow-400-reverse: 0 -4px 6px -1px rgba(0, 0, 0, 0.1), 0 -2px 4px -1px rgba(0, 0, 0, 0.06);
+
+        /* Margins */
+        --page-margin: 24px;
+
+        /* Borders */
+        --main-border-radius: 5px;
 
     }
 
@@ -67,16 +74,16 @@
         margin: 0;
         font-family: var(--font-family-primary);
         color: var(--colour-grey-900);
-        font-size: 16px;
-        background-color: var(--colour-grey-100);
+        font-size: var(--font-size-primary);
+        background-color: rgba(var(--colour-grey-100), 1);
     }
 
     main {
         padding-bottom: 50px;
-        margin: 12px;
+        margin: var(--page-margin);
     }
 
-    /* Texts */
+    /* General styling */
 
     a {
         color: inherit;
@@ -87,10 +94,10 @@
     h2 {
         font-family: var(--font-family-header);
         color: var(--colour-grey-800);
-        margin: 24px 0 0 0;
+        margin: 24px 0;
     }
 
-    .h1_large {
+    h1 {
         font-size: 24px;
         font-weight: 400;
     }
@@ -109,6 +116,27 @@
         background-color: transparent;
     }
 
+    img {
+        width: 100%;
+        display: block;
+    }
+
+    .relative_image {
+        position: relative;
+
+        &::after {
+            content: "";
+            display: block;
+            padding-bottom: 100%;
+        }
+
+        img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
 
     /* Components */
     .menu_mobile {

@@ -1,87 +1,107 @@
 <template>
     <div class="content_categories_overview">
 
+        <MobileContentRecap/>
+
         <h1>
             Indhold
         </h1>
 
+        <section class="content_categories">
+
+            <router-link
+                class="content_category"
+            :to="{ name: 'ContentCategory' }"
+            >
+                <div class="category_image relative_image">
+                    <img src="../assets/placeholders/category-1.jpg">
+                </div>
+                <div class="category_title">
+                    Beklædning
+                </div>
+            </router-link>
+
+            <div class="content_category">
+                <div class="category_image relative_image">
+                    <img src="../assets/placeholders/category-5.jpg">
+                </div>
+                <div class="category_title">
+                    Pynt
+                </div>
+            </div>
+
+            <div class="content_category">
+                <div class="category_image relative_image">
+                    <img src="../assets/placeholders/category-3.jpg">
+                </div>
+                <div class="category_title">
+                    Accessories
+                </div>
+            </div>
+
+            <div class="content_category">
+                <div class="category_image relative_image">
+                    <img src="../assets/placeholders/category-4.jpg">
+                </div>
+                <div class="category_title">
+                    Drikkevarer
+                </div>
+            </div>
+
+            <div class="content_category">
+                <div class="category_image relative_image">
+                    <img src="../assets/placeholders/category-5.jpg">
+                </div>
+                <div class="category_title">
+                    Gourmet Slik
+                </div>
+            </div>
+
+        </section>
 
     </div>
 </template>
 
 <script>
+    import MobileContentRecap from "../components/MobileContentRecap";
+
     export default {
         name: 'ContentCategoriesOverview',
+        components: {MobileContentRecap},
     }
 </script>
 
 <style scoped lang="scss">
 
-    .home_top {
-        min-height: calc(100vh - 100px);
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+    .content_categories {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        grid-gap: 24px;
     }
 
-    .h1_large {
-        text-align: center;
-    }
-
-    .h2_body {
-        text-align: center;
-        font-family: var(--font-family-handwriting);
-        font-weight: 400;
-        font-size: 22px;
-        color: var(--colour-grey-700);
-        margin: 0;
-    }
-
-    .home_infographic {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-around;
-        font-family: var(--font-family-handwriting);
-        color: var(--colour-grey-800);
-        font-size: 24px;
-        padding: 12px 0;
-    }
-
-    .infographic_icon_container {
-        text-align: center;
-    }
-
-    .infographic_icon {
-        background-color: var(--colour-secondary-100);
-        display: inline-block;
-        flex: 1;
-        box-sizing: border-box;
-        border-radius: 100%;
-        height: 64px;
-        width: 64px;
-        padding: 16px;
+    .content_category {
+        border-radius: var(--main-border-radius);
+        overflow: hidden;
         box-shadow: var(--box-shadow-400);
-        margin: 0 0 12px 0;
+        position: relative;
+    }
 
+    .category_image {
 
-        svg {
-            height: 100%;
-            width: 100%;
-            fill: var(--colour-primary-400);
+        &::after {
+            padding-bottom: 150%;
         }
     }
 
-    .infographic_line {
-        background-color: var(--colour-primary-200);
-        margin: 8px 0;
-        width: 1px;
-        height: 24px;
-    }
-
-    .arrow_down {
+    .category_title {
+        position: absolute;
+        top: 80%;
+        left: 0;
+        right: 0;
+        background-color: rgba(var(--colour-grey-100), .8);
+        color: var(--colour-grey-700);
+        padding: 8px;
         text-align: center;
-        margin-bottom: 24px;
     }
 
 </style>

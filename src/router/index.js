@@ -6,6 +6,7 @@ import About from "../views/About";
 import Inspiration from "../views/Inspiration";
 import MyPackages from "../views/MyPackages";
 import Wrapping from "../views/Wrapping";
+import ContentCategory from "../views/ContentCategory";
 
 Vue.use(VueRouter);
 
@@ -29,6 +30,11 @@ Vue.use(VueRouter);
       path: '/contentcategoriesoverview',
       name: 'ContentCategoriesOverview',
       component: ContentCategoriesOverview
+    },
+    {
+      path: '/contentcategory',
+      name: 'ContentCategory',
+      component: ContentCategory
     },
     {
       path: '/mypackages',

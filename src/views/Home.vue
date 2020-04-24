@@ -4,8 +4,8 @@
         <section class="home_top">
 
             <div class="home_headings">
-                <h1 class="h1_large">Velkommen til BEMY</h1>
-                <h2 class="h2_body">Du designer &#8226; Vi leverer</h2>
+                <h1>Velkommen til BEMY</h1>
+                <h2 class="h2_handwriting">Du designer &#8226; Vi leverer</h2>
             </div>
 
             <div class="home_infographic">
@@ -135,11 +135,12 @@
         justify-content: space-between;
     }
 
-    .h1_large {
+    h1 {
         text-align: center;
+        margin-bottom: 0;
     }
 
-    .h2_body {
+    .h2_handwriting {
         text-align: center;
         font-family: var(--font-family-handwriting);
         font-weight: 400;
