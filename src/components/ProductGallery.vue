@@ -10,22 +10,24 @@
             </div>
         </div>
 
-        <div class="gallery_full_image relative_image rounded_image">
-            <img src="../assets/placeholders/box-color-2.png">
-        </div>
+        <div class="gallery_content">
+            <div class="gallery_thumbs">
+                <div class="gallery_thumbnail relative_image rounded_image">
+                    <img src="../assets/placeholders/box-color-1.png">
+                </div>
+                <div class="gallery_thumbnail relative_image rounded_image selected">
+                    <img src="../assets/placeholders/box-color-2.png">
+                </div>
+                <div class="gallery_thumbnail relative_image rounded_image">
+                    <img src="../assets/placeholders/box-color-3.png">
+                </div>
+                <div class="gallery_thumbnail relative_image rounded_image">
+                    <img src="../assets/placeholders/box-color-4.jpg">
+                </div>
+            </div>
 
-        <div class="gallery_thumbs">
-            <div class="gallery_thumbnail relative_image rounded_image">
-                <img src="../assets/placeholders/box-color-1.png">
-            </div>
-            <div class="gallery_thumbnail relative_image rounded_image selected">
+            <div class="gallery_full_image relative_image rounded_image">
                 <img src="../assets/placeholders/box-color-2.png">
-            </div>
-            <div class="gallery_thumbnail relative_image rounded_image">
-                <img src="../assets/placeholders/box-color-3.png">
-            </div>
-            <div class="gallery_thumbnail relative_image rounded_image">
-                <img src="../assets/placeholders/box-color-4.jpg">
             </div>
         </div>
 
@@ -41,7 +43,8 @@
 <style scoped lang="scss">
 
     .product_gallery {
-        /*width: 50vw;*/
+        /*height: 50vh;*/
+        /*overflow: hidden;*/
     }
 
     .gallery_tabs {
@@ -62,14 +65,22 @@
         &.selected {
             background-color: var(--colour-primary-400);
         }
+    }
 
+    .gallery_content {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .gallery_full_image {
+        width: 80%;
     }
 
     .gallery_thumbs {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-        grid-gap: 8px;
-        margin-top: 8px;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        margin-right: 8px;
     }
 
     .gallery_thumbnail {
@@ -78,6 +89,11 @@
         &.selected {
             opacity: 1;
         }
+    }
+
+    .gallery_thumbnail + .gallery_thumbnail {
+
+        margin-top: 11px;
     }
 
 </style>
