@@ -6,9 +6,9 @@
             <router-view/>
         </main>
 
+        <Footer/>
+
         <MenuMobile/>
-        <!--                  <router-link to="/">Home</router-link> |-->
-        <!--                  <router-link to="/about">About</router-link>-->
     </div>
 </template>
 
@@ -16,9 +16,10 @@
     import Home from "./views/Home";
     import Header from "./components/Header";
     import MenuMobile from "./components/MobileMenu";
+    import Footer from "./components/Footer";
 
     export default {
-        components: {MenuMobile, Header, Home}
+        components: {Footer, MenuMobile, Header, Home}
     }
 </script>
 
@@ -78,16 +79,19 @@
         background-color: rgba(var(--colour-grey-100), 1);
     }
 
+    #app {
+        margin-bottom: 75px;
+    }
+
     main {
-        padding-bottom: 50px;
         margin: var(--page-margin);
     }
 
     /* General styling */
 
     a {
-        color: inherit;
-        text-decoration: none;
+        color: var(--colour-primary-600);
+        text-decoration: underline;
     }
 
     h1,
@@ -136,6 +140,16 @@
             height: 100%;
             object-fit: cover;
         }
+    }
+
+    .rounded_image {
+        border-radius: var(--main-border-radius);
+        overflow: hidden;
+        box-shadow: var(--box-shadow-400);
+    }
+
+    hr {
+        border: 1px solid var(--colour-primary-200)
     }
 
     /* Components */

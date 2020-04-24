@@ -46,6 +46,8 @@
             a {
                 flex: 1;
                 text-align: center;
+                color: inherit;
+                text-decoration: none;
             }
         }
     }
