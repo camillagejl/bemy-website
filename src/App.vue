@@ -69,6 +69,9 @@
         /* Borders */
         --main-border-radius: 5px;
 
+    /* Opacities */
+        --opacity-deselected: .5;
+
     }
 
     body {
@@ -84,7 +87,7 @@
     }
 
     main {
-        margin: var(--page-margin);
+        margin: 0 var(--page-margin);
     }
 
     /* General styling */
@@ -142,10 +145,19 @@
         }
     }
 
-    .rounded_image {
+    .rounded_box,
+    select,
+    input[type="text"]
+    {
         border-radius: var(--main-border-radius);
         overflow: hidden;
         box-shadow: var(--box-shadow-400);
+    }
+
+    select,
+    input {
+        border: 1px solid var(--colour-grey-500);
+        padding: 8px;
     }
 
     hr {

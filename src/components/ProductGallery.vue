@@ -12,22 +12,22 @@
 
         <div class="gallery_content">
             <div class="gallery_thumbs">
-                <div class="gallery_thumbnail relative_image rounded_image">
-                    <img src="../assets/placeholders/box-color-1.png">
+                <div class="gallery_thumbnail relative_image rounded_box selected">
+                    <img src="../assets/placeholders/box-inspiration-1.jpg">
                 </div>
-                <div class="gallery_thumbnail relative_image rounded_image selected">
-                    <img src="../assets/placeholders/box-color-2.png">
+                <div class="gallery_thumbnail relative_image rounded_box">
+                    <img src="../assets/placeholders/box-inspiration-2.jpg">
                 </div>
-                <div class="gallery_thumbnail relative_image rounded_image">
-                    <img src="../assets/placeholders/box-color-3.png">
+                <div class="gallery_thumbnail relative_image rounded_box">
+                    <img src="../assets/placeholders/box-inspiration-3.jpg">
                 </div>
-                <div class="gallery_thumbnail relative_image rounded_image">
-                    <img src="../assets/placeholders/box-color-4.jpg">
+                <div class="gallery_thumbnail relative_image rounded_box">
+                    <img src="../assets/placeholders/box-inspiration-4.jpg">
                 </div>
             </div>
 
-            <div class="gallery_full_image relative_image rounded_image">
-                <img src="../assets/placeholders/box-color-2.png">
+            <div class="gallery_full_image relative_image rounded_box">
+                <img src="../assets/placeholders/box-inspiration-1.jpg">
             </div>
         </div>
 
@@ -61,6 +61,7 @@
         padding: 4px;
         border-radius: 5px 5px 0 0;
         font-weight: 300;
+        font-size: 14px;
 
         &.selected {
             background-color: var(--colour-primary-400);
@@ -84,7 +85,7 @@
     }
 
     .gallery_thumbnail {
-        opacity: .5;
+        opacity: var(--opacity-deselected);
 
         &.selected {
             opacity: 1;
@@ -92,7 +93,6 @@
     }
 
     .gallery_thumbnail + .gallery_thumbnail {
-
         margin-top: 11px;
     }
 
