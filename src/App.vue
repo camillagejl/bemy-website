@@ -19,7 +19,121 @@
     import Footer from "./components/Footer";
 
     export default {
-        components: {Footer, MenuMobile, Header, Home}
+        components: {Footer, MenuMobile, Header, Home},
+        data() {
+            return {
+                productData: {}
+            }
+        },
+        methods: {
+            fetchData() {
+                this.axios.post('/api/2020-01/graphql.json', `
+                {
+  collections(first: 250) {
+    edges {
+      node {
+        title
+        description
+        image {
+          originalSrc
+        }
+        products(first: 250) {
+          edges {
+            node {
+              title
+              variants(first: 250) {
+                edges {
+                  node {
+                    selectedOptions {
+                      name
+                    value
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+                `)
+                    .then((response) => {
+                        this.productData = this.createData(response);
+                    })
+                // .catch((error) => {
+                //     console.error('Failed fetching data', error);
+                //     this.error = 'Failed fetching data';
+                // });
+            },
+
+            createData(response) {
+
+                const rawCollections = response.data.data.collections.edges;
+
+                const productData = {
+                    collections: this.createCollections(rawCollections)
+                };
+
+                return productData;
+            },
+
+            createCollections(rawCollections) {
+                const collections = [];
+
+                rawCollections.forEach(collection => {
+                        console.log('Raw Collection', collection);
+
+                        const thisCollection = this.createCollectionInfo(collection);
+
+                        thisCollection.products = this.createProducts(collection);
+
+                        collections.push(thisCollection);
+                    }
+                );
+                return collections;
+            },
+
+            createCollectionInfo(collection) {
+                return {
+                    collectionTitle: collection.node.description,
+                    collectionImage: collection.node.image.originalSrc,
+                    collectionType: collection.node.title.split(']').shift().replace('[', '')
+                }
+            },
+
+
+            createProducts(collection) {
+                const products = [];
+
+                collection.node.products.edges.forEach(product => {
+                    const thisProduct = {
+                        productTitle: product.node.title,
+                        productVariants: []
+                    };
+
+                    // ----- Creating product options -----
+                    product.node.variants.edges.forEach(variant => {
+                        const thisVariant = {};
+
+                        variant.node.selectedOptions.forEach(option => {
+                            thisVariant[option.name] = option.value;
+                        });
+
+                        thisProduct.productVariants.push(thisVariant);
+                    });
+
+                    products.push(thisProduct);
+                });
+
+                return products;
+            }
+        },
+        mounted() {
+            this.fetchData();
+        }
+
     }
 </script>
 
@@ -69,7 +183,7 @@
         /* Borders */
         --main-border-radius: 5px;
 
-    /* Opacities */
+        /* Opacities */
         --opacity-deselected: .5;
 
     }
@@ -101,17 +215,18 @@
     h2 {
         font-family: var(--font-family-header);
         color: var(--colour-grey-800);
-        margin: 24px 0;
     }
 
     h1 {
         font-size: 24px;
         font-weight: 400;
+        margin: 24px 0;
     }
 
     h2 {
         font-size: 20px;
         font-weight: 300;
+        margin: 0;
     }
 
     p {
@@ -147,8 +262,7 @@
 
     .rounded_box,
     select,
-    input[type="text"]
-    {
+    input[type="text"] {
         border-radius: var(--main-border-radius);
         overflow: hidden;
         box-shadow: var(--box-shadow-400);
