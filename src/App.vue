@@ -22,11 +22,48 @@
         components: {Footer, MenuMobile, Header, Home},
         data() {
             return {
-                productData: {}
+                collections: {},
+                products: {},
             }
         },
         methods: {
-            fetchData() {
+            fetchProductData() {
+                this.axios.post('/api/2020-01/graphql.json', `
+                {
+  products(first: 250) {
+    edges {
+      node {
+        title
+        id
+        variants(first: 250) {
+          edges {
+            node {
+              selectedOptions {
+                name
+                value
+              }
+            }
+          }
+        }
+        metafields(first: 250) {
+          edges {
+            node {
+              key
+              value
+            }
+          }
+        }
+      }
+    }
+  }
+}
+                `)
+                    .then((response) => {
+                        this.products = this.createProductData(response.data.data.products.edges);
+                    })
+            },
+
+            fetchCollectionData() {
                 this.axios.post('/api/2020-01/graphql.json', `
                 {
   collections(first: 250) {
@@ -40,26 +77,7 @@
         products(first: 250) {
           edges {
             node {
-              title
               id
-              variants(first: 250) {
-                edges {
-                  node {
-                    selectedOptions {
-                      name
-                    \tvalue
-                    }
-                  }
-                }
-              }
-              metafields(first: 250) {
-                edges {
-                  node {
-                    key
-                    value
-                  }
-                }
-              }
             }
           }
         }
@@ -67,37 +85,18 @@
     }
   }
 }
+
                 `)
                     .then((response) => {
-                        this.productData = this.createData(response);
+                        this.collections = this.createCollectionData(response);
                     })
-                // .catch((error) => {
-                //     console.error('Failed fetching data', error);
-                //     this.error = 'Failed fetching data';
-                // });
             },
 
-            createData(response) {
-
+            createCollectionData(response) {
                 const rawCollections = response.data.data.collections.edges;
-
-                const productData = {
-                    collections: this.createCollections(rawCollections)
-                };
-
-                return productData;
-            },
-
-            createCollections(rawCollections) {
                 const collections = [];
-
                 rawCollections.forEach(collection => {
-                        console.log('Raw Collection', collection);
-
                         const thisCollection = this.createCollectionInfo(collection);
-
-                        thisCollection.products = this.createProducts(collection);
-
                         collections.push(thisCollection);
                     }
                 );
@@ -112,35 +111,61 @@
                 }
             },
 
+            createProductData(rawProducts) {
 
-            createProducts(collection) {
+                console.log("rawProducts", rawProducts);
+
                 const products = [];
 
-                collection.node.products.edges.forEach(product => {
+                rawProducts.forEach(product => {
                     const thisProduct = {
                         productTitle: product.node.title,
+                        productId: product.node.id,
                         productVariants: []
                     };
 
                     // ----- Creating product options -----
                     product.node.variants.edges.forEach(variant => {
-                        const thisVariant = {};
+                        thisProduct.productVariants.push(this.createProductVariants(variant));
+                    });
 
-                        variant.node.selectedOptions.forEach(option => {
-                            thisVariant[option.name] = option.value;
-                        });
-
-                        thisProduct.productVariants.push(thisVariant);
+                    product.node.metafields.edges.forEach(metafield => {
+                        if (metafield.node.key === "product_design_import") {
+                            thisProduct.productDesigns = this.getProductIds(metafield.node.value.split('|'));
+                        }
                     });
 
                     products.push(thisProduct);
                 });
 
                 return products;
+            },
+
+            getProductIds(rawIds) {
+
+                const designIds = [];
+
+                rawIds.forEach(id => {
+                    const designId = btoa(`gid://shopify/ProductVariant/${id.substring(id.indexOf(':') + 1, id.length)}`);
+                    designIds.push(designId);
+                });
+
+                return designIds;
+
+            },
+
+            createProductVariants(variant) {
+                const thisVariant = {};
+
+                variant.node.selectedOptions.forEach(option => {
+                    thisVariant[option.name] = option.value;
+                });
+                return (thisVariant);
             }
         },
         mounted() {
-            this.fetchData();
+            this.fetchProductData();
+            this.fetchCollectionData();
         }
 
     }
