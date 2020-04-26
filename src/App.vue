@@ -41,13 +41,22 @@
           edges {
             node {
               title
+              id
               variants(first: 250) {
                 edges {
                   node {
                     selectedOptions {
                       name
-                    value
+                    \tvalue
                     }
+                  }
+                }
+              }
+              metafields(first: 250) {
+                edges {
+                  node {
+                    key
+                    value
                   }
                 }
               }
