@@ -38,9 +38,13 @@
         variants(first: 250) {
           edges {
             node {
+              id
               selectedOptions {
                 name
                 value
+              }
+              product {
+                title
               }
             }
           }
@@ -57,6 +61,8 @@
     }
   }
 }
+
+
                 `)
                     .then((response) => {
                         this.products = this.createProductData(response.data.data.products.edges);
@@ -121,7 +127,8 @@
                     const thisProduct = {
                         productTitle: product.node.title,
                         productId: product.node.id,
-                        productVariants: []
+                        productVariants: [],
+                        productDesigns: product // To be changed later
                     };
 
                     // ----- Creating product options -----
@@ -129,16 +136,44 @@
                         thisProduct.productVariants.push(this.createProductVariants(variant));
                     });
 
-                    product.node.metafields.edges.forEach(metafield => {
-                        if (metafield.node.key === "product_design_import") {
-                            thisProduct.productDesigns = this.getProductIds(metafield.node.value.split('|'));
-                        }
-                    });
-
                     products.push(thisProduct);
                 });
 
+                products.forEach(product => {
+                    product.productDesigns = this.getProductDesigns(product.productDesigns, products);
+
+                    if (product.productDesigns.length === 0) {
+                        delete product.productDesigns;
+                    }
+                });
+
+
                 return products;
+            },
+
+            getProductDesigns(product, products) {
+
+                const productDesigns = [];
+
+                product.node.metafields.edges.forEach(metafield => {
+
+                    if (metafield.node.key === "product_design_import") {
+                        const designIds = this.getProductIds(metafield.node.value.split('|'));
+                        designIds.forEach(id => {
+                            products.forEach(product => {
+                                product.productVariants.forEach(variant => {
+                                    console.log(variant);
+
+                                    if (id === variant.id) {
+                                        productDesigns.push(variant);
+                                    }
+                                })
+                            })
+                        })
+                    }
+                });
+
+                return productDesigns
             },
 
             getProductIds(rawIds) {
@@ -151,16 +186,18 @@
                 });
 
                 return designIds;
-
             },
 
             createProductVariants(variant) {
-                const thisVariant = {};
+                const thisVariant = {
+                    id: variant.node.id,
+                    product: variant.node.product.title
+                };
 
                 variant.node.selectedOptions.forEach(option => {
                     thisVariant[option.name] = option.value;
                 });
-                return (thisVariant);
+                return thisVariant;
             }
         },
         mounted() {
