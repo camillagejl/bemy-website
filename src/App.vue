@@ -2,24 +2,27 @@
     <div id="app">
         <Header/>
 
-        <main>
-            <router-view/>
-        </main>
+        <div class="desktop_flex_row">
+            <MainNavigation/>
+            <div class="main_section">
+                <main>
+                    <router-view/>
+                </main>
+                <Footer/>
+            </div>
 
-        <Footer/>
-
-        <MenuMobile/>
+        </div>
     </div>
 </template>
 
 <script>
     import Home from "./views/Home";
     import Header from "./components/Header";
-    import MenuMobile from "./components/MobileMenu";
+    import MainNavigation from "./components/MainNavigation";
     import Footer from "./components/Footer";
 
     export default {
-        components: {Footer, MenuMobile, Header, Home},
+        components: {MainNavigation, Footer, Header, Home},
         data() {
             return {
                 collections: {},
@@ -162,7 +165,6 @@
                         designIds.forEach(id => {
                             products.forEach(product => {
                                 product.productVariants.forEach(variant => {
-                                    console.log(variant);
 
                                     if (id === variant.id) {
                                         productDesigns.push(variant);
@@ -246,7 +248,8 @@
 
         /* Shadows */
         --box-shadow-400: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        --box-shadow-400-reverse: 0 -4px 6px -1px rgba(0, 0, 0, 0.1), 0 -2px 4px -1px rgba(0, 0, 0, 0.06);
+        --box-shadow-400-top: 0 -4px 6px -1px rgba(0, 0, 0, 0.1), 0 -2px 4px -1px rgba(0, 0, 0, 0.06);
+        --box-shadow-400-left: 0 4px 6px 1px rgba(0, 0, 0, 0.1), 0 2px 4px 1px rgba(0, 0, 0, 0.06);
 
         /* Margins */
         --page-margin: 24px;
@@ -350,11 +353,55 @@
     }
 
     /* Components */
-    .menu_mobile {
+    .main_navigation {
+        box-shadow: var(--box-shadow-400-top);
         position: fixed;
         bottom: 0;
         left: 0;
         right: 0;
+
+        nav {
+            height: 50px;
+        }
+    }
+
+    /* Media queries */
+
+    @media screen and (min-width: 768px) {
+        h1 {
+            font-size: 36px;
+        }
+    }
+
+    @media screen and (min-width: 1024px) {
+        #app {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .header {
+            z-index: 1;
+        }
+
+        .desktop_flex_row {
+            display: flex;
+            overflow: hidden;
+        }
+
+        .main_section {
+            width: 100%;
+            box-shadow: var(--box-shadow-400-left);
+            height: 100%;
+            overflow: scroll;
+        }
+
+        .main_navigation {
+            position: static;
+            width: 250px;
+            box-shadow: none;
+        }
     }
 
 </style>

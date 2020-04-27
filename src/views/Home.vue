@@ -96,7 +96,7 @@
         </section>
 
         <section class="our_packages">
-            <h2>
+            <h2 class="h2_sub_section">
                 Bliv inspireret af vores designede pakker
             </h2>
 
@@ -194,6 +194,40 @@
     .arrow_down {
         text-align: center;
         margin-bottom: 24px;
+    }
+
+    .h2_sub_section {
+        margin-top: 48px;
+    }
+
+    @media screen and (min-width: 768px) {
+        /* Header */
+        .h2_handwriting {
+            font-size: 32px;
+        }
+
+        /* Infographic */
+        .home_infographic {
+            flex-direction: row;
+            justify-content: space-evenly;
+            font-size: 30px;
+        }
+
+        .infographic_line {
+            height: 1px;
+            width: 48px;
+        }
+
+        .infographic_icon {
+            height: 96px;
+            width: 96px;
+            padding: 24px;
+        }
+
+        .arrow_down svg {
+            height: 36px;
+            width: 36px;
+        }
     }
 
 </style>

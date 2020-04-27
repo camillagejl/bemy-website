@@ -1,5 +1,5 @@
 <template>
-    <div class="menu_mobile">
+    <div class="main_navigation">
         <nav>
             <router-link
                 class="nav_button"
@@ -59,20 +59,18 @@
 
 <script>
     export default {
-        name: 'MenuMobile'
+        name: 'MainNavigation'
     }
 </script>
 
 <style scoped lang="scss">
 
-    .menu_mobile {
+    .main_navigation {
         background-color: var(--colour-grey-200);
-        box-shadow: var(--box-shadow-400-reverse);
     }
 
-    .menu_mobile nav {
+    .main_navigation nav {
         display: flex;
-        height: 50px;
         align-items: center;
     }
 
@@ -84,6 +82,10 @@
             height: 26px;
             fill: var(--colour-primary-700);
         }
+    }
+
+    @media screen and (min-width: 1024px) {
+
     }
 
 </style>
