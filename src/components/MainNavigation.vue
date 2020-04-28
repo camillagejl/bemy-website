@@ -2,15 +2,11 @@
     <div class="main_navigation">
         <nav>
 
-            <h2 class="display_1024">
+            <div class="package_name display_1024">
                 Amanda
-            </h2>
-
-            <div class="flex_center_align display_1024">
-                <hr class="menu_splitter">
             </div>
 
-            <div class="nav_button">
+            <div class="nav_section">
                 <router-link
                     class="flex_center_align_1024"
                     :to="{ name: 'Wrapping' }"
@@ -29,34 +25,44 @@
                 </router-link>
             </div>
 
-            <div class="flex_center_align display_1024">
-                <hr class="menu_splitter">
+            <div class="nav_section">
+                <div class="nav_section_top">
+                    <router-link
+                        class="flex_center_align_1024"
+                        :to="{ name: 'ContentCategoriesOverview' }"
+                    >
+                        <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="tshirt"
+                             class="svg-inline--fa fa-tshirt fa-w-20" role="img" xmlns="http://www.w3.org/2000/svg"
+                             viewBox="0 0 640 512">
+                            <g class="fa-group">
+                                <path class="fa-secondary"
+                                      d="M8.86 96.5a16.11 16.11 0 0 0-7.2 21.5l57.23 114.5a16.11 16.11 0 0 0 21.5 7.2l17.32-8.48L26.09 88zm459-80.95a187.31 187.31 0 0 1-13.32 13.26C418.45 61.3 370.67 79.2 320 79.2s-98.41-17.9-134.51-50.39a187.31 187.31 0 0 1-13.32-13.26L54.76 73.75l71.69 143.4L137 212a16 16 0 0 1 23 14.4V480a32 32 0 0 0 32 32h256a32 32 0 0 0 32-32V226.3a16 16 0 0 1 23-14.4l10.57 5.18L585.19 73.7zm163.31 81l-17.32-8.59-71.6 143.19 17.24 8.45h.06a16 16 0 0 0 21.45-7.2L638.28 118a16 16 0 0 0-7.1-21.5z"
+                                      opacity="0.4"></path>
+                                <path class="fa-primary"
+                                      d="M320 47.2c-51.89 0-96.39-19.4-116.49-47.2l-31.34 15.55a187.31 187.31 0 0 0 13.32 13.26C221.59 61.3 269.37 79.2 320 79.2s98.43-17.9 134.53-50.39a187.31 187.31 0 0 0 13.32-13.26L436.51 0c-20.1 27.8-64.6 47.2-116.51 47.2zM26.09 88l71.62 143.22 28.74-14.07-71.69-143.4zm559.1-14.3l-71.68 143.38 28.74 14.07 71.61-143.24z"></path>
+                            </g>
+                        </svg>
+                    </router-link>
+
+                    <div class="nav_section_title_container display_1024">
+                        <div class="nav_section_title">
+                            Indhold
+                        </div>
+                        <router-link
+                            :to="{ name: 'MyPackages' }"
+                            class="nav_section_edit"
+                        >
+                            Tilføj indhold
+                        </router-link>
+                    </div>
+                </div>
+
+                <ContentRecapList
+                class="display_1024"
+                />
             </div>
 
-            <div class="nav_button">
-                <router-link
-                    class="flex_center_align_1024"
-                    :to="{ name: 'ContentCategoriesOverview' }"
-                >
-                    <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="tshirt"
-                         class="svg-inline--fa fa-tshirt fa-w-20" role="img" xmlns="http://www.w3.org/2000/svg"
-                         viewBox="0 0 640 512">
-                        <g class="fa-group">
-                            <path class="fa-secondary"
-                                  d="M8.86 96.5a16.11 16.11 0 0 0-7.2 21.5l57.23 114.5a16.11 16.11 0 0 0 21.5 7.2l17.32-8.48L26.09 88zm459-80.95a187.31 187.31 0 0 1-13.32 13.26C418.45 61.3 370.67 79.2 320 79.2s-98.41-17.9-134.51-50.39a187.31 187.31 0 0 1-13.32-13.26L54.76 73.75l71.69 143.4L137 212a16 16 0 0 1 23 14.4V480a32 32 0 0 0 32 32h256a32 32 0 0 0 32-32V226.3a16 16 0 0 1 23-14.4l10.57 5.18L585.19 73.7zm163.31 81l-17.32-8.59-71.6 143.19 17.24 8.45h.06a16 16 0 0 0 21.45-7.2L638.28 118a16 16 0 0 0-7.1-21.5z"
-                                  opacity="0.4"></path>
-                            <path class="fa-primary"
-                                  d="M320 47.2c-51.89 0-96.39-19.4-116.49-47.2l-31.34 15.55a187.31 187.31 0 0 0 13.32 13.26C221.59 61.3 269.37 79.2 320 79.2s98.43-17.9 134.53-50.39a187.31 187.31 0 0 0 13.32-13.26L436.51 0c-20.1 27.8-64.6 47.2-116.51 47.2zM26.09 88l71.62 143.22 28.74-14.07-71.69-143.4zm559.1-14.3l-71.68 143.38 28.74 14.07 71.61-143.24z"></path>
-                        </g>
-                    </svg>
-                </router-link>
-            </div>
-
-            <div class="flex_center_align display_1024">
-                <hr class="menu_splitter">
-            </div>
-
-            <div class="nav_button">
+            <div class="nav_section">
                 <router-link
                     class="flex_center_align_1024"
                     :to="{ name: 'MyPackages' }"
@@ -81,8 +87,10 @@
 </template>
 
 <script>
+    import ContentRecapList from "./ContentRecapList";
     export default {
-        name: 'MainNavigation'
+        name: 'MainNavigation',
+        components: {ContentRecapList}
     }
 </script>
 
@@ -97,10 +105,10 @@
         align-items: center;
     }
 
-    .nav_button {
+    .nav_section {
         display: flex;
+        flex-direction: column;
         flex: 1;
-        text-align: center;
         justify-content: center;
 
         svg {
@@ -109,22 +117,53 @@
         }
     }
 
-    /* Desktop menu */
+    .nav_section_top {
+        display: flex;
+        justify-content: center;
+    }
 
-    .menu_splitter {
-        width: 150px;
+    /* Desktop only stylings */
+
+    .package_name {
+        width: 100%;
+        text-align: center;
+        font-size: 16px;
+        color: var(--colour-primary-700);
+    }
+
+    .nav_section_title {
+        font-family: var(--font-family-header);
+    }
+
+    .nav_section_edit {
+        font-size: 12px;
     }
 
     @media screen and (min-width: 1024px) {
         .main_navigation {
-            padding: 24px 0;
+            padding: 48px 0;
         }
 
         .main_navigation nav {
             height: 100%;
             flex-direction: column;
             justify-content: space-between;
+            align-items: flex-start;
+            padding: 0 24px;
 
+            svg {
+                height: 36px;
+                margin-right: 12px;
+            }
+        }
+
+        .nav_section {
+            border-top: 2px solid var(--colour-primary-200);
+            width: 100%;
+        }
+
+        .nav_section_top {
+            justify-content: flex-start;
         }
     }
 
