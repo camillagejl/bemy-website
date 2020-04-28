@@ -272,8 +272,8 @@
 
     #app {
         box-sizing: border-box;
-        padding-bottom: 75px;
-        min-height: 100vh;
+        padding-bottom: 50px;
+        height: 100vh;
     }
 
     .desktop_flex_row {
@@ -377,6 +377,17 @@
         }
     }
 
+    /* Helpers */
+
+    .flex_center_align {
+        display: flex;
+        align-items: center;
+    }
+
+    .display_1024 {
+        display: none;
+    }
+
     /* Media queries */
 
     @media screen and (min-width: 768px) {
@@ -415,6 +426,19 @@
             width: 250px;
             box-shadow: none;
         }
+
+    /* Helpers */
+
+        .display_1024 {
+            display: block;
+        }
+
+
+        .flex_center_align_1024 {
+            display: flex;
+            align-items: center;
+        }
+
     }
 
 </style>

@@ -3,7 +3,7 @@
         <nav>
 
             <router-link
-                class="header_link"
+                class="header_link display_1024"
                 :to="{ name: 'Contact' }"
             >
                 Kontakt
@@ -24,7 +24,7 @@
             </router-link>
 
             <router-link
-                class="header_link"
+                class="header_link display_1024"
                 :to="{ name: 'Delivery' }"
             >
                 Levering
