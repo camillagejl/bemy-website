@@ -271,7 +271,19 @@
     }
 
     #app {
-        margin-bottom: 75px;
+        box-sizing: border-box;
+        padding-bottom: 75px;
+        min-height: 100vh;
+    }
+
+    .desktop_flex_row {
+        min-height: 100%;
+    }
+
+    .main_section {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
 
     main {
@@ -388,13 +400,14 @@
         .desktop_flex_row {
             display: flex;
             overflow: hidden;
+            height: 100%;
         }
 
         .main_section {
             width: 100%;
             box-shadow: var(--box-shadow-400-left);
             height: 100%;
-            overflow: scroll;
+            overflow-y: scroll;
         }
 
         .main_navigation {

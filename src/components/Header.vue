@@ -4,6 +4,13 @@
 
             <router-link
                 class="header_link"
+                :to="{ name: 'Contact' }"
+            >
+                Kontakt
+            </router-link>
+
+            <router-link
+                class="header_link"
                 :to="{ name: 'About' }"
             >
                 Om os
@@ -14,6 +21,13 @@
                 :to="{ name: 'Home' }"
             >
                 BEMY
+            </router-link>
+
+            <router-link
+                class="header_link"
+                :to="{ name: 'Delivery' }"
+            >
+                Levering
             </router-link>
 
             <router-link

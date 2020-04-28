@@ -7,6 +7,8 @@ import Inspiration from "../views/Inspiration";
 import MyPackages from "../views/MyPackages";
 import Wrapping from "../views/Wrapping";
 import ContentCategory from "../views/ContentCategory";
+import Contact from "../views/Contact";
+import Delivery from "../views/Delivery";
 
 Vue.use(VueRouter);
 
@@ -20,6 +22,16 @@ Vue.use(VueRouter);
       path: '/inspiration',
       name: 'Inspiration',
       component: Inspiration
+    },
+    {
+      path: '/contact',
+      name: 'Contact',
+      component: Contact
+    },
+    {
+      path: '/delivery',
+      name: 'Delivery',
+      component: Delivery
     },
     {
       path: '/wrapping',
