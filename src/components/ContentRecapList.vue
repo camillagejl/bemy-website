@@ -101,6 +101,7 @@
         display: flex;
         align-items: center;
         margin-top: 12px;
+        color: var(--colour-grey-700);
 
         &:before {
             content: '\2022';

@@ -35,19 +35,18 @@
                                       d="M224 480h64V320h-64zM359.54 32c-41.82 0-68.86 21.3-103.54 68.3-34.68-47-61.72-68.3-103.54-68.3C103.71 32 64 71.5 64 120a85.65 85.65 0 0 0 10.15 40h78.21a40 40 0 1 1 0-80c20 0 34.78 3.3 86.55 80H224v128h64V160h-15c51.67-76.5 66-80 86.55-80a40 40 0 1 1 0 80h78.31A86.86 86.86 0 0 0 448 120c0-48.5-39.71-88-88.46-88z"></path>
                             </g>
                         </svg>
-                    </router-link>
 
-                    <div class="nav_section_title_container display_1024">
-                        <div class="nav_section_title">
-                            Indpakning
+                        <div class="nav_section_title_container display_1024">
+                            <div class="nav_section_title">
+                                Indpakning
+                            </div>
+                            <div
+                                class="nav_section_edit"
+                            >
+                                Redigér indpakning
+                            </div>
                         </div>
-                        <router-link
-                            :to="{ name: 'MyPackages' }"
-                            class="nav_section_edit"
-                        >
-                            Redigér indpakning
-                        </router-link>
-                    </div>
+                    </router-link>
                 </div>
 
             </div>
@@ -70,19 +69,18 @@
                                       d="M320 47.2c-51.89 0-96.39-19.4-116.49-47.2l-31.34 15.55a187.31 187.31 0 0 0 13.32 13.26C221.59 61.3 269.37 79.2 320 79.2s98.43-17.9 134.53-50.39a187.31 187.31 0 0 0 13.32-13.26L436.51 0c-20.1 27.8-64.6 47.2-116.51 47.2zM26.09 88l71.62 143.22 28.74-14.07-71.69-143.4zm559.1-14.3l-71.68 143.38 28.74 14.07 71.61-143.24z"></path>
                             </g>
                         </svg>
-                    </router-link>
 
                     <div class="nav_section_title_container display_1024">
                         <div class="nav_section_title">
                             Indhold
                         </div>
-                        <router-link
-                            :to="{ name: 'MyPackages' }"
+                        <div
                             class="nav_section_edit"
                         >
                             Tilføj indhold
-                        </router-link>
+                        </div>
                     </div>
+                    </router-link>
                 </div>
 
                 <ContentRecapList
@@ -109,19 +107,18 @@
                                       opacity="0.4"></path>
                             </g>
                         </svg>
-                    </router-link>
 
                     <div class="nav_section_title_container display_1024">
                         <div class="nav_section_title">
                             Mine pakker
                         </div>
-                        <router-link
-                            :to="{ name: 'MyPackages' }"
+                        <div
                             class="nav_section_edit"
                         >
                             Se mine pakker
-                        </router-link>
+                        </div>
                     </div>
+                    </router-link>
                 </div>
             </div>
 
@@ -171,16 +168,23 @@
     .package_name {
         width: 100%;
         text-align: center;
-        font-size: 16px;
+        margin-bottom: 12px;
         color: var(--colour-primary-700);
+    }
+
+    .nav_section_top a {
+        text-decoration: none;
     }
 
     .nav_section_title {
         font-family: var(--font-family-header);
+        color: var(--colour-grey-800);
     }
 
     .nav_section_edit {
         font-size: 12px;
+        text-decoration: underline;
+        margin-top: 4px;
     }
 
     @media screen and (min-width: 1024px) {
