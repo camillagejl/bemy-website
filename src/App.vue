@@ -284,10 +284,7 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-    }
-
-    main {
-        margin: 0 var(--page-margin);
+        padding: 0 var(--page-margin);
     }
 
     /* General styling */
@@ -403,6 +400,11 @@
     }
 
     @media screen and (min-width: 1024px) {
+
+        :root {
+            --page-margin: 96px;
+        }
+
         #app {
             display: flex;
             flex-direction: column;
@@ -421,10 +423,12 @@
         }
 
         .main_section {
+            box-sizing: border-box;
             width: 100%;
             box-shadow: var(--box-shadow-400-left);
             height: 100%;
             overflow-y: scroll;
+            padding: var(--page-margin);
         }
 
         .main_navigation {
@@ -437,6 +441,10 @@
 
         .display_1024 {
             display: block;
+        }
+
+        .hide_1024 {
+            display: none;
         }
 
 

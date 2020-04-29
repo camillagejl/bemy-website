@@ -1,7 +1,7 @@
 <template>
     <div class="content_category">
 
-        <MobileContentRecap/>
+        <MobileContentRecap class="hide_1024"/>
 
         <h1>
             Beklædning

@@ -1,7 +1,7 @@
 <template>
     <div class="content_categories_overview">
 
-        <MobileContentRecap/>
+        <MobileContentRecap class="hide_1024"/>
 
         <h1>
             Indhold
@@ -102,6 +102,12 @@
         color: var(--colour-grey-700);
         padding: 8px;
         text-align: center;
+    }
+
+    @media screen and (min-width: 1024px) {
+        .content_categories {
+            grid-template-columns: repeat(5, 1fr);
+        }
     }
 
 </style>

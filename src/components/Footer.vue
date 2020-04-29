@@ -84,7 +84,7 @@
 <style scoped lang="scss">
 
     .footer {
-        margin: 48px var(--page-margin) 0 var(--page-margin);
+        margin-top: 48px;
     }
 
     .footer_content {
