@@ -364,6 +364,12 @@
         border: 1px solid var(--colour-primary-200)
     }
 
+    .edit_pen {
+        fill: var(--colour-primary-600);
+        height: 12px;
+        margin-left: 4px;
+    }
+
     /* Components */
     .main_navigation {
         box-shadow: var(--box-shadow-400-top);
