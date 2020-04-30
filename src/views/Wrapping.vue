@@ -5,7 +5,29 @@
             Indpakning
         </h1>
 
+        <div class="wrapping_container">
+
+            <div class="gallery_container">
         <ProductGallery/>
+
+
+            <div class="description display_1024">
+                <h2>
+                    Beskrivelse
+                </h2>
+                <p>
+                    Design din helt egen æske til den du holder af.
+                </p>
+                <p>
+                    Disse æsker giver dig muligheden for at give en helt unik gave, og kan bruges til mange lejligheder og
+                    personer - til konfirmanden, til bruden, til brudepigerne, til gommen. Det er kun fantasien der sætter
+                    grænser - eller det gør den faktisk heller ikke her hos BEMY.
+                </p>
+                <p>
+                    Har du særlige ønsker, ideer til ikoner eller monogrammer, så skriv endelig til os, lige herunder.
+                </p>
+            </div>
+        </div>
 
         <section class="wrapping_options">
 
@@ -97,8 +119,9 @@
 
         </section>
 
+        </div>
 
-        <div class="description">
+        <div class="description hide_1024">
             <h2>
                 Beskrivelse
             </h2>
@@ -149,12 +172,15 @@
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
         grid-gap: 8px;
+
     }
 
     .option_image {
         opacity: var(--opacity-deselected);
+        transition-duration: .3s;
 
-        &.selected {
+        &.selected,
+        &:hover {
             opacity: 1;
         }
     }
@@ -164,6 +190,32 @@
     .option_w_text {
         strong {
             display: block;
+        }
+    }
+
+    @media screen and (min-width: 768px) {
+        .option_images {
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            grid-gap: 12px;
+        }
+    }
+
+    @media screen and (min-width: 1024px) {
+        .wrapping_container {
+            display: flex;
+        }
+
+        .gallery_container {
+            flex: 2;
+        }
+
+        .wrapping_options {
+            flex: 3;
+            margin-left: 48px;
+        }
+
+        .description {
+            margin-top: 24px;
         }
     }
 

@@ -369,6 +369,7 @@
 
     /* Components */
     .main_navigation {
+        z-index: 1;
         box-shadow: var(--box-shadow-400-top);
         position: fixed;
         bottom: 0;
@@ -400,11 +401,6 @@
     }
 
     @media screen and (min-width: 1024px) {
-
-        :root {
-            --page-margin: 96px;
-        }
-
         #app {
             display: flex;
             flex-direction: column;
@@ -453,6 +449,12 @@
             align-items: center;
         }
 
+    }
+
+    @media screen and (min-width: 1200px) {
+        :root {
+            --page-margin: 96px;
+        }
     }
 
 </style>
