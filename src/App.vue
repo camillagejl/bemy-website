@@ -295,7 +295,9 @@
     }
 
     h1,
-    h2 {
+    h2,
+    h3,
+    h4 {
         font-family: var(--font-family-header);
         color: var(--colour-grey-800);
     }
@@ -309,6 +311,10 @@
     h2 {
         font-size: 20px;
         font-weight: 300;
+        margin: 0;
+    }
+
+    h4 {
         margin: 0;
     }
 
@@ -410,6 +416,10 @@
 
         .header {
             z-index: 1;
+        }
+
+        .main_navigation {
+            z-index: inherit;
         }
 
         .desktop_flex_row {
