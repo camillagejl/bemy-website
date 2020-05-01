@@ -314,8 +314,19 @@
         margin: 0;
     }
 
+    h3 {
+        font-weight: 400;
+        font-size: 18px;
+    }
+
     h4 {
         margin: 0;
+        font-weight: 600;
+        font-size: 16px;
+    }
+
+    strong {
+        font-weight: 500;
     }
 
     p {
