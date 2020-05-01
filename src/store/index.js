@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import _ from 'lodash';
 import {createProductData} from "../transformation/products";
 import {createCollectionData} from "../transformation/collections";
 
@@ -12,9 +13,16 @@ export default new Vuex.Store({
         packages: [],
     },
     getters: {
+      productsById: (state, getters) => {
+        return _.keyBy(state.products, 'productId');
+      },
       productCategories: (state, getters) => {
         return state.collections
-            .filter(collection => collection.collectionType === 'Product-category');
+            .filter(collection => collection.collectionType === 'Product-category')
+            .map(collection => {
+              collection.products = collection.products.map(id => getters.productsById[id]);
+              return collection;
+            });
       },
       templateCategories: (state, getters) => {
         return state.collections.filter(collection => collection.collectionType === 'Template-category');
@@ -93,7 +101,7 @@ export default new Vuex.Store({
 
                 `)
             .then((response) => {
-              context.commit('setCollections', {collections: createCollectionData(response)});
+              context.commit('setCollections', {collections: createCollectionData(response.data.data.collections.edges)});
             });
       },
     },

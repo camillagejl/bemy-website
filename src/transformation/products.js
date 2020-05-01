@@ -33,24 +33,14 @@ export function createProductData(rawProducts) {
     return products;
 }
 
-export function getProductDesigns(product, products) {
+export function getProductDesigns(product) {
 
-    const productDesigns = [];
+    let productDesigns = [];
 
     product.node.metafields.edges.forEach(metafield => {
 
         if (metafield.node.key === "product_design_import") {
-            const designIds = getProductIds(metafield.node.value.split('|'));
-            designIds.forEach(id => {
-                products.forEach(product => {
-                    product.productVariants.forEach(variant => {
-
-                        if (id === variant.id) {
-                            productDesigns.push(variant);
-                        }
-                    })
-                })
-            })
+            productDesigns = getProductIds(metafield.node.value.split('|'));
         }
     });
 

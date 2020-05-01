@@ -1,8 +1,13 @@
-export function createCollectionData(response) {
-    const rawCollections = response.data.data.collections.edges;
+export function createCollectionData(rawCollections) {
+    console.log("rawCollections", rawCollections);
+
     const collections = [];
+
     rawCollections.forEach(collection => {
             const thisCollection = createCollectionInfo(collection);
+
+            thisCollection.products = getCollectionProducts(collection);
+
             collections.push(thisCollection);
         }
     );
@@ -15,4 +20,15 @@ export function createCollectionInfo(collection) {
         collectionImage: collection.node.image.originalSrc,
         collectionType: collection.node.title.split(']').shift().replace('[', '')
     }
+}
+
+export function getCollectionProducts(collection) {
+    const products = [];
+
+    collection.node.products.edges.forEach(product => {
+        products.push(product.node.id);
+    });
+
+    return products;
+
 }
