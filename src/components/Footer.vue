@@ -1,5 +1,5 @@
 <template>
-    <div class="footer">
+    <footer>
 
         <hr>
 
@@ -72,7 +72,7 @@
 
         </div>
 
-    </div>
+    </footer>
 </template>
 
 <script>
@@ -83,8 +83,8 @@
 
 <style scoped lang="scss">
 
-    .footer {
-        margin-top: 48px;
+    footer {
+        margin: 48px 0 74px 0;
     }
 
     .footer_content {

@@ -5,7 +5,7 @@
             <div class="list_item_title">
                 Personlig Kimono
                 <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="pencil-alt"
-                     class="edit_pen svg-inline--fa fa-pencil-alt fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
+                     class="basic_icon svg-inline--fa fa-pencil-alt fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
                      viewBox="0 0 512 512">
                     <g class="fa-group">
                         <path class="fa-secondary"
@@ -22,7 +22,7 @@
             <div class="list_item_title">
                 Personlige Slippers
                 <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="pencil-alt"
-                     class="edit_pen svg-inline--fa fa-pencil-alt fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
+                     class="basic_icon svg-inline--fa fa-pencil-alt fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
                      viewBox="0 0 512 512">
                     <g class="fa-group">
                         <path class="fa-secondary"
@@ -39,7 +39,7 @@
             <div class="list_item_title">
                 Crispy Bites Chokolade
                 <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="pencil-alt"
-                     class="edit_pen svg-inline--fa fa-pencil-alt fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
+                     class="basic_icon svg-inline--fa fa-pencil-alt fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
                      viewBox="0 0 512 512">
                     <g class="fa-group">
                         <path class="fa-secondary"
@@ -56,7 +56,7 @@
             <div class="list_item_title">
                 La Folie Rosé
                 <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="pencil-alt"
-                     class="edit_pen svg-inline--fa fa-pencil-alt fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
+                     class="basic_icon svg-inline--fa fa-pencil-alt fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
                      viewBox="0 0 512 512">
                     <g class="fa-group">
                         <path class="fa-secondary"
@@ -73,7 +73,7 @@
             <div class="list_item_title">
                 Specialdesignet Puslespil
                 <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="pencil-alt"
-                     class="edit_pen svg-inline--fa fa-pencil-alt fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
+                     class="basic_icon svg-inline--fa fa-pencil-alt fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
                      viewBox="0 0 512 512">
                     <g class="fa-group">
                         <path class="fa-secondary"

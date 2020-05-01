@@ -48,7 +48,7 @@
         <div class="edit_icons">
 
             <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="trash-alt"
-                 class="edit_pen svg-inline--fa fa-trash-alt fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg"
+                 class="basic_icon svg-inline--fa fa-trash-alt fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg"
                  viewBox="0 0 448 512">
                 <g class="fa-group">
                     <path class="fa-secondary"
@@ -60,7 +60,7 @@
             </svg>
 
             <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="pencil-alt"
-                 class="edit_pen svg-inline--fa fa-pencil-alt fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
+                 class="basic_icon svg-inline--fa fa-pencil-alt fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
                  viewBox="0 0 512 512">
                 <g class="fa-group">
                     <path class="fa-secondary"
@@ -114,14 +114,13 @@
     .edit_icons {
         text-align: center;
 
-        .edit_pen {
+        .basic_icon {
             height: 24px;
             padding: 24px;
         }
     }
 
     @media screen and (min-width: 1024px) {
-
         .package_item {
             display: flex;
         }
@@ -131,7 +130,7 @@
             display: grid;
             grid-template-columns: repeat(2, auto);
             grid-gap: 12px;
-            width: 100%;
+            flex: 1;
         }
 
         .package_item_info {

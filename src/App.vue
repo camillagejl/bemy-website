@@ -20,191 +20,27 @@
     import Header from "./components/Header";
     import MainNavigation from "./components/MainNavigation";
     import Footer from "./components/Footer";
+    import {mapActions} from "vuex";
 
     export default {
         components: {MainNavigation, Footer, Header, Home},
         data() {
             return {
-                collections: {},
-                products: {},
+                collections: [],
+                products: [],
             }
         },
         methods: {
-            fetchProductData() {
-                this.axios.post('/api/2020-01/graphql.json', `
-                {
-  products(first: 250) {
-    edges {
-      node {
-        title
-        id
-        variants(first: 250) {
-          edges {
-            node {
-              id
-              selectedOptions {
-                name
-                value
-              }
-              product {
-                title
-              }
-            }
-          }
-        }
-        metafields(first: 250) {
-          edges {
-            node {
-              key
-              value
-            }
-          }
-        }
-      }
-    }
-  }
-}
+            ...mapActions([
+                'fetchProducts',
+                'fetchCollections',
+            ]),
 
-
-                `)
-                    .then((response) => {
-                        this.products = this.createProductData(response.data.data.products.edges);
-                    })
-            },
-
-            fetchCollectionData() {
-                this.axios.post('/api/2020-01/graphql.json', `
-                {
-  collections(first: 250) {
-    edges {
-      node {
-        title
-        description
-        image {
-          originalSrc
-        }
-        products(first: 250) {
-          edges {
-            node {
-              id
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-                `)
-                    .then((response) => {
-                        this.collections = this.createCollectionData(response);
-                    })
-            },
-
-            createCollectionData(response) {
-                const rawCollections = response.data.data.collections.edges;
-                const collections = [];
-                rawCollections.forEach(collection => {
-                        const thisCollection = this.createCollectionInfo(collection);
-                        collections.push(thisCollection);
-                    }
-                );
-                return collections;
-            },
-
-            createCollectionInfo(collection) {
-                return {
-                    collectionTitle: collection.node.description,
-                    collectionImage: collection.node.image.originalSrc,
-                    collectionType: collection.node.title.split(']').shift().replace('[', '')
-                }
-            },
-
-            createProductData(rawProducts) {
-
-                console.log("rawProducts", rawProducts);
-
-                const products = [];
-
-                rawProducts.forEach(product => {
-                    const thisProduct = {
-                        productTitle: product.node.title,
-                        productId: product.node.id,
-                        productVariants: [],
-                        productDesigns: product // To be changed later
-                    };
-
-                    // ----- Creating product options -----
-                    product.node.variants.edges.forEach(variant => {
-                        thisProduct.productVariants.push(this.createProductVariants(variant));
-                    });
-
-                    products.push(thisProduct);
-                });
-
-                products.forEach(product => {
-                    product.productDesigns = this.getProductDesigns(product.productDesigns, products);
-
-                    if (product.productDesigns.length === 0) {
-                        delete product.productDesigns;
-                    }
-                });
-
-
-                return products;
-            },
-
-            getProductDesigns(product, products) {
-
-                const productDesigns = [];
-
-                product.node.metafields.edges.forEach(metafield => {
-
-                    if (metafield.node.key === "product_design_import") {
-                        const designIds = this.getProductIds(metafield.node.value.split('|'));
-                        designIds.forEach(id => {
-                            products.forEach(product => {
-                                product.productVariants.forEach(variant => {
-
-                                    if (id === variant.id) {
-                                        productDesigns.push(variant);
-                                    }
-                                })
-                            })
-                        })
-                    }
-                });
-
-                return productDesigns
-            },
-
-            getProductIds(rawIds) {
-
-                const designIds = [];
-
-                rawIds.forEach(id => {
-                    const designId = btoa(`gid://shopify/ProductVariant/${id.substring(id.indexOf(':') + 1, id.length)}`);
-                    designIds.push(designId);
-                });
-
-                return designIds;
-            },
-
-            createProductVariants(variant) {
-                const thisVariant = {
-                    id: variant.node.id,
-                    product: variant.node.product.title
-                };
-
-                variant.node.selectedOptions.forEach(option => {
-                    thisVariant[option.name] = option.value;
-                });
-                return thisVariant;
-            }
         },
         mounted() {
-            this.fetchProductData();
-            this.fetchCollectionData();
+
+            this.fetchProducts();
+            this.fetchCollections();
         }
 
     }
@@ -378,7 +214,7 @@
         border: 1px solid var(--colour-primary-200)
     }
 
-    .edit_pen {
+    .basic_icon {
         fill: var(--colour-primary-600);
         height: 12px;
         margin-left: 4px;
