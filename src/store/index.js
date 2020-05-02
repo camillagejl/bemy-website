@@ -51,6 +51,7 @@ export default new Vuex.Store({
     edges {
       node {
         title
+        descriptionHtml
         id
         priceRange {
           minVariantPrice {
@@ -64,10 +65,17 @@ export default new Vuex.Store({
             }
           }
         }
+        options {
+          name
+          values
+        }
         variants(first: 250) {
           edges {
             node {
               id
+              image {
+                originalSrc
+              }
               selectedOptions {
                 name
                 value
@@ -90,7 +98,6 @@ export default new Vuex.Store({
     }
   }
 }
-
 
                 `)
             .then((response) => {

@@ -8,14 +8,19 @@ export function createProductData(rawProducts) {
     rawProducts.forEach(product => {
         const thisProduct = {
             title: product.node.title,
+            description: product.node.descriptionHtml,
             price: product.node.priceRange.minVariantPrice.amount,
             id: product.node.id,
+            options: {},
             variants: [],
             images: [],
             designs: product // To be changed later
         };
 
         // ----- Creating product options -----
+            thisProduct.options = createProductOptions(product.node.options);
+
+        // ----- Creating product variants -----
         product.node.variants.edges.forEach(variant => {
             thisProduct.variants.push(createProductVariants(variant));
         });
@@ -65,10 +70,28 @@ export function getProductIds(rawIds) {
     return designIds;
 }
 
+export function createProductOptions(options) {
+    console.log(options);
+    const productOptions = {
+
+    };
+
+    options.forEach(option => {
+        productOptions[option.name] = [];
+
+        option.values.forEach(value => {
+            productOptions[option.name].push(value);
+        })
+    });
+
+    return productOptions;
+}
+
 export function createProductVariants(variant) {
     const thisVariant = {
         id: variant.node.id,
-        product: variant.node.product.title
+        product: variant.node.product.title,
+        image: variant.node.image.originalSrc
     };
 
     variant.node.selectedOptions.forEach(option => {
