@@ -16,9 +16,9 @@ export function createCollectionData(rawCollections) {
 
 export function createCollectionInfo(collection) {
     return {
-        collectionTitle: collection.node.description,
-        collectionImage: collection.node.image.originalSrc,
-        collectionType: collection.node.title.split(']').shift().replace('[', '')
+        title: collection.node.description,
+        image: collection.node.image.originalSrc,
+        type: collection.node.title.split(']').shift().replace('[', '')
     }
 }
 

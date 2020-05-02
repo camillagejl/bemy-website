@@ -4,129 +4,38 @@
         <MobileContentRecap class="hide_1024"/>
 
         <h1>
-            Beklædning
+            {{ category.title }}
         </h1>
 
         <section class="product_previews">
-            <div class="product_preview">
+            <router-link
+                :to="{ name: 'Product', params: { product: product } }"
+                v-for="product in category.products"
+                class="product_preview">
                 <div class="product_image relative_image">
-                    <img src="../assets/placeholders/category-1.jpg">
+                    <img :src="product.images[0]">
                 </div>
                 <div class="product_title">
-                    Personlig Kimono
+                    {{ product.title }}
                 </div>
                 <div class="product_price">
-                    229,95 kr
+                    {{ product.price }}
                 </div>
-            </div>
-
-            <div class="product_preview">
-                <div class="product_image relative_image">
-                    <img src="../assets/placeholders/category-5.jpg">
-                </div>
-                <div class="product_title">
-                    Personlig Kimono
-                </div>
-                <div class="product_price">
-                    229,95 kr
-                </div>
-            </div>
-
-            <div class="product_preview">
-                <div class="product_image relative_image">
-                    <img src="../assets/placeholders/category-3.jpg">
-                </div>
-                <div class="product_title">
-                    Personlig Kimono
-                </div>
-                <div class="product_price">
-                    229,95 kr
-                </div>
-            </div>
-
-            <div class="product_preview">
-                <div class="product_image relative_image">
-                    <img src="../assets/placeholders/category-4.jpg">
-                </div>
-                <div class="product_title">
-                    Personlig Kimono
-                </div>
-                <div class="product_price">
-                    229,95 kr
-                </div>
-            </div>
-
-            <div class="product_preview">
-                <div class="product_image relative_image">
-                    <img src="../assets/placeholders/category-5.jpg">
-                </div>
-                <div class="product_title">
-                    Personlig Kimono
-                </div>
-                <div class="product_price">
-                    229,95 kr
-                </div>
-            </div>
-
-            <div class="product_preview">
-                <div class="product_image relative_image">
-                    <img src="../assets/placeholders/category-5.jpg">
-                </div>
-                <div class="product_title">
-                    Personlig Kimono
-                </div>
-                <div class="product_price">
-                    229,95 kr
-                </div>
-            </div>
-
-            <div class="product_preview">
-                <div class="product_image relative_image">
-                    <img src="../assets/placeholders/category-3.jpg">
-                </div>
-                <div class="product_title">
-                    Personlig Kimono
-                </div>
-                <div class="product_price">
-                    229,95 kr
-                </div>
-            </div>
-
-            <div class="product_preview">
-                <div class="product_image relative_image">
-                    <img src="../assets/placeholders/category-4.jpg">
-                </div>
-                <div class="product_title">
-                    Personlig Kimono
-                </div>
-                <div class="product_price">
-                    229,95 kr
-                </div>
-            </div>
-
-            <div class="product_preview">
-                <div class="product_image relative_image">
-                    <img src="../assets/placeholders/category-1.jpg">
-                </div>
-                <div class="product_title">
-                    Personlig Kimono
-                </div>
-                <div class="product_price">
-                    229,95 kr
-                </div>
-            </div>
-
+            </router-link>
         </section>
-
     </div>
 </template>
 
 <script>
 
     import MobileContentRecap from "../components/MobileContentRecap";
+
     export default {
         name: 'ContentCategory',
         components: {MobileContentRecap},
+        props: {
+            category: Object
+        }
     }
 
 </script>
@@ -151,8 +60,20 @@
         margin: 8px 0 4px 0;
     }
 
-    .product_price {
-        color: var(--colour-grey-700);
+    a {
+        text-decoration: none;
+
+        .product_title {
+            font-family: var(--font-family-header);
+            font-weight: 700;
+            margin: 8px 0 4px 0;
+            color: var(--colour-grey-900);
+        }
+
+        .product_price {
+            color: var(--colour-grey-700);
+        }
+
     }
 
     @media screen and (min-width: 1200px) {

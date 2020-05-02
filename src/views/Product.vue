@@ -1,14 +1,15 @@
 <template>
-    <div class="wrapping">
+    <div class="product">
 
         <h1>
-            Indpakning
+            {{ product.title}}
         </h1>
 
-        <div class="wrapping_container">
+        <div class="product_container">
 
             <div class="gallery_container">
-        <ProductGallery/>
+        <ProductGallery
+        :images="product.images"/>
 
 
             <div class="description display_1024">
@@ -29,9 +30,9 @@
             </div>
         </div>
 
-        <section class="wrapping_options">
+        <section class="product_options">
 
-            <div class="wrapping_option option_w_images">
+            <div class="product_option option_w_images">
                 <div class="option_label">
                     <strong>
                         Type:
@@ -71,7 +72,7 @@
                 </label>
             </div>
 
-            <div class="wrapping_option option_w_images">
+            <div class="product_option option_w_images">
                 <div class="option_label">
                     <strong>
                         Farve
@@ -96,7 +97,7 @@
                 </div>
             </div>
 
-            <div class="wrapping_option option_w_checkbox">
+            <div class="product_option option_w_checkbox">
                 <label>
                     <strong>
                         Ekstra:
@@ -105,7 +106,7 @@
                 </label>
             </div>
 
-            <div class="wrapping_option option_w_text">
+            <div class="product_option option_w_text">
                 <label>
                     <strong>
                         Navn:
@@ -146,15 +147,18 @@
     import ProductGallery from "../components/ProductGallery";
 
     export default {
-        name: 'Wrapping',
+        name: 'Product',
         components: {ProductGallery},
+        props: {
+            product: Object
+        }
     }
 </script>
 
 
 <style scoped lang="scss">
 
-    .wrapping_option {
+    .product_option {
         margin: 36px 0;
 
         p {
@@ -201,7 +205,7 @@
     }
 
     @media screen and (min-width: 1024px) {
-        .wrapping_container {
+        .product_container {
             display: flex;
         }
 
@@ -209,7 +213,7 @@
             flex: 2;
         }
 
-        .wrapping_options {
+        .product_options {
             flex: 3;
             margin-left: 48px;
         }

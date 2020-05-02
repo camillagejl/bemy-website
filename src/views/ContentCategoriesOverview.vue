@@ -6,56 +6,19 @@
         <h1>
             Indhold
         </h1>
-
         <section class="content_categories">
-
             <router-link
+                v-for="category in productCategories"
+                :to="{ name: 'ContentCategory', params: { category: category } }"
                 class="content_category"
-            :to="{ name: 'ContentCategory' }"
             >
                 <div class="category_image relative_image">
-                    <img src="../assets/placeholders/category-1.jpg">
+                    <img :src="category.image">
                 </div>
                 <div class="category_title">
-                    Beklædning
+                    {{ category.title }}
                 </div>
             </router-link>
-
-            <div class="content_category">
-                <div class="category_image relative_image">
-                    <img src="../assets/placeholders/category-5.jpg">
-                </div>
-                <div class="category_title">
-                    Pynt
-                </div>
-            </div>
-
-            <div class="content_category">
-                <div class="category_image relative_image">
-                    <img src="../assets/placeholders/category-3.jpg">
-                </div>
-                <div class="category_title">
-                    Accessories
-                </div>
-            </div>
-
-            <div class="content_category">
-                <div class="category_image relative_image">
-                    <img src="../assets/placeholders/category-4.jpg">
-                </div>
-                <div class="category_title">
-                    Drikkevarer
-                </div>
-            </div>
-
-            <div class="content_category">
-                <div class="category_image relative_image">
-                    <img src="../assets/placeholders/category-5.jpg">
-                </div>
-                <div class="category_title">
-                    Gourmet Slik
-                </div>
-            </div>
 
         </section>
 
@@ -64,10 +27,16 @@
 
 <script>
     import MobileContentRecap from "../components/MobileContentRecap";
+    import {mapGetters} from "vuex";
 
     export default {
         name: 'ContentCategoriesOverview',
         components: {MobileContentRecap},
+        computed: {
+            ...mapGetters([
+                'productCategories'
+            ])
+        },
     }
 </script>
 

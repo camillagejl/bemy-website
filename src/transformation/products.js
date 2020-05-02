@@ -7,29 +7,35 @@ export function createProductData(rawProducts) {
 
     rawProducts.forEach(product => {
         const thisProduct = {
-            productTitle: product.node.title,
-            productId: product.node.id,
-            productVariants: [],
-            productDesigns: product // To be changed later
+            title: product.node.title,
+            price: product.node.priceRange.minVariantPrice.amount,
+            id: product.node.id,
+            variants: [],
+            images: [],
+            designs: product // To be changed later
         };
 
         // ----- Creating product options -----
         product.node.variants.edges.forEach(variant => {
-            thisProduct.productVariants.push(createProductVariants(variant));
+            thisProduct.variants.push(createProductVariants(variant));
+        });
+
+        // ----- Getting product images -----
+        product.node.images.edges.forEach(image => {
+            thisProduct.images.push(image.node.originalSrc);
         });
 
         products.push(thisProduct);
+
     });
 
     products.forEach(product => {
-        product.productDesigns = getProductDesigns(product.productDesigns, products);
+        product.designs = getProductDesigns(product.designs, products);
 
-        if (product.productDesigns.length === 0) {
-            delete product.productDesigns;
+        if (product.designs.length === 0) {
+            delete product.designs;
         }
     });
-
-
     return products;
 }
 

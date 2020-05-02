@@ -14,18 +14,25 @@ export default new Vuex.Store({
     },
     getters: {
       productsById: (state, getters) => {
-        return _.keyBy(state.products, 'productId');
+        return _.keyBy(state.products, 'id');
       },
-      productCategories: (state, getters) => {
-        return state.collections
-            .filter(collection => collection.collectionType === 'Product-category')
-            .map(collection => {
-              collection.products = collection.products.map(id => getters.productsById[id]);
-              return collection;
-            });
-      },
+        productCategories: (state, getters) => {
+            return state.collections
+                .filter(collection => collection.type === 'Product-category')
+                .map(collection => {
+                    collection.products = collection.products.map(id => getters.productsById[id]);
+                    return collection;
+                });
+        },
+        productsWithDesigns: (state, getters) => {
+            return state.products
+                .map(product => {
+                    product.designs = product.designs.map(value => getters.productsById[value]);
+                    return products;
+                });
+        },
       templateCategories: (state, getters) => {
-        return state.collections.filter(collection => collection.collectionType === 'Template-category');
+        return state.collections.filter(collection => collection.type === 'Template-category');
       },
     },
     mutations: {
@@ -39,12 +46,24 @@ export default new Vuex.Store({
     actions: {
       fetchProducts(context) {
         Vue.axios.post('/api/2020-01/graphql.json', `
-                {
+{
   products(first: 250) {
     edges {
       node {
         title
         id
+        priceRange {
+          minVariantPrice {
+            amount
+          }
+        }
+        images(first: 250) {
+          edges {
+            node {
+              originalSrc
+            }
+          }
+        }
         variants(first: 250) {
           edges {
             node {
@@ -71,6 +90,8 @@ export default new Vuex.Store({
     }
   }
 }
+
+
                 `)
             .then((response) => {
               context.commit('setProducts', {products: createProductData(response.data.data.products.edges)});

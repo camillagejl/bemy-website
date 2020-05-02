@@ -20,7 +20,7 @@
     import Header from "./components/Header";
     import MainNavigation from "./components/MainNavigation";
     import Footer from "./components/Footer";
-    import {mapActions} from "vuex";
+    import {mapActions, mapGetters} from "vuex";
 
     export default {
         components: {MainNavigation, Footer, Header, Home},
@@ -35,10 +35,8 @@
                 'fetchProducts',
                 'fetchCollections',
             ]),
-
         },
         mounted() {
-
             this.fetchProducts();
             this.fetchCollections();
         }
