@@ -27,7 +27,9 @@
 
                 <div
                     v-for="(option, key) in product.options"
-                    class="option_w_dropdown">
+                    v-if="product.optionsWithImages && !product.optionsWithImages.includes(key)"
+                    class="product_option option_w_dropdown"
+                >
                     <label>
                         <strong>
                             {{ key }}:
@@ -45,101 +47,32 @@
 
                 <div
                     v-for="(option, key) in product.options"
-                    class="product_option option_w_images"
+                    v-if="product.optionsWithImages && product.optionsWithImages.includes(key)"
+                    class="product_option"
                 >
-                    <div class="option_label">
-                        <strong>
-                            {{ key }}:
-                        </strong>
-                        <p>
-                            {{ option[0] }}
-                        </p>
-                    </div>
 
+                    <strong>{{ key }}</strong>: {{ option[0] }}
 
-                    <div
-                        class="option_images"
-                    >
+                    <div class="option_images">
+
                         <div
-                            v-for="value in option"
+                            v-for="variant in optionImages(product.variants, key)"
+                            class="images_container"
                         >
-                            <div
-                                v-for="variant in product.variants"
-                                v-if="variant[key] === value"
-                                class="option_image relative_image rounded_box"
-                            >
+
+                            <div class="option_image relative_image rounded_box">
+
                                 <img :src="variant.image">
                             </div>
+
                         </div>
                     </div>
+
                 </div>
+
 
                 <hr>
 
-                <div class="product_option option_w_images">
-                    <div class="option_label">
-                        <strong>
-                            Type:
-                        </strong>
-                        <p>
-                            Luksus Gaveæske m. bånd
-                        </p>
-                    </div>
-                    <div class="option_images">
-                        <div class="option_image relative_image rounded_box">
-                            <img src="../assets/placeholders/box-type-1.png">
-                        </div>
-                        <div class="option_image relative_image rounded_box selected">
-                            <img src="../assets/placeholders/box-type-2.png">
-                        </div>
-                        <div class="option_image relative_image rounded_box">
-                            <img src="../assets/placeholders/box-type-3.jpg">
-                        </div>
-                        <div class="option_image relative_image rounded_box">
-                            <img src="../assets/placeholders/box-type-4.jpg">
-                        </div>
-                        <div class="option_image relative_image rounded_box">
-                            <img src="../assets/placeholders/box-type-5.jpg">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="option_w_dropdown">
-                    <label>
-                        <strong>
-                            Størrelse:
-                        </strong>
-                        <select>
-                            <option>Large 23 x 23 x 23</option>
-                            <option>Medium 23 x 23 x 23</option>
-                        </select>
-                    </label>
-                </div>
-
-                <div class="product_option option_w_images">
-                    <div class="option_label">
-                        <strong>
-                            Farve
-                        </strong>
-                        <p>
-                            Rosa
-                        </p>
-                    </div>
-                    <div class="option_images">
-                        <div class="option_image relative_image rounded_box">
-                            <img src="../assets/placeholders/box-color-1.png">
-                        </div>
-                        <div class="option_image relative_image rounded_box selected">
-                            <img src="../assets/placeholders/box-color-2.png">
-                        </div>
-                        <div class="option_image relative_image rounded_box">
-                            <img src="../assets/placeholders/box-color-3.png">
-                        </div>
-                        <div class="option_image relative_image rounded_box">
-                            <img src="../assets/placeholders/box-color-4.jpg">
-                        </div>
-                    </div>
-                </div>
 
                 <div class="product_option option_w_checkbox">
                     <label>
@@ -195,15 +128,24 @@
         components: {ProductGallery},
         props: {
             product: Object
+        },
+        methods: {
+            optionImages(variants, key) {
+                return variants.filter((obj, pos, arr) => {
+                    return arr.map(mapObj => mapObj[key]).indexOf(obj[key]) === pos;
+                });
+            }
         }
     }
 </script>
 
-
 <style scoped lang="scss">
 
     .product_option {
-        margin: 36px 0;
+
+        + .product_option {
+            margin: 36px 0;
+        }
 
         p {
             margin: 0;

@@ -30,6 +30,13 @@ export function createProductData(rawProducts) {
             thisProduct.images.push(image.node.originalSrc);
         });
 
+        // ----- Getting product metafields -----
+        product.node.metafields.edges.forEach(metafield => {
+            if (metafield.node.key === "variant_option_w_images") {
+                thisProduct.optionsWithImages = metafield.node.value.split('|');
+            }
+        });
+
         products.push(thisProduct);
 
     });
