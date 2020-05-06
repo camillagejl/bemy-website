@@ -13,9 +13,20 @@ export default new Vuex.Store({
         packages: [],
     },
     getters: {
-      productsById: (state, getters) => {
-        return _.keyBy(state.products, 'id');
-      },
+        productsById: (state, getters) => {
+            return _.keyBy(state.products, 'id');
+        },
+        variantsById: (state, getters) => {
+            const allVariants = [];
+
+            state.products.forEach(product => {
+                product.variants.forEach(variant => {
+                    allVariants.push(variant);
+                })
+            });
+
+            return _.keyBy(allVariants, 'id');
+        },
         productCategories: (state, getters) => {
             return state.collections
                 .filter(collection => collection.type === 'Product-category')
@@ -25,27 +36,30 @@ export default new Vuex.Store({
                 });
         },
         productsWithDesigns: (state, getters) => {
+
             return state.products
                 .map(product => {
-                    product.designs = product.designs.map(value => getters.productsById[value]);
-                    return products;
+                    if (product.designs) {
+                    product.designs = product.designs.map(value => getters.variantsById[value]);
+                    }
+                    return product;
                 });
         },
-      templateCategories: (state, getters) => {
-        return state.collections.filter(collection => collection.type === 'Template-category');
-      },
+        templateCategories: (state, getters) => {
+            return state.collections.filter(collection => collection.type === 'Template-category');
+        },
     },
     mutations: {
-      setProducts(state, payload) {
-        state.products = payload.products;
-      },
-      setCollections(state, payload) {
-        state.collections = payload.collections;
-      },
+        setProducts(state, payload) {
+            state.products = payload.products;
+        },
+        setCollections(state, payload) {
+            state.collections = payload.collections;
+        },
     },
     actions: {
-      fetchProducts(context) {
-        Vue.axios.post('/api/2020-01/graphql.json', `
+        fetchProducts(context) {
+            Vue.axios.post('/api/2020-01/graphql.json', `
 {
   products(first: 250) {
     edges {
@@ -100,12 +114,12 @@ export default new Vuex.Store({
 }
 
                 `)
-            .then((response) => {
-              context.commit('setProducts', {products: createProductData(response.data.data.products.edges)});
-            });
-      },
-      fetchCollections(context) {
-        Vue.axios.post('/api/2020-01/graphql.json', `
+                .then((response) => {
+                    context.commit('setProducts', {products: createProductData(response.data.data.products.edges)});
+                });
+        },
+        fetchCollections(context) {
+            Vue.axios.post('/api/2020-01/graphql.json', `
                 {
   collections(first: 250) {
     edges {
@@ -128,10 +142,10 @@ export default new Vuex.Store({
 }
 
                 `)
-            .then((response) => {
-              context.commit('setCollections', {collections: createCollectionData(response.data.data.collections.edges)});
-            });
-      },
+                .then((response) => {
+                    context.commit('setCollections', {collections: createCollectionData(response.data.data.collections.edges)});
+                });
+        },
     },
     modules: {}
 });

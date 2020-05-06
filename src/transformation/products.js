@@ -11,14 +11,12 @@ export function createProductData(rawProducts) {
             description: product.node.descriptionHtml,
             price: product.node.priceRange.minVariantPrice.amount,
             id: product.node.id,
-            options: {},
-            variants: [],
             images: [],
+            options: createProductOptions(product.node.options),
+            variants: [],
+            personalisations: createPersonalisations(product.node.metafields.edges),
             designs: product // To be changed later
         };
-
-        // ----- Creating product options -----
-            thisProduct.options = createProductOptions(product.node.options);
 
         // ----- Creating product variants -----
         product.node.variants.edges.forEach(variant => {
@@ -30,12 +28,14 @@ export function createProductData(rawProducts) {
             thisProduct.images.push(image.node.originalSrc);
         });
 
-        // ----- Getting product metafields -----
+        // ----- Getting simple product metafields -----
         product.node.metafields.edges.forEach(metafield => {
             if (metafield.node.key === "variant_option_w_images") {
                 thisProduct.optionsWithImages = metafield.node.value.split('|');
             }
         });
+
+
 
         products.push(thisProduct);
 
@@ -105,4 +105,69 @@ export function createProductVariants(variant) {
         thisVariant[option.name] = option.value;
     });
     return thisVariant;
+}
+
+export function createPersonalisations(metafields) {
+    const personalisationData = [];
+
+    metafields.forEach(field => {
+        if (field.node.key === "option_label") {
+            personalisationData.labels = JSON.parse(field.node.value);
+            // Using labels as keys
+            personalisationData.key = personalisationData.labels;
+        }
+
+        if (field.node.key === "option_type") {
+            personalisationData.type = JSON.parse(field.node.value);
+        }
+
+        if (field.node.key === "option_char_max") {
+            personalisationData.characterMax = JSON.parse(field.node.value);
+        }
+
+        if (field.node.key === "option_placeholder") {
+            personalisationData.placeholder = JSON.parse(field.node.value);
+        }
+
+        if (field.node.key === "option_select_options") {
+            personalisationData.selectOptions = JSON.parse(field.node.value);
+        }
+    });
+
+    const personalisations = {};
+
+    if (personalisationData.labels) {
+
+        personalisationData.labels.forEach((label, index) => {
+
+            if (personalisationData.type[index] === "Én linje") {
+                personalisationData.type[index] = "line_text"
+            } else if (personalisationData.type[index] === "Flere linjer") {
+                personalisationData.type[index] = "multiline_text"
+            } else if (personalisationData.type[index] === "Tal") {
+                personalisationData.type[index] = "number"
+            } else if (personalisationData.type[index] === "Dato") {
+                personalisationData.type[index] = "date"
+            } else if (personalisationData.type[index] === "Dropdown") {
+                personalisationData.type[index] = "dropdown"
+            }
+
+            const thisPersonalisation = {
+                headline: label,
+                type: personalisationData.type[index],
+                key: personalisationData.key[index],
+                characterMax: personalisationData.characterMax[index],
+                selectOptions: personalisationData.selectOptions[index].split("|"),
+                placeholder: personalisationData.placeholder[index]
+            };
+
+            if (thisPersonalisation.characterMax === 0) {
+                thisPersonalisation.characterMax = null;
+            }
+
+            personalisations[thisPersonalisation.key] = thisPersonalisation;
+        });
+    }
+
+    return personalisations;
 }

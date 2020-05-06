@@ -1,7 +1,8 @@
 <template>
     <div class="header">
-        <nav>
+        <div class="header_line"></div>
 
+        <nav>
             <router-link
                 class="header_link display_1024"
                 :to="{ name: 'Contact' }"
@@ -62,8 +63,14 @@
                 text-align: center;
                 color: inherit;
                 text-decoration: none;
+                padding-bottom: 3px;
             }
         }
+    }
+
+    .header_line {
+        height: 3px;
+        background-color: var(--colour-primary-400);
     }
 
     .header_logo {

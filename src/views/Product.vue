@@ -25,6 +25,7 @@
 
             <section class="product_options">
 
+                <!-- Product option w. dropdown -->
                 <div
                     v-for="(option, key) in product.options"
                     v-if="product.optionsWithImages && !product.optionsWithImages.includes(key)"
@@ -45,56 +46,67 @@
                     </label>
                 </div>
 
+                <!-- Product option w. images -->
                 <div
                     v-for="(option, key) in product.options"
                     v-if="product.optionsWithImages && product.optionsWithImages.includes(key)"
                     class="product_option"
                 >
-
                     <strong>{{ key }}</strong>: {{ option[0] }}
-
                     <div class="option_images">
-
                         <div
                             v-for="variant in optionImages(product.variants, key)"
                             class="images_container"
                         >
-
                             <div class="option_image relative_image rounded_box">
 
                                 <img :src="variant.image">
                             </div>
-
                         </div>
                     </div>
 
                 </div>
 
+                <div
+                    v-for="(personalisation, key) in product.personalisations"
+                    class="product_option"
 
-                <hr>
-
-
-                <div class="product_option option_w_checkbox">
-                    <label>
+                >
+                    <label :for="`person_${index}_extra_${key}`"
+                    >
+                        <span class="line_break">
                         <strong>
-                            Ekstra:
+                            {{ personalisation.key }}
                         </strong>
-                        <input type="checkbox"> Tekst til indersiden af låget
-                    </label>
-                </div>
 
-                <div class="product_option option_w_text">
-                    <label>
-                        <strong>
-                            Navn:
-                        </strong>
+                        <span
+                            v-if="personalisation.characterMax"
+                        >
+                        (maks. {{personalisation.characterMax }} tegn)
+                            </span>
+                        </span>
+
+
                         <input
+                            v-if="personalisation.type === 'line_text'"
+                            :id="`person_${index}_extra_${key}`"
                             type="text"
-                            placeholder="Navn"
+                            :maxlength="personalisation.characterMax"
+                            :placeholder="personalisation.placeholder"
+                        >
+                        <textarea
+                            v-if="personalisation.type === 'multiline_text'"
+                            :id="`person_${index}_extra_${key}`"
+                            :maxlength="personalisation.characterMax"
+                            :placeholder="personalisation.placeholder"
+                        ></textarea>
+                        <input
+                            v-if="personalisation.type === 'number'"
+                            :id="`person_${index}_extra_${key}`"
+                            type="number"
                         >
                     </label>
                 </div>
-
             </section>
 
         </div>
@@ -175,12 +187,9 @@
         }
     }
 
-    .option_w_dropdown,
-    .option_w_checkbox,
-    .option_w_text {
-        strong {
-            display: block;
-        }
+    .line_break {
+        display: block;
+        margin-bottom: 12px;
     }
 
     .option_w_dropdown select {

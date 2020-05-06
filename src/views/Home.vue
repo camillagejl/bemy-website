@@ -230,4 +230,10 @@
         }
     }
 
+    @media screen and (min-width: 1200px) {
+        .home_top {
+            min-height: calc(100vh - 150px);
+        }
+    }
+
 </style>
