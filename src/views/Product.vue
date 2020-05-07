@@ -12,11 +12,10 @@
 
             <div class="product_container">
 
-                <div class="gallery_container">
+                <section class="gallery_container">
                     <ProductGallery
                         :images="product.images"
                     />
-
 
                     <div class="description display_1024">
                         <h2>
@@ -26,11 +25,11 @@
                         <div v-html="product.description"></div>
 
                     </div>
-                </div>
+                </section>
 
                 <section class="product_information">
 
-                    <div class="product_option">
+                    <div class="product_options">
 
                         <!-- Product option w. dropdown -->
                         <div
@@ -54,44 +53,21 @@
                         </div>
 
                         <!-- Product option w. images -->
-                        <div
+                        <ProductOptionWImages
                             v-for="(option, key) in product.options"
                             v-if="product.optionsWithImages && product.optionsWithImages.includes(key)"
-                            class="product_option"
-                        >
-                            <strong>{{ key }}</strong>: {{ option[0] }}
-                            <div class="option_images">
-                                <div
-                                    v-for="variant in optionImages(product.variants, key)"
-                                    class="images_container"
-                                >
-                                    <div class="option_image relative_image rounded_box">
-
-                                        <img :src="variant.image">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                            :selectedOption="option[0]"
+                            :optionKey="key"
+                            :optionImages="optionImages(product.variants, key)"
+                        />
 
                         <!-- Designs -->
-                        <div
+                        <ProductOptionWImages
                             v-if="product.designs"
-                            class="product_option"
-                        >
-                            <strong>Design</strong>: {{ Object.keys(product.designs)[0] }}
-                            <div class="option_images">
-                                <div
-                                    v-for="design in product.designs"
-                                    class="images_container"
-                                >
-                                    <div class="option_image relative_image rounded_box">
-
-                                        <img :src="design.image">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+                            :selectedOption="'Valgt design'"
+                            :optionKey="'Designs'"
+                            :optionImages="product.designs"
+                        />
 
                         <div
                             v-for="(personalisation, key) in product.personalisations"
@@ -159,10 +135,11 @@
 <script>
     import ProductGallery from "../components/ProductGallery";
     import {mapGetters} from "vuex";
+    import ProductOptionWImages from "../components/ProductOptionWImages";
 
     export default {
         name: 'Product',
-        components: {ProductGallery},
+        components: {ProductOptionWImages, ProductGallery},
         props: {
             productId: String
         },
@@ -184,7 +161,7 @@
     }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 
     .product_option {
 
@@ -203,23 +180,6 @@
         }
     }
 
-    .option_images {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-        grid-gap: 8px;
-
-    }
-
-    .option_image {
-        opacity: var(--opacity-deselected);
-        transition-duration: .3s;
-
-        &.selected,
-        &:hover {
-            opacity: 1;
-        }
-    }
-
     .line_break {
         display: block;
         margin-bottom: 12px;
@@ -231,13 +191,6 @@
 
     .product_price {
         text-align: right;
-    }
-
-    @media screen and (min-width: 768px) {
-        .option_images {
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-            grid-gap: 12px;
-        }
     }
 
     @media screen and (min-width: 1024px) {

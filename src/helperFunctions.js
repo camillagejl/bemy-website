@@ -9,7 +9,7 @@ export function insertStringInString(main_string, ins_string, pos) {
     if (!pos) {
         pos = 0;
     }
-    if (!ins_string || main_string.length < pos * -1) {
+    if (!ins_string || main_string.length < pos * -2) {
         ins_string = '';
     }
     return main_string.slice(0, pos) + ins_string + main_string.slice(pos);

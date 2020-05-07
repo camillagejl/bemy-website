@@ -1,8 +1,41 @@
 <template>
     <div class="wrapping">
 
-        <div v-for="product in products()">
-            {{ product.title }}
+        <div v-if="!products">
+            Loading... or no product found.
+        </div>
+
+        <div
+            v-else
+            class="product_container"
+        >
+
+            <section class="gallery_container">
+                <ProductGallery
+                    :images="products[0].images"
+                />
+
+                <div class="description display_1024">
+                    <h2>
+                        Beskrivelse
+                    </h2>
+                    <div v-html="products[0].description"></div>
+                </div>
+            </section>
+
+            <section class="product_information">
+
+
+                <ProductOptionWImages
+                    :selectedOption="'Valgt design'"
+                    :optionKey="'Designs'"
+                    :optionImages="products"
+                />
+
+
+
+            </section>
+
         </div>
 
 
@@ -12,28 +45,25 @@
 <script>
     import ProductGallery from "../components/ProductGallery";
     import {mapGetters} from "vuex";
+    import ProductOptionWImages from "../components/ProductOptionWImages";
 
     export default {
         name: 'Wrapping',
-        components: {ProductGallery},
+        components: {ProductOptionWImages, ProductGallery},
         computed: {
             ...mapGetters([
                 'productsById',
                 'wrappings'
-            ])
+            ]),
+            products() {
+                return this.wrappings.products.map(value => this.productsById[value]);
+            }
         },
         methods: {
             optionImages(variants, key) {
                 return variants.filter((obj, pos, arr) => {
                     return arr.map(mapObj => mapObj[key]).indexOf(obj[key]) === pos;
                 });
-            },
-            products() {
-                const products = this.wrappings.products.map(value => this.productsById[value]);
-
-
-                console.log(products);
-                return products
             }
         }
     }
