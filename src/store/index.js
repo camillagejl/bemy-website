@@ -49,11 +49,12 @@ export default new Vuex.Store({
         productCategories: (state, getters) => {
             return state.collections
                 .filter(collection => collection.type === 'Product-category')
-                // .map(collection => {
-                //     collection.products = collection.products.map(id => getters.productsById[id]);
-                //     return collection;
-                // })
-            ;
+                ;
+        },
+        wrappings: (state, getters) => {
+            return state.collections
+                .filter(collection => collection.type === 'Wrapping')[0]
+                ;
         },
         templateCategories: (state, getters) => {
             return state.collections.filter(collection => collection.type === 'Template-category');

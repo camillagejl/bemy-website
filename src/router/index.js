@@ -9,6 +9,7 @@ import Product from "../views/Product";
 import ContentCategory from "../views/ContentCategory";
 import Contact from "../views/Contact";
 import Delivery from "../views/Delivery";
+import Wrapping from "../views/Wrapping";
 
 Vue.use(VueRouter);
 
@@ -37,6 +38,12 @@ const routes = [
         path: '/product/:productId',
         name: 'Product',
         component: Product,
+        props: true
+    },
+    {
+        path: '/wrapping',
+        name: 'Wrapping',
+        component: Wrapping,
         props: true
     },
     {

@@ -21,7 +21,7 @@
                 <div class="nav_section_top">
                     <router-link
                         class="flex_center_align_1024"
-                        :to="{ name: 'Product' }"
+                        :to="{ name: 'Wrapping' }"
                     >
                         <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="gift"
                              class="nav_icon svg-inline--fa fa-gift fa-w-16" role="img"
