@@ -170,6 +170,7 @@
         text-align: center;
         margin-bottom: 12px;
         color: var(--colour-primary-700);
+        font-family: var(--font-family-header);
     }
 
     .nav_section_top a {

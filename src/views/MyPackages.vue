@@ -55,11 +55,6 @@
                     :icon="'duplicate'"
                 />
 
-                <MainButton
-                    :emph="true"
-                    :text="'Redigér pakke'"
-                    :icon="'edit'"
-                />
             </div>
         </section>
 

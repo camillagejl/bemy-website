@@ -51,6 +51,7 @@ export function createProductData(allRawProducts) {
     return products;
 }
 
+
 export function getProductDesigns(product) {
 
     let productDesigns = [];

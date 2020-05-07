@@ -4,6 +4,7 @@ import _ from 'lodash';
 import {createProductData} from "../transformation/products";
 import {createCollectionData} from "../transformation/collections";
 import {createDesignData} from "../transformation/designs";
+import {displayPrice} from "../helperFunctions";
 
 Vue.use(Vuex);
 
@@ -16,7 +17,7 @@ export default new Vuex.Store({
     },
     getters: {
         productsById: (state, getters) => {
-            return _.keyBy(getters.productsWithDesigns, 'id');
+            return _.keyBy(getters.computedProducts, 'id');
         },
         designsById: (state, getters) => {
             return _.keyBy(state.designs, 'id');
@@ -24,7 +25,7 @@ export default new Vuex.Store({
         productCategoriesById: (state, getters) => {
             return _.keyBy(getters.productCategories, 'id');
         },
-        productsWithDesigns: (state, getters) => {
+        computedProducts: (state, getters) => {
             return state.products
                 .map(product => {
                     if (product.designs) {
@@ -39,9 +40,9 @@ export default new Vuex.Store({
                         })
 
                     }
-                    else {
-                        console.log("No product designs");
-                    }
+
+                    product.displayPrice = displayPrice(product.price);
+
                     return product;
                 });
         },

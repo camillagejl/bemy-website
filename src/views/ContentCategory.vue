@@ -32,7 +32,7 @@
                             {{ productsById[productId].title }}
                         </div>
                         <div class="product_price">
-                            {{ productsById[productId].price }}
+                            {{ productsById[productId].price }} kr
                         </div>
                     </div>
                 </router-link>
