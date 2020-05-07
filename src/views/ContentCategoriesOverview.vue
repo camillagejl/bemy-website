@@ -9,7 +9,7 @@
         <section class="content_categories">
             <router-link
                 v-for="category in productCategories"
-                :to="{ name: 'ContentCategory', params: { category: category } }"
+                :to="{ name: 'Category', params: { categoryId: category.id } }"
                 class="content_category"
             >
                 <div class="category_image relative_image">

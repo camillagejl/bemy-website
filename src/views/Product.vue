@@ -64,8 +64,27 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
+
+                <!-- Designs -->
+                <div
+                    v-if="product.designs"
+                    class="product_option"
+                >
+                    <strong>Design</strong>: {{ Object.keys(product.designs)[0] }}
+                    <div class="option_images">
+                        <div
+                            v-for="design in product.designs"
+                            class="images_container"
+                        >
+                            <div class="option_image relative_image rounded_box">
+
+                                <img :src="design.image">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 
                 <div
                     v-for="(personalisation, key) in product.personalisations"
@@ -115,17 +134,9 @@
             <h2>
                 Beskrivelse
             </h2>
-            <p>
-                Design din helt egen æske til den du holder af.
-            </p>
-            <p>
-                Disse æsker giver dig muligheden for at give en helt unik gave, og kan bruges til mange lejligheder og
-                personer - til konfirmanden, til bruden, til brudepigerne, til gommen. Det er kun fantasien der sætter
-                grænser - eller det gør den faktisk heller ikke her hos BEMY.
-            </p>
-            <p>
-                Har du særlige ønsker, ideer til ikoner eller monogrammer, så skriv endelig til os, lige herunder.
-            </p>
+
+            <div v-html="product.description"></div>
+
         </div>
 
 

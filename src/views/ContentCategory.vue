@@ -3,39 +3,64 @@
 
         <MobileContentRecap class="hide_1024"/>
 
-        <h1>
-            {{ category.title }}
-        </h1>
+        <div v-if="!category">
+            Loading...
+        </div>
+        <div v-else>
+            <h1>
+                {{ category.title }}
+            </h1>
 
-        <section class="product_previews">
-            <router-link
-                :to="{ name: 'Product', params: { product: product } }"
-                v-for="product in category.products"
-                class="product_preview">
-                <div class="product_image relative_image">
-                    <img :src="product.images[0]">
+            <section class="product_previews">
+                <div v-if="category.products.length === 0">
+                    No products
                 </div>
-                <div class="product_title">
-                    {{ product.title }}
-                </div>
-                <div class="product_price">
-                    {{ product.price }}
-                </div>
-            </router-link>
-        </section>
+                <router-link
+                    v-else
+                    :to="{ name: 'Product', params: { product: productId } }"
+                    v-for="productId in category.products"
+                    class="product_preview"
+                >
+                    <div v-if="!productsById[productId]">
+                        Loading!
+                    </div>
+                    <div v-else>
+                        <div class="product_image relative_image">
+                            <img :src="productsById[productId].images[0]">
+                        </div>
+                        <div class="product_title">
+                            {{ productsById[productId].title }}
+                        </div>
+                        <div class="product_price">
+                            {{ productsById[productId].price }}
+                        </div>
+                    </div>
+                </router-link>
+            </section>
+        </div>
     </div>
 </template>
 
 <script>
 
     import MobileContentRecap from "../components/MobileContentRecap";
+    import {mapGetters} from "vuex";
 
     export default {
         name: 'ContentCategory',
         components: {MobileContentRecap},
         props: {
-            category: Object
-        }
+            categoryId: String
+        },
+        computed: {
+            ...mapGetters([
+                'productCategoriesById',
+                'productsById',
+            ]),
+            category() {
+                return this.productCategoriesById[this.categoryId];
+            }
+        },
     }
 
 </script>

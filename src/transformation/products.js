@@ -1,5 +1,7 @@
 
-export function createProductData(rawProducts) {
+export function createProductData(allRawProducts) {
+
+    const rawProducts = allRawProducts.filter(product => product.node.productType !== 'Design-collection');
 
     console.log("rawProducts", rawProducts);
 
@@ -34,8 +36,6 @@ export function createProductData(rawProducts) {
                 thisProduct.optionsWithImages = metafield.node.value.split('|');
             }
         });
-
-
 
         products.push(thisProduct);
 
@@ -78,7 +78,6 @@ export function getProductIds(rawIds) {
 }
 
 export function createProductOptions(options) {
-    console.log(options);
     const productOptions = {
 
     };
@@ -154,11 +153,11 @@ export function createPersonalisations(metafields) {
 
             const thisPersonalisation = {
                 headline: label,
-                type: personalisationData.type[index],
-                key: personalisationData.key[index],
-                characterMax: personalisationData.characterMax[index],
-                selectOptions: personalisationData.selectOptions[index].split("|"),
-                placeholder: personalisationData.placeholder[index]
+                ...(personalisationData.type && {type: personalisationData.type[index]}),
+                ...(personalisationData.key && {key: personalisationData.key[index]}),
+                ...(personalisationData.characterMax && {characterMax: personalisationData.characterMax[index]}),
+                ...(personalisationData.selectOptions && {selectOptions: personalisationData.selectOptions[index].split("|")}),
+                ...(personalisationData.placeholder && {placeholder: personalisationData.placeholder[index]})
             };
 
             if (thisPersonalisation.characterMax === 0) {

@@ -51,6 +51,12 @@ const routes = [
         props: true
     },
     {
+        path: '/category/:categoryId',
+        name: 'Category',
+        component: ContentCategory,
+        props: true
+    },
+    {
         path: '/mypackages',
         name: 'MyPackages',
         component: MyPackages
