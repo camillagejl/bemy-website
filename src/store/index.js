@@ -39,6 +39,9 @@ export default new Vuex.Store({
                         })
 
                     }
+                    else {
+                        console.log("No product designs");
+                    }
                     return product;
                 });
         },

@@ -1,98 +1,103 @@
 <template>
     <div class="product">
 
-        <h1>
-            {{ product.title}}
-        </h1>
+        <div v-if="!product">
+            Loading... or no product found.
+        </div>
 
-        <div class="product_container">
+        <div v-else>
+            <h1>
+                {{ product.title}}
+            </h1>
 
-            <div class="gallery_container">
-                <ProductGallery
-                    :images="product.images"
-                />
+            <div class="product_container">
+
+                <div class="gallery_container">
+                    <ProductGallery
+                        :images="product.images"
+                    />
 
 
-                <div class="description display_1024">
-                    <h2>
-                        Beskrivelse
-                    </h2>
+                    <div class="description display_1024">
+                        <h2>
+                            Beskrivelse
+                        </h2>
 
-                    <div v-html="product.description"></div>
+                        <div v-html="product.description"></div>
 
-                </div>
-            </div>
-
-            <section class="product_options">
-
-                <!-- Product option w. dropdown -->
-                <div
-                    v-for="(option, key) in product.options"
-                    v-if="product.optionsWithImages && !product.optionsWithImages.includes(key)"
-                    class="product_option option_w_dropdown"
-                >
-                    <label>
-                        <strong>
-                            {{ key }}:
-                        </strong>
-                        <select>
-                            <option
-                                v-for="value in option"
-                                value="value"
-                            >
-                                {{ value }}
-                            </option>
-                        </select>
-                    </label>
-                </div>
-
-                <!-- Product option w. images -->
-                <div
-                    v-for="(option, key) in product.options"
-                    v-if="product.optionsWithImages && product.optionsWithImages.includes(key)"
-                    class="product_option"
-                >
-                    <strong>{{ key }}</strong>: {{ option[0] }}
-                    <div class="option_images">
-                        <div
-                            v-for="variant in optionImages(product.variants, key)"
-                            class="images_container"
-                        >
-                            <div class="option_image relative_image rounded_box">
-
-                                <img :src="variant.image">
-                            </div>
-                        </div>
                     </div>
                 </div>
 
-                <!-- Designs -->
-                <div
-                    v-if="product.designs"
-                    class="product_option"
-                >
-                    <strong>Design</strong>: {{ Object.keys(product.designs)[0] }}
-                    <div class="option_images">
-                        <div
-                            v-for="design in product.designs"
-                            class="images_container"
-                        >
-                            <div class="option_image relative_image rounded_box">
+                <section class="product_options">
 
-                                <img :src="design.image">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div
-                    v-for="(personalisation, key) in product.personalisations"
-                    class="product_option"
-
-                >
-                    <label :for="`person_${index}_extra_${key}`"
+                    <!-- Product option w. dropdown -->
+                    <div
+                        v-for="(option, key) in product.options"
+                        v-if="product.optionsWithImages && !product.optionsWithImages.includes(key)"
+                        class="product_option option_w_dropdown"
                     >
+                        <label>
+                            <strong>
+                                {{ key }}:
+                            </strong>
+                            <select>
+                                <option
+                                    v-for="value in option"
+                                    value="value"
+                                >
+                                    {{ value }}
+                                </option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <!-- Product option w. images -->
+                    <div
+                        v-for="(option, key) in product.options"
+                        v-if="product.optionsWithImages && product.optionsWithImages.includes(key)"
+                        class="product_option"
+                    >
+                        <strong>{{ key }}</strong>: {{ option[0] }}
+                        <div class="option_images">
+                            <div
+                                v-for="variant in optionImages(product.variants, key)"
+                                class="images_container"
+                            >
+                                <div class="option_image relative_image rounded_box">
+
+                                    <img :src="variant.image">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Designs -->
+                    <div
+                        v-if="product.designs"
+                        class="product_option"
+                    >
+                        <strong>Design</strong>: {{ Object.keys(product.designs)[0] }}
+                        <div class="option_images">
+                            <div
+                                v-for="design in product.designs"
+                                class="images_container"
+                            >
+                                <div class="option_image relative_image rounded_box">
+
+                                    <img :src="design.image">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div
+                        v-for="(personalisation, key) in product.personalisations"
+                        class="product_option"
+
+                    >
+                        <label
+                        >
                         <span class="line_break">
                         <strong>
                             {{ personalisation.key }}
@@ -106,51 +111,58 @@
                         </span>
 
 
-                        <input
-                            v-if="personalisation.type === 'line_text'"
-                            :id="`person_${index}_extra_${key}`"
-                            type="text"
-                            :maxlength="personalisation.characterMax"
-                            :placeholder="personalisation.placeholder"
-                        >
-                        <textarea
-                            v-if="personalisation.type === 'multiline_text'"
-                            :id="`person_${index}_extra_${key}`"
-                            :maxlength="personalisation.characterMax"
-                            :placeholder="personalisation.placeholder"
-                        ></textarea>
-                        <input
-                            v-if="personalisation.type === 'number'"
-                            :id="`person_${index}_extra_${key}`"
-                            type="number"
-                        >
-                    </label>
-                </div>
-            </section>
+                            <input
+                                v-if="personalisation.type === 'line_text'"
+                                type="text"
+                                :maxlength="personalisation.characterMax"
+                                :placeholder="personalisation.placeholder"
+                            >
+                            <textarea
+                                v-if="personalisation.type === 'multiline_text'"
+                                :maxlength="personalisation.characterMax"
+                                :placeholder="personalisation.placeholder"
+                            ></textarea>
+                            <input
+                                v-if="personalisation.type === 'number'"
+                                type="number"
+                            >
+                        </label>
+                    </div>
+                </section>
+
+            </div>
+
+            <div class="description hide_1024">
+                <h2>
+                    Beskrivelse
+                </h2>
+
+                <div v-html="product.description"></div>
+
+            </div>
 
         </div>
-
-        <div class="description hide_1024">
-            <h2>
-                Beskrivelse
-            </h2>
-
-            <div v-html="product.description"></div>
-
-        </div>
-
 
     </div>
 </template>
 
 <script>
     import ProductGallery from "../components/ProductGallery";
+    import {mapGetters} from "vuex";
 
     export default {
         name: 'Product',
         components: {ProductGallery},
         props: {
-            product: Object
+            productId: String
+        },
+        computed: {
+            ...mapGetters([
+                'productsById',
+            ]),
+            product() {
+                return this.productsById[this.productId];
+            }
         },
         methods: {
             optionImages(variants, key) {

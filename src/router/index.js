@@ -34,7 +34,7 @@ const routes = [
         component: Delivery
     },
     {
-        path: '/product',
+        path: '/product/:productId',
         name: 'Product',
         component: Product,
         props: true
@@ -43,12 +43,6 @@ const routes = [
         path: '/contentcategoriesoverview',
         name: 'ContentCategoriesOverview',
         component: ContentCategoriesOverview
-    },
-    {
-        path: '/contentcategory',
-        name: 'ContentCategory',
-        component: ContentCategory,
-        props: true
     },
     {
         path: '/category/:categoryId',
