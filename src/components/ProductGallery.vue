@@ -16,10 +16,20 @@
                 <div class="gallery_thumbs">
                     <div
                         v-for="image in images"
+                        :style="{ transform: `translateY(${imagesTranslation(slideShowPosition)}%)`}"
                         class="gallery_thumbnail relative_image rounded_box selected"
                     >
                         <img :src="image">
                     </div>
+
+                    <button class="slideshow_button top">
+                        <div class="arrow arrow_up"></div>
+                    </button>
+
+                    <button class="slideshow_button bottom">
+                        <div class="arrow arrow_down"></div>
+                    </button>
+
                 </div>
 
                 <div class="gallery_full_image relative_image rounded_box">
@@ -36,11 +46,26 @@
         name: 'ProductGallery',
         props: {
             images: Array
+        },
+        data() {
+            return {
+                popupSlideShowPosition: 0
+            }
+        },
+        methods: {
+            imagesTranslation(position) {
+                return position * -100
+            },
         }
     }
 </script>
 
 <style scoped lang="scss">
+
+    .product_gallery {
+        max-width: 600px;
+        margin: 0 auto;
+    }
 
     .gallery_tabs {
         display: grid;
@@ -111,6 +136,46 @@
 
     .gallery_thumbnail + .gallery_thumbnail {
         margin-top: 11px;
+    }
+
+    .slideshow_button {
+        position: absolute;
+        left: 0;
+        right: 0;
+        background-color: rgba(var(--colour-grey-100), .7);
+        line-height: 30px;
+        width: calc(20% - 7px);
+        padding: 10px;
+        text-align: center;
+
+        &.top {
+            top: 0;
+            border-radius:5px 5px 0 0;
+        }
+
+        &.bottom {
+            bottom: 7px;
+            border-radius: 0 0 5px 5px;
+        }
+    }
+
+    .arrow {
+
+        /* Triangle from https://css-tricks.com/snippets/css/css-triangle/ */
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+
+        margin: 0 auto;
+    }
+
+    .arrow_up {
+        border-bottom: 8px solid black;
+    }
+
+    .arrow_down {
+        border-top: 8px solid black;
     }
 
 </style>

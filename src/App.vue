@@ -303,7 +303,7 @@
 
     }
 
-    @media screen and (min-width: 1200px) {
+    @media screen and (min-width: 1700px) {
         :root {
             --page-margin: 48px 192px;
         }

@@ -54,7 +54,7 @@
                     Kontakt
                 </a>
                 <a>
-                    om BEMY
+                    Om BEMY
                 </a>
                 <a>
                     Vores historie

@@ -10,6 +10,7 @@ import ContentCategory from "../views/ContentCategory";
 import Contact from "../views/Contact";
 import Delivery from "../views/Delivery";
 import Wrapping from "../views/Wrapping";
+import B2B from "../views/B2B";
 
 Vue.use(VueRouter);
 
@@ -33,6 +34,11 @@ const routes = [
         path: '/delivery',
         name: 'Delivery',
         component: Delivery
+    },
+    {
+        path: '/b2b',
+        name: 'B2B',
+        component: B2B
     },
     {
         path: '/product/:productId',

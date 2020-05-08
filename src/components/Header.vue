@@ -4,24 +4,10 @@
 
         <nav>
             <router-link
-                class="header_link display_1024"
-                :to="{ name: 'Contact' }"
-            >
-                Kontakt
-            </router-link>
-
-            <router-link
                 class="header_link"
                 :to="{ name: 'About' }"
             >
                 Om os
-            </router-link>
-
-            <router-link
-                class="header_logo"
-                :to="{ name: 'Home' }"
-            >
-                BEMY
             </router-link>
 
             <router-link
@@ -32,10 +18,24 @@
             </router-link>
 
             <router-link
+                class="header_logo"
+                :to="{ name: 'Home' }"
+            >
+                BEMY
+            </router-link>
+
+            <router-link
                 class="header_link"
                 :to="{ name: 'Inspiration' }"
             >
                 Inspiration
+            </router-link>
+
+            <router-link
+                class="header_link display_1024"
+                :to="{ name: 'B2B' }"
+            >
+                B2B
             </router-link>
         </nav>
     </div>
