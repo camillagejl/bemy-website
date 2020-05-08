@@ -5,40 +5,38 @@
             Loading... or no product found.
         </div>
 
-        <div
-            v-else
-            class="product_container"
-        >
+        <div v-else>
+            <h1>
+                Indpakning
+            </h1>
 
-            <section class="gallery_container">
-                <ProductGallery
-                    :images="products[0].images"
-                />
+            <div
+                class="product_container"
+            >
+                <section class="gallery_container">
+                    <ProductGallery
+                        :images="products[0].images"
+                    />
 
-                <div class="description display_1024">
-                    <h2>
-                        Beskrivelse
-                    </h2>
-                    <div v-html="products[0].description"></div>
-                </div>
-            </section>
+                    <div class="description display_1024">
+                        <h2>
+                            Beskrivelse
+                        </h2>
+                        <div v-html="products[0].description"></div>
+                    </div>
+                </section>
 
-            <section class="product_information">
+                <section class="product_information">
 
+                    <ProductOptionWImages
+                        :selectedOption="'Valgt design'"
+                        :optionKey="'Designs'"
+                        :optionImages="products"
+                    />
 
-                <ProductOptionWImages
-                    :selectedOption="'Valgt design'"
-                    :optionKey="'Designs'"
-                    :optionImages="products"
-                />
-
-
-
-            </section>
-
+                </section>
+            </div>
         </div>
-
-
     </div>
 </template>
 
@@ -115,6 +113,7 @@
     }
 
     .product_price {
+        font-size: 24px;
         text-align: right;
     }
 

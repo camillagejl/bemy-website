@@ -263,10 +263,6 @@
             z-index: 1;
         }
 
-        .main_navigation {
-            z-index: inherit;
-        }
-
         .desktop_flex_row {
             display: flex;
             overflow: hidden;
@@ -283,8 +279,9 @@
         }
 
         .main_navigation {
+            z-index: inherit;
             position: static;
-            width: 250px;
+            flex: 0 0 250px;
             box-shadow: none;
         }
 
@@ -308,7 +305,7 @@
 
     @media screen and (min-width: 1200px) {
         :root {
-            --page-margin: 96px;
+            --page-margin: 48px 192px;
         }
     }
 

@@ -72,7 +72,6 @@
                         <div
                             v-for="(personalisation, key) in product.personalisations"
                             class="product_option"
-
                         >
                             <label
                             >
@@ -87,7 +86,6 @@
                         (maks. {{personalisation.characterMax }} tegn)
                             </span>
                         </span>
-
 
                                 <input
                                     v-if="personalisation.type === 'line_text'"
@@ -190,7 +188,13 @@
     }
 
     .product_price {
+        font-size: 24px;
         text-align: right;
+    }
+
+    input[type = text] {
+        box-sizing: border-box;
+        width: 100%;
     }
 
     @media screen and (min-width: 1024px) {
@@ -199,11 +203,11 @@
         }
 
         .gallery_container {
-            flex: 2;
+            flex: 3;
         }
 
         .product_information {
-            flex: 3;
+            flex: 4;
             margin-left: 48px;
             display: flex;
             flex-direction: column;

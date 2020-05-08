@@ -10,7 +10,6 @@
             </div>
         </div>
 
-
         <div class="gallery_content_container">
             <div class="height_modifier"></div>
             <div class="gallery_content">
@@ -106,6 +105,8 @@
         &.selected {
             opacity: 1;
         }
+
+        transform: translateY(-100%) translateY(-11px);
     }
 
     .gallery_thumbnail + .gallery_thumbnail {

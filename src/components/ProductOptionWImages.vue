@@ -2,7 +2,9 @@
     <div class="product_option_w_images product_option">
 
         <div>
+                        <span class="line_break">
             <strong>{{ optionKey }}</strong>: {{ selectedOption }}
+                        </span>
             <div class="option_images">
                 <div
                     v-for="variant in optionImages"

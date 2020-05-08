@@ -5,70 +5,73 @@
 
         <div class="footer_content">
 
-        <div class="contact">
-            <strong class="footer_header">
-                Kontakt os
-            </strong>
-            <div class="footer_split">
-                <p>
-                    Egemosevej 12B
-                </p>
-                <p>
-                    4174 Jystrup
-                </p>
-            </div>
-
-            <div class="footer_split">
-                <a>
-                    +45 12 34 56 78
-                </a>
-                <a>
-                    +45 98 76 54 32
-                </a>
-                <a>
-                    kontakt@bemy.dk
-                </a>
-            </div>
-        </div>
-
-        <div class="subscribe">
-            <label>
+            <div class="contact">
                 <strong class="footer_header">
-                Modtag vores nyhedsbrev
+                    Kontakt os
                 </strong>
-            <input
-                type="text"
-                placeholder="min@mail.dk"
-            >
-            </label>
-        </div>
+                <div class="footer_split">
+                    <p>
+                        Egemosevej 12B
+                    </p>
+                    <p>
+                        4174 Jystrup
+                    </p>
+                </div>
 
-        <div class="navigation">
-            <strong class="footer_header">
-            Information
-            </strong>
-            <a>
-            FAQ
-            </a>
-            <a>
-            Kontakt
-            </a>
-            <a>
-            om BEMY
-            </a>
-            <a>
-            Vores historie
-            </a>
-            <a>
-            Leveringstider
-            </a>
-            <a>
-            B2B & Portfolio
-            </a>
-            <a>
-            Handelsbetingelser
-            </a>
-        </div>
+                <div class="footer_split">
+                    <a>
+                        +45 12 34 56 78
+                    </a>
+                    <a>
+                        +45 98 76 54 32
+                    </a>
+                    <a>
+                        kontakt@bemy.dk
+                    </a>
+                </div>
+            </div>
+
+            <div class="subscribe">
+                <label>
+                    <strong class="footer_header">
+                        Modtag vores nyhedsbrev
+                    </strong>
+                    <input
+                        type="text"
+                        placeholder="min@mail.dk"
+                    >
+                </label>
+            </div>
+
+            <div class="navigation_1">
+                <strong class="footer_header">
+                    Information
+                </strong>
+                <a>
+                    FAQ
+                </a>
+                <a>
+                    Kontakt
+                </a>
+                <a>
+                    om BEMY
+                </a>
+                <a>
+                    Vores historie
+                </a>
+            </div>
+
+            <div class="navigation_2">
+                <a>
+                    Leveringstider
+                </a>
+                <a>
+                    B2B & Portfolio
+                </a>
+                <a>
+                    Handelsbetingelser
+                </a>
+            </div>
 
         </div>
 
@@ -88,12 +91,12 @@
     }
 
     .footer_content {
-        display: grid;
-        grid-gap: 24px;
-    }
+        margin-top: 24px;
 
-    .footer_split {
-        margin-bottom: 12px;
+        div:first-child,
+        div:nth-child(2) {
+            margin-bottom: 24px;
+        }
     }
 
     .footer_header {
@@ -110,6 +113,25 @@
     a {
         display: block;
         line-height: 24px;
+    }
+
+    @media screen and (min-width: 768px) {
+        .footer_content {
+            margin: 24px;
+            display: grid;
+            grid-template-columns: repeat(2, auto);
+        }
+    }
+
+    @media screen and (min-width: 1200px) {
+        .footer_content {
+            grid-template-columns: repeat(4, auto);
+            grid-gap: 24px;
+        }
+
+        .navigation_2 {
+            margin-top: 24px;
+        }
     }
 
 </style>
