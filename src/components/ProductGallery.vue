@@ -16,17 +16,23 @@
                 <div class="gallery_thumbs">
                     <div
                         v-for="image in images"
-                        :style="{ transform: `translateY(${imagesTranslation(slideShowPosition)}%)`}"
+                        :style="{ transform: `translateY(${imagesTranslation(thumbsPosition)}%) translateY(calc(${thumbsPosition} * (-11px))`}"
                         class="gallery_thumbnail relative_image rounded_box selected"
                     >
                         <img :src="image">
                     </div>
 
-                    <button class="slideshow_button top">
+                    <button
+                        class="slideshow_button top"
+                        @click="moveThumbs('up', images)"
+                    >
                         <div class="arrow arrow_up"></div>
                     </button>
 
-                    <button class="slideshow_button bottom">
+                    <button
+                        class="slideshow_button bottom"
+                        @click="moveThumbs('down', images)"
+                    >
                         <div class="arrow arrow_down"></div>
                     </button>
 
@@ -49,13 +55,24 @@
         },
         data() {
             return {
-                popupSlideShowPosition: 0
+                thumbsPosition: 0
             }
         },
         methods: {
             imagesTranslation(position) {
-                return position * -100
+                return position * -100;
             },
+            moveThumbs(direction, images) {
+                if (direction === 'down') {
+                    if (this.thumbsPosition >= 0 && this.thumbsPosition < images.length - 4) {
+                        this.thumbsPosition++;
+                    }
+                }
+                if (direction === 'up') {
+                    if (this.thumbsPosition > 0)
+                        this.thumbsPosition--;
+                }
+            }
         }
     }
 </script>
@@ -130,8 +147,6 @@
         &.selected {
             opacity: 1;
         }
-
-        transform: translateY(-100%) translateY(-11px);
     }
 
     .gallery_thumbnail + .gallery_thumbnail {
@@ -150,7 +165,7 @@
 
         &.top {
             top: 0;
-            border-radius:5px 5px 0 0;
+            border-radius: 5px 5px 0 0;
         }
 
         &.bottom {
