@@ -18,6 +18,7 @@
                         v-for="image in images"
                         :style="{ transform: `translateY(${imagesTranslation(thumbsPosition)}%) translateY(calc(${thumbsPosition} * (-11px))`}"
                         class="gallery_thumbnail relative_image rounded_box selected"
+                        @click="selectImage(image)"
                     >
                         <img :src="image">
                     </div>
@@ -39,7 +40,7 @@
                 </div>
 
                 <div class="gallery_full_image relative_image rounded_box">
-                    <img :src="images[0]">
+                    <img :src="selectedImage">
                 </div>
             </div>
         </div>
@@ -55,7 +56,8 @@
         },
         data() {
             return {
-                thumbsPosition: 0
+                thumbsPosition: 0,
+                selectedImage: this.images[0]
             }
         },
         methods: {
@@ -72,6 +74,9 @@
                     if (this.thumbsPosition > 0)
                         this.thumbsPosition--;
                 }
+            },
+            selectImage(image) {
+                this.selectedImage = image;
             }
         }
     }
