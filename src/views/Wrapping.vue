@@ -36,9 +36,30 @@
                         :optionImages="products"
                     />
 
+                    <div class="product_price">
+                        <strong>
+                            {{ products[selectedProductIndex].displayPrice }} kr
+                        </strong>
+                    </div>
+
                 </section>
             </div>
+
         </div>
+
+        <div class="continue_button_container">
+        <MainButton
+            class="continue_button"
+            :emph="true"
+            :text="'Tilføj indhold'"
+            :icon="'arrow_right'"
+        />
+        </div>
+
+        <PriceFooter
+        :price="products[selectedProductIndex].displayPrice"
+        />
+
     </div>
 </template>
 
@@ -46,10 +67,12 @@
     import ProductGallery from "../components/ProductGallery";
     import {mapGetters} from "vuex";
     import ProductOptionWImages from "../components/ProductOptionWImages";
+    import PriceFooter from "../components/PriceFooter";
+    import MainButton from "../components/MainButton";
 
     export default {
         name: 'Wrapping',
-        components: {ProductOptionWImages, ProductGallery},
+        components: {MainButton, PriceFooter, ProductOptionWImages, ProductGallery},
         data() {
             return {
                 selectedProductIndex: 0
@@ -125,13 +148,28 @@
 
     .product_price {
         font-size: 24px;
+        margin-top: 24px;
         text-align: right;
+    }
+
+    .continue_button {
+        width: 100%;
+        margin-top: 48px;
     }
 
     @media screen and (min-width: 768px) {
         .option_images {
             grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
             grid-gap: 12px;
+        }
+
+        .continue_button_container {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .continue_button {
+            width: 400px;
         }
     }
 

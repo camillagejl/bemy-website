@@ -225,7 +225,7 @@
 
     /* Components */
     .main_navigation {
-        z-index: 1;
+        z-index: 2;
         box-shadow: var(--box-shadow-400-top);
         position: fixed;
         bottom: 0;

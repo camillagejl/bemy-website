@@ -222,6 +222,7 @@
 
     .product_price {
         font-size: 24px;
+        margin-top: 24px;
         text-align: right;
     }
 
