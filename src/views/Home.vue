@@ -9,6 +9,7 @@
             </div>
 
             <div class="home_infographic">
+
                 <div class="infographic_icon_container">
                     <div class="infographic_icon">
                         <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="gift"
@@ -24,7 +25,7 @@
                         </svg>
                     </div>
                     <div class="infographic_text">
-                        1. Design din gave
+                        1. Design din indpakning
                     </div>
                 </div>
 
@@ -32,19 +33,41 @@
 
                 <div class="infographic_icon_container">
                     <div class="infographic_icon">
-                        <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="user-alt"
-                             class="svg-inline--fa fa-user-alt fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
-                             viewBox="0 0 512 512">
+                        <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="tshirt"
+                             class="svg-inline--fa fa-tshirt fa-w-20" role="img" xmlns="http://www.w3.org/2000/svg"
+                             viewBox="0 0 640 512">
                             <g class="fa-group">
                                 <path class="fa-secondary"
-                                      d="M400 144A144 144 0 1 1 256 0a144 144 0 0 1 144 144z" opacity="0.4"></path>
+                                      d="M8.86 96.5a16.11 16.11 0 0 0-7.2 21.5l57.23 114.5a16.11 16.11 0 0 0 21.5 7.2l17.32-8.48L26.09 88zm459-80.95a187.31 187.31 0 0 1-13.32 13.26C418.45 61.3 370.67 79.2 320 79.2s-98.41-17.9-134.51-50.39a187.31 187.31 0 0 1-13.32-13.26L54.76 73.75l71.69 143.4L137 212a16 16 0 0 1 23 14.4V480a32 32 0 0 0 32 32h256a32 32 0 0 0 32-32V226.3a16 16 0 0 1 23-14.4l10.57 5.18L585.19 73.7zm163.31 81l-17.32-8.59-71.6 143.19 17.24 8.45h.06a16 16 0 0 0 21.45-7.2L638.28 118a16 16 0 0 0-7.1-21.5z"
+                                      opacity="0.4"></path>
                                 <path class="fa-primary"
-                                      d="M384 320h-55.1a174.1 174.1 0 0 1-145.8 0H128A128 128 0 0 0 0 448v16a48 48 0 0 0 48 48h416a48 48 0 0 0 48-48v-16a128 128 0 0 0-128-128z"></path>
+                                      d="M320 47.2c-51.89 0-96.39-19.4-116.49-47.2l-31.34 15.55a187.31 187.31 0 0 0 13.32 13.26C221.59 61.3 269.37 79.2 320 79.2s98.43-17.9 134.53-50.39a187.31 187.31 0 0 0 13.32-13.26L436.51 0c-20.1 27.8-64.6 47.2-116.51 47.2zM26.09 88l71.62 143.22 28.74-14.07-71.69-143.4zm559.1-14.3l-71.68 143.38 28.74 14.07 71.61-143.24z"></path>
                             </g>
                         </svg>
                     </div>
                     <div class="infographic_text">
-                        2. Tilføj personer
+                        2. Tilføj personligt indhold
+                    </div>
+                </div>
+
+                <div class="infographic_line"></div>
+
+                <div class="infographic_icon_container">
+                    <div class="infographic_icon">
+                        <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="boxes"
+                             class="svg-inline--fa fa-boxes fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg"
+                             viewBox="0 0 576 512">
+                            <g class="fa-group">
+                                <path class="fa-secondary"
+                                      d="M480 288v96l-32-21.3-32 21.3v-96zM320 0v96l-32-21.3L256 96V0zM160 288v96l-32-21.3L96 384v-96z"></path>
+                                <path class="fa-primary"
+                                      d="M560 288h-80v96l-32-21.3-32 21.3v-96h-80a16 16 0 0 0-16 16v192a16 16 0 0 0 16 16h224a16 16 0 0 0 16-16V304a16 16 0 0 0-16-16zm-384-64h224a16 16 0 0 0 16-16V16a16 16 0 0 0-16-16h-80v96l-32-21.3L256 96V0h-80a16 16 0 0 0-16 16v192a16 16 0 0 0 16 16zm64 64h-80v96l-32-21.3L96 384v-96H16a16 16 0 0 0-16 16v192a16 16 0 0 0 16 16h224a16 16 0 0 0 16-16V304a16 16 0 0 0-16-16z"
+                                      opacity="0.4"></path>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="infographic_text">
+                        3. Tilføj flere pakker
                     </div>
                 </div>
 
@@ -65,33 +88,35 @@
                         </svg>
                     </div>
                     <div class="infographic_text">
-                        3. Glæd dine kære
+                        4. Glæd dine kære
                     </div>
                 </div>
             </div>
 
-            <div class="arrow_down">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28.504" height="28.485" viewBox="0 0 28.504 28.485">
-                    <g id="Group_36" data-name="Group 36" transform="translate(-173 -561.586)">
-                        <g id="angle-down-duotone" transform="translate(173 418.733)">
-                            <path id="Path_23" data-name="Path 23"
-                                  d="M14.25,162.324l-5.033,5.029L.628,158.79A2.117,2.117,0,0,1,.612,155.8l.016-.016,2.012-2a2.132,2.132,0,0,1,3.015,0Z"
-                                  transform="translate(0 -0.146)" fill="#c59ead" opacity="0.4"/>
-                            <path id="Path_24" data-name="Path 24"
-                                  d="M122.131,155.626l-2.03-2.01a2.132,2.132,0,0,0-3.015,0L103.47,167.207l3.521,3.508.005.005a2.137,2.137,0,0,0,3.022-.014l12.113-12.071.016-.015A2.118,2.118,0,0,0,122.131,155.626Z"
-                                  transform="translate(-94.255)" fill="#c59ead"/>
-                        </g>
-                        <g id="angle-down-duotone-2" data-name="angle-down-duotone" transform="translate(179 408.595)">
-                            <path id="Path_23-2" data-name="Path 23"
-                                  d="M8.251,158.462l-2.914,2.912L.364,156.416a1.226,1.226,0,0,1-.009-1.733l.009-.009,1.165-1.161a1.234,1.234,0,0,1,1.746,0Z"
-                                  transform="translate(0 -0.152)" fill="#c59ead" opacity="0.4"/>
-                            <path id="Path_24-2" data-name="Path 24"
-                                  d="M114.275,154.517l-1.175-1.164a1.234,1.234,0,0,0-1.746,0l-7.884,7.87,2.038,2.031,0,0a1.238,1.238,0,0,0,1.75-.008l7.014-6.989.009-.009A1.226,1.226,0,0,0,114.275,154.517Z"
-                                  transform="translate(-98.134)" fill="#c59ead"/>
-                        </g>
-                    </g>
-                </svg>
-            </div>
+            <button class="main_button">Hey!</button>
+
+<!--            <div class="arrow_down">-->
+<!--                <svg xmlns="http://www.w3.org/2000/svg" width="28.504" height="28.485" viewBox="0 0 28.504 28.485">-->
+<!--                    <g id="Group_36" data-name="Group 36" transform="translate(-173 -561.586)">-->
+<!--                        <g id="angle-down-duotone" transform="translate(173 418.733)">-->
+<!--                            <path id="Path_23" data-name="Path 23"-->
+<!--                                  d="M14.25,162.324l-5.033,5.029L.628,158.79A2.117,2.117,0,0,1,.612,155.8l.016-.016,2.012-2a2.132,2.132,0,0,1,3.015,0Z"-->
+<!--                                  transform="translate(0 -0.146)" fill="#c59ead" opacity="0.4"/>-->
+<!--                            <path id="Path_24" data-name="Path 24"-->
+<!--                                  d="M122.131,155.626l-2.03-2.01a2.132,2.132,0,0,0-3.015,0L103.47,167.207l3.521,3.508.005.005a2.137,2.137,0,0,0,3.022-.014l12.113-12.071.016-.015A2.118,2.118,0,0,0,122.131,155.626Z"-->
+<!--                                  transform="translate(-94.255)" fill="#c59ead"/>-->
+<!--                        </g>-->
+<!--                        <g id="angle-down-duotone-2" data-name="angle-down-duotone" transform="translate(179 408.595)">-->
+<!--                            <path id="Path_23-2" data-name="Path 23"-->
+<!--                                  d="M8.251,158.462l-2.914,2.912L.364,156.416a1.226,1.226,0,0,1-.009-1.733l.009-.009,1.165-1.161a1.234,1.234,0,0,1,1.746,0Z"-->
+<!--                                  transform="translate(0 -0.152)" fill="#c59ead" opacity="0.4"/>-->
+<!--                            <path id="Path_24-2" data-name="Path 24"-->
+<!--                                  d="M114.275,154.517l-1.175-1.164a1.234,1.234,0,0,0-1.746,0l-7.884,7.87,2.038,2.031,0,0a1.238,1.238,0,0,0,1.75-.008l7.014-6.989.009-.009A1.226,1.226,0,0,0,114.275,154.517Z"-->
+<!--                                  transform="translate(-98.134)" fill="#c59ead"/>-->
+<!--                        </g>-->
+<!--                    </g>-->
+<!--                </svg>-->
+<!--            </div>-->
 
         </section>
 
@@ -227,12 +252,6 @@
         .arrow_down svg {
             height: 36px;
             width: 36px;
-        }
-    }
-
-    @media screen and (min-width: 1200px) {
-        .home_top {
-            min-height: calc(100vh - 150px);
         }
     }
 
