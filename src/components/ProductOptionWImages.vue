@@ -45,11 +45,16 @@
 
 <style scoped lang="scss">
 
+
+    .line_break {
+        display: block;
+        margin-bottom: 8px;
+    }
+
     .option_images {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
         grid-gap: 8px;
-
     }
 
     .option_image {

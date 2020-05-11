@@ -101,7 +101,8 @@
 
     .footer_header {
         font-family: var(--font-family-header);
-        line-height: 24px;
+        display: block;
+        line-height: 32px;
         font-weight: 800;
     }
 

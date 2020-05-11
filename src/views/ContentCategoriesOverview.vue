@@ -73,7 +73,7 @@
         text-align: center;
     }
 
-    @media screen and (min-width: 1024px) {
+    @media screen and (min-width: 1200px) {
         .content_categories {
             grid-template-columns: repeat(5, 1fr);
         }

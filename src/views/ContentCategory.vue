@@ -103,7 +103,7 @@
 
     @media screen and (min-width: 1200px) {
         .product_previews {
-            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
             grid-gap: 48px;
         }
     }

@@ -188,8 +188,12 @@
 
         <section id="our_packages">
             <h2 class="h2_sub_section">
-                Bliv inspireret af vores designede pakker
+                Gør en af vores pakker til din helt egen
             </h2>
+
+            <h3>
+                Vælg en pakke, og personalisér til den er perfekt
+            </h3>
 
             <p>
                 Søger du gaven til brudepigerne? Konfirmanden? Medarbejderne?

@@ -38,7 +38,7 @@
                             class="product_option option_w_dropdown"
                         >
                             <label>
-                                <strong>
+                                <strong class="line_break">
                                     {{ key }}:
                                 </strong>
                                 <select>
@@ -213,7 +213,7 @@
 
     .line_break {
         display: block;
-        margin-bottom: 12px;
+        margin-bottom: 8px;
     }
 
     .option_w_dropdown select {
