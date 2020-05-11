@@ -96,6 +96,10 @@
 
     }
 
+    html {
+        scroll-behavior: smooth;
+    }
+
     body {
         margin: 0;
         font-family: var(--font-family-primary);
@@ -170,6 +174,7 @@
     button {
         border: none;
         background-color: transparent;
+        font-size: inherit;
     }
 
     img {
@@ -241,6 +246,10 @@
 
     .display_1024 {
         display: none;
+    }
+
+    .inline {
+        display: inline-block;
     }
 
     /* Media queries */
