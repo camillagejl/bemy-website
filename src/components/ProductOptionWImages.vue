@@ -7,8 +7,9 @@
                         </span>
             <div class="option_images">
                 <div
-                    v-for="variant in optionImages"
+                    v-for="(variant, index) in optionImages"
                     class="images_container"
+                    @click="$emit('updateSelectedProduct', index)"
                 >
                     <div class="option_image relative_image rounded_box">
 

@@ -13,7 +13,41 @@ export default new Vuex.Store({
         products: [],
         collections: [],
         designs: [],
-        packages: [],
+        packages: [
+            {
+                title: 'Amanda',
+                price: 359.95,
+                displayPrice: '359,95',
+                products: [
+                    {
+                        type: 'Wrapping',
+                        title: 'Indpakning: Luksus Gaveæske m. bånd',
+                        image: 'https://cdn.shopify.com/s/files/1/0295/3897/5828/products/1541156180.jpg?v=1589011881', //selectedProduct.images[0]
+                        price: 179.95,
+                        displayPrice: '179,95',
+                        selections: {
+                            Farve: 'Hvid',
+                            Design: 'Will you be my bridesmaid?',
+                            Navn: 'Amanda',
+                            'Lille tekst': 'Vil du være min brudepige?',
+                        }
+                    },
+                    {
+                        type: 'Product',
+                        title: 'Personlig Kimono',
+                        image: 'https://cdn.shopify.com/s/files/1/0295/3897/5828/products/1541156180.jpg?v=1589011881', //images[0]
+                        price: 259.95,
+                        displayPrice: '259,95',
+                        selections: {
+                            Farve: 'Hvid',
+                            Design: 'New York',
+                            Navn: 'Amanda',
+                            Dato: '06.06.2020'
+                        }
+                    }
+                ]
+            }
+        ],
     },
     getters: {
         productsById: (state, getters) => {

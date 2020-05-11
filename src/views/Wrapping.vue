@@ -15,20 +15,22 @@
             >
                 <section class="gallery_container">
                     <ProductGallery
-                        :images="products[0].images"
+                        :images="products[selectedProductIndex].images"
                     />
 
                     <div class="description display_1024">
                         <h2>
                             Beskrivelse
                         </h2>
-                        <div v-html="products[0].description"></div>
+                        <div v-html="products[selectedProductIndex].description"></div>
                     </div>
                 </section>
 
                 <section class="product_information">
 
+                    <!-- Select product -->
                     <ProductOptionWImages
+                        @updateSelectedProduct="updateSelectedProduct"
                         :selectedOption="'Valgt design'"
                         :optionKey="'Designs'"
                         :optionImages="products"
@@ -48,6 +50,11 @@
     export default {
         name: 'Wrapping',
         components: {ProductOptionWImages, ProductGallery},
+        data() {
+            return {
+                selectedProductIndex: 0
+            }
+        },
         computed: {
             ...mapGetters([
                 'productsById',
@@ -62,6 +69,10 @@
                 return variants.filter((obj, pos, arr) => {
                     return arr.map(mapObj => mapObj[key]).indexOf(obj[key]) === pos;
                 });
+            },
+            updateSelectedProduct(index) {
+                this.selectedProductIndex = index;
+                console.log(this.selectedProductIndex);
             }
         }
     }

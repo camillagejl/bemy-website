@@ -20,7 +20,7 @@
             <div class="nav_section">
                 <div class="nav_section_top">
                     <router-link
-                        class="flex_center_align_1024"
+                        class="nav_icon_container flex_center_align_1024"
                         :to="{ name: 'Wrapping' }"
                     >
                         <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="gift"
@@ -54,7 +54,7 @@
             <div class="nav_section">
                 <div class="nav_section_top">
                     <router-link
-                        class="flex_center_align_1024"
+                        class="nav_icon_container flex_center_align_1024 selected"
                         :to="{ name: 'ContentCategoriesOverview' }"
                     >
                         <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="tshirt"
@@ -91,7 +91,7 @@
             <div class="nav_section">
                 <div class="nav_section_top">
                     <router-link
-                        class="flex_center_align_1024"
+                        class="nav_icon_container flex_center_align_1024"
                         :to="{ name: 'MyPackages' }"
                     >
                         <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="boxes"
@@ -147,10 +147,27 @@
     }
 
     .nav_section {
+        height: 100%;
         display: flex;
         flex-direction: column;
         flex: 1;
         justify-content: center;
+    }
+
+    .nav_section_top {
+        height: 100%;
+    }
+
+    .nav_icon_container {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: center;
+
+        &.selected {
+            background-color: var(--colour-grey-300);
+            box-shadow: var(--box-shadow-400);
+        }
     }
 
     .nav_icon {
@@ -201,6 +218,17 @@
             padding: 0 24px;
         }
 
+        .nav_icon_container {
+            display: flex;
+            align-items: center;
+            justify-content: left;
+
+            &.selected {
+                background-color: inherit;
+                box-shadow: none;
+            }
+        }
+
         .nav_icon {
             height: 36px;
             margin-right: 12px;
@@ -208,10 +236,12 @@
 
         .nav_section {
             border-top: 2px solid var(--colour-primary-200);
+            height: fit-content;
             width: 100%;
         }
 
         .nav_section_top {
+            height: fit-content;
             justify-content: flex-start;
         }
     }
