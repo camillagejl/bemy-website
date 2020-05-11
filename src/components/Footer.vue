@@ -124,9 +124,14 @@
     }
 
     @media screen and (min-width: 1200px) {
+        footer {
+            margin: 48px 0 0 0;
+        }
+
         .footer_content {
             grid-template-columns: repeat(4, auto);
             grid-gap: 24px;
+            margin-bottom: 0;
         }
 
         .navigation_2 {
