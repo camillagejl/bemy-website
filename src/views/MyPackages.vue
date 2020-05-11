@@ -157,8 +157,9 @@
     }
 
     @media screen and (min-width: 1024px) {
-        .package {
-            max-width: 1200px;
+        .package_item,
+        .package_buttons {
+            max-width: 1000px;
         }
 
         .package_buttons {

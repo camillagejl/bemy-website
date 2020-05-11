@@ -34,7 +34,7 @@
                         <!-- Product option w. dropdown -->
                         <div
                             v-for="(option, key) in product.options"
-                            v-if="product.optionsWithImages && !product.optionsWithImages.includes(key)"
+                            v-if="option[0] !== 'Default Title' && !product.optionsWithImages || product.optionsWithImages && !product.optionsWithImages.includes(key)"
                             class="product_option option_w_dropdown"
                         >
                             <label>
@@ -93,15 +93,30 @@
                                     :maxlength="personalisation.characterMax"
                                     :placeholder="personalisation.placeholder"
                                 >
+
                                 <textarea
                                     v-if="personalisation.type === 'multiline_text'"
                                     :maxlength="personalisation.characterMax"
                                     :placeholder="personalisation.placeholder"
                                 ></textarea>
+
                                 <input
                                     v-if="personalisation.type === 'number'"
                                     type="number"
                                 >
+
+                                <select
+                                    v-if="personalisation.type === 'dropdown'"
+                                    class="product_option option_w_dropdown"
+                                >
+                                    <option
+                                        v-for="value in personalisation.selectOptions"
+                                        value="value"
+                                    >
+                                        {{ value }}
+                                    </option>
+                                </select>
+
                             </label>
                         </div>
                     </div>
@@ -159,7 +174,7 @@
     }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 
     .product_option {
 
@@ -200,6 +215,7 @@
     @media screen and (min-width: 1024px) {
         .product_container {
             display: flex;
+            flex-direction: row;
         }
 
         .gallery_container {

@@ -24,6 +24,7 @@
                     </div>
 
                     <button
+                        v-if="images.length > 4"
                         class="slideshow_button top"
                         @click="moveThumbs('up', images)"
                     >
@@ -31,6 +32,7 @@
                     </button>
 
                     <button
+                        v-if="images.length > 4"
                         class="slideshow_button bottom"
                         @click="moveThumbs('down', images)"
                     >

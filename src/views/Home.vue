@@ -203,6 +203,8 @@
 
             <div class="our_packages_container">
 
+                <img src="../assets/placeholders/our-packages.jpg">
+
             </div>
 
         </section>
@@ -250,8 +252,7 @@
         justify-content: space-around;
         font-family: var(--font-family-header);
         color: var(--colour-grey-800);
-        font-size: 24px;
-        padding: 12px 0;
+        padding: 24px 0;
     }
 
     .infographic_icon_container {
@@ -282,31 +283,26 @@
         background-color: var(--colour-primary-200);
         margin: 8px 0;
         width: 1px;
-        height: 24px;
+        height: 32px;
     }
 
     .home_continue_buttons {
-        display: flex;
-        justify-content: center;
-        margin: 64px 0;
+        margin: 24px 0;
 
         .main_button {
-            padding: 24px;
+            padding: 16px;
             text-transform: uppercase;
+            width: 100%;
+            margin-top: 12px;
         }
 
         a {
             text-decoration: none;
-
-            + a {
-                margin-left: 24px;
-            }
         }
     }
 
     .arrow_down {
-        text-align: center;
-        margin-bottom: 24px;
+        display: none;
     }
 
     .h2_sub_section {
@@ -351,10 +347,36 @@
             padding: 24px;
         }
 
-        .arrow_down svg {
+        .arrow_down {
+            display: block;
+            text-align: center;
+            margin-bottom: 24px;
+
+            svg {
             height: 36px;
             width: 36px;
         }
+        }
+
+        .home_continue_buttons {
+            display: flex;
+            justify-content: center;
+            margin: 64px 0;
+
+            .main_button {
+                padding: 24px;
+                text-transform: uppercase;
+            }
+
+            a {
+                text-decoration: none;
+
+                + a {
+                    margin-left: 24px;
+                }
+            }
+        }
+
     }
 
 </style>

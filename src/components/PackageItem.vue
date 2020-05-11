@@ -125,6 +125,10 @@
             display: flex;
         }
 
+        .package_item_flex {
+            flex: 1;
+        }
+
         .package_item_grid {
             margin-top: 12px;
             display: grid;

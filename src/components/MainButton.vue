@@ -129,7 +129,6 @@
         align-items: center;
         justify-content: center;
         font-family: var(--font-family-header);
-        font-weight: 600;
     }
 
     .button_text {

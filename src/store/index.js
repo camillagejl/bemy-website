@@ -16,6 +16,7 @@ export default new Vuex.Store({
         packages: [
             {
                 title: 'Amanda',
+                id: 'package_1',
                 price: 359.95,
                 displayPrice: '359,95',
                 products: [
@@ -25,11 +26,14 @@ export default new Vuex.Store({
                         image: 'https://cdn.shopify.com/s/files/1/0295/3897/5828/products/1541156180.jpg?v=1589011881', //selectedProduct.images[0]
                         price: 179.95,
                         displayPrice: '179,95',
+                        id: 'ergerwrtfg',
+                        packageProductId: 'package_1_wrapping',
                         selections: {
                             Farve: 'Hvid',
                             Design: 'Will you be my bridesmaid?',
                             Navn: 'Amanda',
-                            'Lille tekst': 'Vil du være min brudepige?',
+                            'Lille tekst': 'Pedersen',
+                            'Tekst til indersiden af låget': 'Vil du være min brudepige?',
                         }
                     },
                     {
@@ -38,11 +42,12 @@ export default new Vuex.Store({
                         image: 'https://cdn.shopify.com/s/files/1/0295/3897/5828/products/1541156180.jpg?v=1589011881', //images[0]
                         price: 259.95,
                         displayPrice: '259,95',
+                        packageProductId: 'package_1_kimono_1',
                         selections: {
                             Farve: 'Hvid',
                             Design: 'New York',
                             Navn: 'Amanda',
-                            Dato: '06.06.2020'
+                            'Lille tekst': '06.06.2020'
                         }
                     }
                 ]
