@@ -130,10 +130,27 @@
 
                     </div>
 
-                    <div class="product_price">
-                        <strong>
-                            {{ product.displayPrice }} kr
-                        </strong>
+                    <div class="product_bottom">
+                        <div class="product_price">
+                            <strong>
+                                {{ product.displayPrice }} kr
+                            </strong>
+                        </div>
+
+                        <div class="add_buttons">
+                            <MainButton
+                                :emph="true"
+                                :text="'Tilføj til denne pakke'"
+                                :icon="'plus'"
+                            />
+
+                            <MainButton
+                                :emph="false"
+                                :text="'Tilføj til flere pakker'"
+                                :icon="'plus-plus'"
+                            />
+                        </div>
+
                     </div>
 
                 </section>
@@ -149,10 +166,11 @@
     import ProductGallery from "../components/ProductGallery";
     import {mapGetters} from "vuex";
     import ProductOptionWImages from "../components/ProductOptionWImages";
+    import MainButton from "../components/MainButton";
 
     export default {
         name: 'Product',
-        components: {ProductOptionWImages, ProductGallery},
+        components: {MainButton, ProductOptionWImages, ProductGallery},
         props: {
             productId: String
         },
@@ -212,6 +230,29 @@
         width: 100%;
     }
 
+    .add_buttons {
+        margin-top: 24px;
+
+        .main_button {
+            width: 100%;
+        }
+    }
+
+    @media screen and (min-width: 768px) {
+        .add_buttons {
+            display: flex;
+
+            .main_button {
+                flex: 1;
+
+                + .main_button {
+                    margin-left: 12px;
+                }
+            }
+
+        }
+    }
+
     @media screen and (min-width: 1024px) {
         .product_container {
             display: flex;
@@ -234,5 +275,7 @@
             margin-top: 24px;
         }
     }
+
+
 
 </style>
