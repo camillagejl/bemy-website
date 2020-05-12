@@ -21,7 +21,14 @@
                 class="header_logo"
                 :to="{ name: 'Home' }"
             >
-                BEMY
+                <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="48.05" height="13.72" viewBox="0 0 48.05 13.72">
+                    <g>
+                        <path d="M48.06,8.89a39.93,39.93,0,0,1-11.89,3.47,47.83,47.83,0,0,1-6.21.49c-2.08,0-4.13-.11-6.12-.19s-3.92-.27-5.87-.36-3.89-.12-5.86-.21c-3.93-.08-7.9,0-12-.2L0,11.6A84.23,84.23,0,0,1,11.94,9.74,82.7,82.7,0,0,1,24,9.67a94.63,94.63,0,0,0,12,.33A84.13,84.13,0,0,0,48,8.6Z" fill="#c59ead"/>
+                        <text transform="translate(7.83 10.46)" font-size="12" font-family="Merriweather-Bold, Merriweather" font-weight="700">BEMY</text>
+                    </g>
+                </svg>
+
+
             </router-link>
 
             <router-link
@@ -74,9 +81,12 @@
     }
 
     .header_logo {
-        font-family: var(--font-family-header);
-        font-size: 20px;
-        font-weight: 700;
+        height: 50%;
+
+        svg {
+            height: 100%;
+            width: 100%;
+        }
     }
 
     .header_link {
