@@ -15,6 +15,7 @@
                 <section class="gallery_container">
                     <ProductGallery
                         :images="product.images"
+                        :myDesignImages="myDesignImage()"
                     />
 
                     <div class="description display_1024">
@@ -192,7 +193,6 @@
                 let thisDesign;
 
                 this.product.designs.forEach(design => {
-                    console.log(design, this.activeProduct.selections.Design);
                     if (design.title === this.activeProduct.selections.Design) {
                         thisDesign = design;
                     }
@@ -210,8 +210,6 @@
             allPersonalisations() {
                 let personalisations = {};
 
-                console.log("product.personalisations", this.product.personalisations);
-
                 Object.keys(this.product.personalisations).forEach((personalisation) => {
                     personalisations[personalisation] = this.product.personalisations[personalisation]
                 });
@@ -221,11 +219,20 @@
                     personalisations[personalisation] = this.activeDesign.personalisations[personalisation];
                 });
 
-                console.log(personalisations);
-
                 return personalisations
-            }
+            },
 
+            myDesignImage() {
+                const images = [];
+
+                this.product.designs.forEach(design => {
+                    if (design.title === this.activeProduct.selections.Design) {
+                        images.push(design.image);
+                    }
+                });
+
+                return images;
+            }
         }
     }
 </script>
@@ -314,7 +321,6 @@
             margin-top: 24px;
         }
     }
-
 
 
 </style>

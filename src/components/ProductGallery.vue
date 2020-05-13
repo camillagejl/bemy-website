@@ -2,10 +2,14 @@
     <div class="product_gallery">
 
         <div class="gallery_tabs">
-            <div class="gallery_tab selected">
+            <div
+                @click="changeTabs(images)"
+                class="gallery_tab selected">
                 Inspiration
             </div>
-            <div class="gallery_tab">
+            <div
+                @click="changeTabs(myDesignImages)"
+                class="gallery_tab">
                 Mit design
             </div>
         </div>
@@ -15,7 +19,7 @@
             <div class="gallery_content">
                 <div class="gallery_thumbs">
                     <div
-                        v-for="image in images"
+                        v-for="image in currentImages"
                         :style="{ transform: `translateY(${imagesTranslation(thumbsPosition)}%) translateY(calc(${thumbsPosition} * (-11px))`}"
                         class="gallery_thumbnail relative_image rounded_box selected"
                         @click="selectImage(image)"
@@ -24,17 +28,17 @@
                     </div>
 
                     <button
-                        v-if="images.length > 4"
+                        v-if="currentImages.length > 4"
                         class="slideshow_button top"
-                        @click="moveThumbs('up', images)"
+                        @click="moveThumbs('up', currentImages)"
                     >
                         <div class="arrow arrow_up"></div>
                     </button>
 
                     <button
-                        v-if="images.length > 4"
+                        v-if="currentImages.length > 4"
                         class="slideshow_button bottom"
-                        @click="moveThumbs('down', images)"
+                        @click="moveThumbs('down', currentImages)"
                     >
                         <div class="arrow arrow_down"></div>
                     </button>
@@ -54,12 +58,14 @@
     export default {
         name: 'ProductGallery',
         props: {
-            images: Array
+            images: Array,
+            myDesignImages: Array,
         },
         data() {
             return {
                 thumbsPosition: 0,
-                selectedImage: this.images[0]
+                selectedImage: this.images[0],
+                currentImages: this.images
             }
         },
         methods: {
@@ -79,6 +85,17 @@
             },
             selectImage(image) {
                 this.selectedImage = image;
+            },
+            changeTabs(showImages) {
+
+                if (this.currentImages !== showImages)
+
+                document.querySelectorAll(".gallery_tab").forEach(tab => {
+                    tab.classList.toggle("selected");
+                });
+
+                this.currentImages = showImages;
+                this.selectedImage = showImages[0];
             }
         }
     }
