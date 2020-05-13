@@ -16,6 +16,7 @@
                 <section class="gallery_container">
                     <ProductGallery
                         :images="product.images"
+                        :myDesignImages="myDesignImages()"
                     />
 
                     <div class="description display_1024">
@@ -224,6 +225,31 @@
 
                 return personalisations
             },
+
+            myDesignImages() {
+                const images = [];
+
+                Object.keys(this.product.options).forEach(optionKey => {
+
+                    const imageObjects = this.optionImages(this.product.variants);
+
+                    imageObjects.forEach(imageObject => {
+
+                        if (this.activeWrapping.selections[optionKey] === imageObject[optionKey]) {
+                            images.push(imageObject.image);
+                        }
+
+                    })
+                });
+
+                this.product.designs.forEach(design => {
+                    if (design.title === this.activeWrapping.selections.Design) {
+                        images.push(design.image);
+                    }
+                });
+
+                return images;
+            }
         }
     }
 </script>
