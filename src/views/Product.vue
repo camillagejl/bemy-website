@@ -64,13 +64,13 @@
                         <!-- Designs -->
                         <ProductOptionWImages
                             v-if="product.designs"
-                            :selectedOption="'Valgt design'"
+                            :selectedOption="activeProduct.selections.Design"
                             :optionKey="'Designs'"
                             :optionImages="product.designs"
                         />
 
                         <div
-                            v-for="(personalisation, key) in product.personalisations"
+                            v-for="(personalisation, key) in allPersonalisations()"
                             class="product_option"
                         >
                             <label
@@ -92,6 +92,7 @@
                                     type="text"
                                     :maxlength="personalisation.characterMax"
                                     :placeholder="personalisation.placeholder"
+                                    :value="activeProduct.selections[personalisation.key]"
                                 >
 
                                 <textarea
@@ -186,6 +187,17 @@
             },
             activeProduct() {
                 return this.activeProducts[this.productId];
+            },
+            activeDesign() {
+                let thisDesign;
+
+                this.product.designs.forEach(design => {
+                    console.log(design, this.activeProduct.selections.Design);
+                    if (design.title === this.activeProduct.selections.Design) {
+                        thisDesign = design;
+                    }
+                });
+                return thisDesign;
             }
         },
         methods: {
@@ -193,7 +205,27 @@
                 return variants.filter((obj, pos, arr) => {
                     return arr.map(mapObj => mapObj[key]).indexOf(obj[key]) === pos;
                 });
+            },
+
+            allPersonalisations() {
+                let personalisations = {};
+
+                console.log("product.personalisations", this.product.personalisations);
+
+                Object.keys(this.product.personalisations).forEach((personalisation) => {
+                    personalisations[personalisation] = this.product.personalisations[personalisation]
+                });
+
+
+                Object.keys(this.activeDesign.personalisations).forEach(personalisation => {
+                    personalisations[personalisation] = this.activeDesign.personalisations[personalisation];
+                });
+
+                console.log(personalisations);
+
+                return personalisations
             }
+
         }
     }
 </script>

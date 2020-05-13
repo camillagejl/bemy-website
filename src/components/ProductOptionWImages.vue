@@ -3,10 +3,7 @@
 
         <div>
                         <span class="line_break">
-            <strong>
-                {{ optionKey }}
-            </strong>
-                            : {{ selectedOption }}
+            <strong>{{ optionKey }}</strong>: {{ selectedOption }}
                         </span>
 
             <div class="option_images">
@@ -17,7 +14,7 @@
                 >
                     <div
                         class="option_image relative_image rounded_box"
-                        v-bind:class="{ selected : variant[optionKey] === selectedOption }"
+                        v-bind:class="{ selected : variant[optionKey] === selectedOption || variant.title === selectedOption }"
                     >
 
                         <!--For Shopify variants, i.e. only one image-->

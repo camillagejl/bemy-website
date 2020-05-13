@@ -15,18 +15,19 @@ export default new Vuex.Store({
         designs: [],
         activeProducts: {
             'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzQ1ODk0MTgxODQ3ODg=': {
-                    title: 'Personlig Kimono',
-                    image: 'https://cdn.shopify.com/s/files/1/0295/3897/5828/products/1541156180.jpg?v=1589011881', //images[0]
-                    price: 259.95,
-                    displayPrice: '259,95',
-                    id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzQ1ODk0MTgxODQ3ODg',
-                    selections: {
-                        Farve: 'Hvid',
-                        Design: 'New York',
-                        Navn: 'Amanda',
-                        'Lille tekst': '06.06.2020'
-                    }
+                title: 'Personlig Kimono',
+                image: 'https://cdn.shopify.com/s/files/1/0295/3897/5828/products/1541156180.jpg?v=1589011881', //images[0]
+                price: 259.95,
+                displayPrice: '259,95',
+                id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzQ1ODk0MTgxODQ3ODg',
+                selections: {
+                    Farve: 'Hvid',
+                    Design: 'New York',
+                    Navn: 'Amanda',
+                    'Lille tekst': '06.06.2020',
+                    'Mock navn': 'Something I\'ve written here!'
                 }
+            }
         },
         activePackage: 0,
         packages: [
@@ -79,17 +80,14 @@ export default new Vuex.Store({
         computedProducts: (state, getters) => {
             return state.products
                 .map(product => {
-                    if (product.designs && Array.isArray(product.designs)) {
+                    if (product.designs) {
                         const rawProductDesigns = product.designs.map(value => getters.designsById[value]);
 
-                        product.designs = {};
+                        product.designs = [];
 
                         rawProductDesigns.forEach(design => {
-                            product.designs[design.title] = {
-                                image: design.image
-                            }
+                            product.designs.push(design);
                         })
-
                     }
 
                     product.displayPrice = displayPrice(product.price);
