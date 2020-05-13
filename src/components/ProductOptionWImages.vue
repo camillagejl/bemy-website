@@ -3,15 +3,22 @@
 
         <div>
                         <span class="line_break">
-            <strong>{{ optionKey }}</strong>: {{ selectedOption }}
+            <strong>
+                {{ optionKey }}
+            </strong>
+                            : {{ selectedOption }}
                         </span>
+
             <div class="option_images">
                 <div
                     v-for="(variant, index) in optionImages"
                     class="images_container"
                     @click="$emit('updateSelectedProduct', index)"
                 >
-                    <div class="option_image relative_image rounded_box">
+                    <div
+                        class="option_image relative_image rounded_box"
+                        v-bind:class="{ selected : variant[optionKey] === selectedOption }"
+                    >
 
                         <!--For Shopify variants, i.e. only one image-->
                         <img

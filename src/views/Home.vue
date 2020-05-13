@@ -5,7 +5,7 @@
 
             <div class="home_headings">
                 <h1>Velkommen til BEMY</h1>
-                <h2 class="h2_handwriting">Du designer &#8226; Vi leverer</h2>
+                <h2 class="h2_handwriting">Den personlige gave</h2>
             </div>
 
             <div class="main_home_container">

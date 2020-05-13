@@ -56,7 +56,7 @@
                         <ProductOptionWImages
                             v-for="(option, key) in product.options"
                             v-if="product.optionsWithImages && product.optionsWithImages.includes(key)"
-                            :selectedOption="option[0]"
+                            :selectedOption="activeProduct.selections[key]"
                             :optionKey="key"
                             :optionImages="optionImages(product.variants, key)"
                         />
@@ -164,7 +164,7 @@
 
 <script>
     import ProductGallery from "../components/ProductGallery";
-    import {mapGetters} from "vuex";
+    import {mapGetters, mapState} from "vuex";
     import ProductOptionWImages from "../components/ProductOptionWImages";
     import MainButton from "../components/MainButton";
 
@@ -175,11 +175,17 @@
             productId: String
         },
         computed: {
+            ...mapState([
+                'activeProducts'
+            ]),
             ...mapGetters([
-                'productsById',
+                'productsById'
             ]),
             product() {
                 return this.productsById[this.productId];
+            },
+            activeProduct() {
+                return this.activeProducts[this.productId];
             }
         },
         methods: {
