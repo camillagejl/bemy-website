@@ -175,6 +175,7 @@
         border: none;
         background-color: transparent;
         font-size: inherit;
+        cursor: pointer;
     }
 
     img {

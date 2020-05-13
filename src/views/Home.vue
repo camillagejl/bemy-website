@@ -298,6 +298,7 @@
             text-transform: uppercase;
             width: 100%;
             margin-top: 12px;
+            font-weight: 600;
         }
 
         a {
