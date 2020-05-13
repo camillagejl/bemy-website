@@ -15,7 +15,7 @@
                 <section class="gallery_container">
                     <ProductGallery
                         :images="product.images"
-                        :myDesignImages="myDesignImage()"
+                        :myDesignImages="myDesignImages()"
                     />
 
                     <div class="description display_1024">
@@ -221,7 +221,7 @@
                 return personalisations
             },
 
-            myDesignImage() {
+            myDesignImages() {
                 const images = [];
 
                 Object.keys(this.product.options).forEach(optionKey => {
