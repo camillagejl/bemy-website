@@ -62,6 +62,19 @@ export default new Vuex.Store({
                             Navn: 'Amanda',
                             'Lille tekst': '06.06.2020'
                         }
+                    },
+                    {
+                        title: 'Upersonlig Kimono', // samme mock data som foroven
+                        image: 'https://cdn.shopify.com/s/files/1/0295/3897/5828/products/1541156180.jpg?v=1589011881', //images[0]
+                        price: 259.95,
+                        displayPrice: '259,95',
+                        id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzQ1ODk0MTgxODQ3ODg',
+                        selections: {
+                            Farve: 'Hvid',
+                            Design: 'New York',
+                            Navn: 'Amanda',
+                            'Lille tekst': '06.06.2020'
+                        }
                     }
                 ]
             }
