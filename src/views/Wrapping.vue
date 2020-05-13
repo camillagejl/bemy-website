@@ -10,7 +10,10 @@
                 Indpakning
             </h1>
 
+            <div v-if="!product">No product to show</div>
+
             <div
+                v-else
                 class="product_container"
             >
                 <section class="gallery_container">
@@ -77,6 +80,7 @@
 
                     <!-- Personalisations -->
                     <div
+                        v-if="allPersonalisations"
                         v-for="(personalisation, key) in allPersonalisations()"
                         class="product_option"
                     >
@@ -183,6 +187,12 @@
                 'wrappings'
             ]),
             products() {
+                if (!this.wrappings) {
+                    return []
+                }
+                if (!Array.isArray(this.wrappings.products)) {
+                    return []
+                }
                 return this.wrappings.products.map(value => this.productsById[value]);
             },
             activeWrapping() {
@@ -192,9 +202,13 @@
                 return this.productsById[this.activeWrapping.id];
             },
             activeDesign() {
-                let thisDesign;
+                let thisDesign = null;
 
                 this.product.designs.forEach(design => {
+                    if (!design) {
+                        return
+                    }
+
                     if (design.title === this.activeWrapping.selections.Design) {
                         thisDesign = design;
                     }
@@ -215,13 +229,17 @@
             allPersonalisations() {
                 let personalisations = {};
 
-                Object.keys(this.product.personalisations).forEach((personalisation) => {
-                    personalisations[personalisation] = this.product.personalisations[personalisation]
-                });
+                if (this.product) {
+                    Object.keys(this.product.personalisations).forEach((personalisation) => {
+                        personalisations[personalisation] = this.product.personalisations[personalisation]
+                    });
+                }
 
-                Object.keys(this.activeDesign.personalisations).forEach(personalisation => {
-                    personalisations[personalisation] = this.activeDesign.personalisations[personalisation];
-                });
+                if (this.activeDesign) {
+                    Object.keys(this.activeDesign.personalisations).forEach(personalisation => {
+                        personalisations[personalisation] = this.activeDesign.personalisations[personalisation];
+                    });
+                }
 
                 return personalisations
             },
@@ -235,14 +253,19 @@
 
                     imageObjects.forEach(imageObject => {
 
+                        console.log("Object", imageObject, imageObject[optionKey]);
+
                         if (this.activeWrapping.selections[optionKey] === imageObject[optionKey]) {
                             images.push(imageObject.image);
                         }
-
                     })
                 });
 
                 this.product.designs.forEach(design => {
+                    if (!design) {
+                        return;
+                    }
+
                     if (design.title === this.activeWrapping.selections.Design) {
                         images.push(design.image);
                     }

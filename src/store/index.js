@@ -43,7 +43,7 @@ export default new Vuex.Store({
                     displayPrice: '129,95',
                     id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzQ2MDAzOTg3NzQzNTY=',
                     selections: {
-                        Farve: 'Hvid',
+                        Farve: 'Rosa',
                         Design: 'Will you be my bridesmaid?',
                         Navn: 'Amanda',
                         'Lille tekst': 'Pedersen',
