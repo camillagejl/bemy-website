@@ -214,7 +214,6 @@
                     personalisations[personalisation] = this.product.personalisations[personalisation]
                 });
 
-
                 Object.keys(this.activeDesign.personalisations).forEach(personalisation => {
                     personalisations[personalisation] = this.activeDesign.personalisations[personalisation];
                 });
@@ -224,6 +223,19 @@
 
             myDesignImage() {
                 const images = [];
+
+                Object.keys(this.product.options).forEach(optionKey => {
+
+                    const imageObjects = this.optionImages(this.product.variants);
+
+                    imageObjects.forEach(imageObject => {
+
+                        if(this.activeProduct.selections[optionKey] === imageObject[optionKey]) {
+                            images.push(imageObject.image);
+                        }
+
+                    })
+                });
 
                 this.product.designs.forEach(design => {
                     if (design.title === this.activeProduct.selections.Design) {
