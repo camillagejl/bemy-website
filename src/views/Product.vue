@@ -66,10 +66,12 @@
                         <ProductOptionWImages
                             v-if="product.designs"
                             :selectedOption="activeProduct.selections.Design"
-                            :optionKey="'Designs'"
+                            :optionKey="'Design'"
                             :optionImages="product.designs"
                         />
 
+
+                        <!-- Personalisations -->
                         <div
                             v-for="(personalisation, key) in allPersonalisations()"
                             class="product_option"
@@ -230,7 +232,7 @@
 
                     imageObjects.forEach(imageObject => {
 
-                        if(this.activeProduct.selections[optionKey] === imageObject[optionKey]) {
+                        if (this.activeProduct.selections[optionKey] === imageObject[optionKey]) {
                             images.push(imageObject.image);
                         }
 
@@ -254,7 +256,7 @@
     .product_option {
 
         + .product_option {
-            margin: 36px 0;
+            margin: 36px 0 0 0;
         }
 
         p {
@@ -273,7 +275,7 @@
         margin-bottom: 8px;
     }
 
-    .option_w_dropdown select {
+    select {
         min-width: 100px;
     }
 

@@ -16,7 +16,6 @@
                         class="option_image relative_image rounded_box"
                         v-bind:class="{ selected : variant[optionKey] === selectedOption || variant.title === selectedOption }"
                     >
-
                         <!--For Shopify variants, i.e. only one image-->
                         <img
                             v-if="variant.image"

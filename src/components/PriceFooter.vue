@@ -1,6 +1,6 @@
 <template>
     <div class="price_footer">
-        <div class="product_price">
+        <div class="footer_product_price">
         {{ price }} kr
         </div>
     </div>
@@ -28,21 +28,22 @@
         box-shadow: var(--box-shadow-400-top);
     }
 
-    .product_price {
+    .footer_product_price {
         display: flex;
         justify-content: flex-end;
         align-items: center;
         height: 50px;
         font-size: 24px;
-        margin: calc(var(--page-margin) + 20px);
-        margin-top: 0;
-        margin-bottom: 0;
-        margin-left: 0;
+        padding: var(--page-margin);
+        padding-top: 0;
+        padding-bottom: 0;
+        padding-left: 0;
     }
 
     @media screen and (min-width: 1024px) {
         .price_footer {
             height: 50px;
+            padding-right: 20px;
         }
     }
 

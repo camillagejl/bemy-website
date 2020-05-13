@@ -202,16 +202,22 @@
 
     .rounded_box,
     select,
-    input[type="text"] {
+    input[type="text"],
+    textarea {
         border-radius: var(--main-border-radius);
         overflow: hidden;
         box-shadow: var(--box-shadow-400);
     }
 
     select,
-    input {
+    input,
+    textarea {
         border: 1px solid var(--colour-grey-500);
         padding: 8px;
+    }
+
+    textarea {
+        resize: vertical;
     }
 
     hr {

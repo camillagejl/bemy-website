@@ -19,12 +19,13 @@ export default new Vuex.Store({
                 image: 'https://cdn.shopify.com/s/files/1/0295/3897/5828/products/1541156180.jpg?v=1589011881', //images[0]
                 price: 259.95,
                 displayPrice: '259,95',
-                id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzQ1ODk0MTgxODQ3ODg',
+                id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzQ1ODk0MTgxODQ3ODg=',
                 selections: {
                     Farve: 'Hvid',
                     Design: 'New York',
                     Navn: 'Amanda',
-                    'Lille tekst': '06.06.2020',
+                    'Tekst i midten': '',
+                    'Tekst i bunden': '06.06.2020',
                     'Mock navn': 'Something I\'ve written here!'
                 }
             }
@@ -39,8 +40,8 @@ export default new Vuex.Store({
                     title: 'Luksus Gaveæske m. bånd',
                     image: 'https://cdn.shopify.com/s/files/1/0295/3897/5828/products/1541156180.jpg?v=1589011881', //selectedProduct.images[0]
                     price: 179.95,
-                    displayPrice: '179,95',
-                    id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzQ2MDAzOTg3NzQzNTY',
+                    displayPrice: '129,95',
+                    id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzQ2MDAzOTg3NzQzNTY=',
                     selections: {
                         Farve: 'Hvid',
                         Design: 'Will you be my bridesmaid?',
@@ -60,7 +61,8 @@ export default new Vuex.Store({
                             Farve: 'Hvid',
                             Design: 'New York',
                             Navn: 'Amanda',
-                            'Lille tekst': '06.06.2020'
+                            'Tekst i midten': 'Bruden',
+                            'Tekst i bunden': '06.06.2020'
                         }
                     },
                     {

@@ -15,7 +15,7 @@
             >
                 <section class="gallery_container">
                     <ProductGallery
-                        :images="products[selectedProductIndex].images"
+                        :images="product.images"
                     />
 
                     <div class="description display_1024">
@@ -31,41 +31,135 @@
                     <!-- Select product -->
                     <ProductOptionWImages
                         @updateSelectedProduct="updateSelectedProduct"
-                        :selectedOption="'Valgt design'"
-                        :optionKey="'Designs'"
+                        :selectedOption="product.title"
+                        :optionKey="'Design'"
                         :optionImages="products"
                     />
 
+                    <!-- Product option w. dropdown -->
+                    <div
+                        v-for="(option, key) in product.options"
+                        v-if="option[0] !== 'Default Title' && !product.optionsWithImages || product.optionsWithImages && !product.optionsWithImages.includes(key)"
+                        class="product_option option_w_dropdown"
+                    >
+                        <label>
+                            <strong class="line_break">
+                                {{ key }}:
+                            </strong>
+                            <select>
+                                <option
+                                    v-for="value in option"
+                                    value="value"
+                                >
+                                    {{ value }}
+                                </option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <!-- Product option w. images -->
+                    <ProductOptionWImages
+                        v-for="(option, key) in product.options"
+                        v-if="product.optionsWithImages && product.optionsWithImages.includes(key)"
+                        :selectedOption="activeWrapping.selections[key]"
+                        :optionKey="key"
+                        :optionImages="optionImages(product.variants, key)"
+                    />
+
+                    <!-- Designs -->
+                    <ProductOptionWImages
+                        v-if="product.designs"
+                        :selectedOption="activeWrapping.selections.Design"
+                        :optionKey="'Design'"
+                        :optionImages="product.designs"
+                    />
+
+                    <!-- Personalisations -->
+                    <div
+                        v-for="(personalisation, key) in allPersonalisations()"
+                        class="product_option"
+                    >
+                        <label
+                        >
+                        <span class="line_break">
+                        <strong>
+                            {{ personalisation.key }}
+                        </strong>
+
+                        <span
+                            v-if="personalisation.characterMax"
+                        >
+                        (maks. {{personalisation.characterMax }} tegn)
+                            </span>
+                        </span>
+
+                            <input
+                                v-if="personalisation.type === 'line_text'"
+                                type="text"
+                                :maxlength="personalisation.characterMax"
+                                :placeholder="personalisation.placeholder"
+                                :value="activeWrapping.selections[personalisation.key]"
+                            >
+
+                            <textarea
+                                v-if="personalisation.type === 'multiline_text'"
+                                :maxlength="personalisation.characterMax"
+                                :placeholder="personalisation.placeholder"
+                                :value="activeWrapping.selections[personalisation.key]"
+                            ></textarea>
+
+                            <input
+                                v-if="personalisation.type === 'number'"
+                                type="number"
+                                :value="activeWrapping.selections[personalisation.key]"
+                            >
+
+                            <select
+                                v-if="personalisation.type === 'dropdown'"
+                                class="option_w_dropdown"
+                            >
+                                <option
+                                    v-for="value in personalisation.selectOptions"
+                                    value="value"
+                                >
+                                    {{ value }}
+                                </option>
+                            </select>
+
+                        </label>
+                    </div>
+
                     <div class="product_price">
                         <strong>
-                            {{ products[selectedProductIndex].displayPrice }} kr
+                            {{ activeWrapping.displayPrice }} kr
                         </strong>
                     </div>
 
                 </section>
             </div>
 
+            <div class="continue_button_container">
+                <MainButton
+                    class="continue_button"
+                    :emph="true"
+                    :text="'Tilføj indhold'"
+                    :icon="'arrow_right'"
+                />
+            </div>
+
+            <PriceFooter
+                :price="activeWrapping.displayPrice"
+            />
+
         </div>
 
-        <div class="continue_button_container">
-        <MainButton
-            class="continue_button"
-            :emph="true"
-            :text="'Tilføj indhold'"
-            :icon="'arrow_right'"
-        />
-        </div>
-
-        <PriceFooter
-        :price="products[selectedProductIndex].displayPrice"
-        />
 
     </div>
 </template>
 
 <script>
     import ProductGallery from "../components/ProductGallery";
-    import {mapGetters} from "vuex";
+    import {mapGetters, mapState} from "vuex";
     import ProductOptionWImages from "../components/ProductOptionWImages";
     import PriceFooter from "../components/PriceFooter";
     import MainButton from "../components/MainButton";
@@ -79,12 +173,32 @@
             }
         },
         computed: {
+            ...mapState([
+                'activePackage',
+                'packages'
+            ]),
             ...mapGetters([
                 'productsById',
                 'wrappings'
             ]),
             products() {
                 return this.wrappings.products.map(value => this.productsById[value]);
+            },
+            activeWrapping() {
+                return this.packages[this.activePackage].wrapping;
+            },
+            product() {
+                return this.productsById[this.activeWrapping.id];
+            },
+            activeDesign() {
+                let thisDesign;
+
+                this.product.designs.forEach(design => {
+                    if (design.title === this.activeWrapping.selections.Design) {
+                        thisDesign = design;
+                    }
+                });
+                return thisDesign;
             }
         },
         methods: {
@@ -96,7 +210,20 @@
             updateSelectedProduct(index) {
                 this.selectedProductIndex = index;
                 console.log(this.selectedProductIndex);
-            }
+            },
+            allPersonalisations() {
+                let personalisations = {};
+
+                Object.keys(this.product.personalisations).forEach((personalisation) => {
+                    personalisations[personalisation] = this.product.personalisations[personalisation]
+                });
+
+                Object.keys(this.activeDesign.personalisations).forEach(personalisation => {
+                    personalisations[personalisation] = this.activeDesign.personalisations[personalisation];
+                });
+
+                return personalisations
+            },
         }
     }
 </script>
@@ -104,10 +231,7 @@
 <style scoped lang="scss">
 
     .product_option {
-
-        + .product_option {
-            margin: 36px 0;
-        }
+        margin-bottom: 64px;
 
         p {
             margin: 0;
@@ -142,7 +266,7 @@
         margin-bottom: 12px;
     }
 
-    .option_w_dropdown select {
+    select {
         min-width: 100px;
     }
 
@@ -155,6 +279,12 @@
     .continue_button {
         width: 100%;
         margin-top: 48px;
+    }
+
+    input[type = text],
+    textarea {
+        box-sizing: border-box;
+        width: 100%;
     }
 
     @media screen and (min-width: 768px) {
