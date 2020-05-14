@@ -144,7 +144,7 @@
 <style scoped lang="scss">
 
     .main_navigation {
-        background-color: var(--colour-grey-200);
+        background-color: rgba(var(--colour-grey-200), 1);
     }
 
     .main_navigation nav {
@@ -171,14 +171,14 @@
         justify-content: center;
 
         &.selected {
-            background-color: var(--colour-grey-300);
+            background-color: rgba(var(--colourgrey-00), 1);;
             box-shadow: var(--box-shadow-400);
         }
     }
 
     .nav_icon {
         height: 26px;
-        fill: var(--colour-primary-700);
+        fill: rgba(var(--colour-primary-700), 1);
     }
 
     .nav_section_top {
@@ -192,7 +192,7 @@
         width: 100%;
         text-align: center;
         margin-bottom: 12px;
-        color: var(--colour-primary-700);
+        color: rgba(var(--colour-primary-700), 1);
         font-family: var(--font-family-header);
     }
 
@@ -202,7 +202,7 @@
 
     .nav_section_title {
         font-family: var(--font-family-header);
-        color: var(--colour-grey-800);
+        color: rgba(var(--colour-grey-800), 1);
     }
 
     .nav_section_edit {
@@ -241,7 +241,7 @@
         }
 
         .nav_section {
-            border-top: 2px solid var(--colour-primary-200);
+            border-top: 2px solid rgba(var(--colour-primary-200), 1);
             height: fit-content;
             width: 100%;
         }

@@ -48,27 +48,27 @@
 
     :root {
         /* Colour palette */
-        --colour-primary-100: #FCF7F8;
-        --colour-primary-200: #EEE3E7;
-        --colour-primary-300: #E0C1CD;
+        --colour-primary-100: 252, 247, 248;
+        --colour-primary-200: 238, 227, 231;
+        --colour-primary-300: 224, 193, 205;
         --colour-primary-400: 197, 158, 173;
-        --colour-primary-500: #AC7A8E;
-        --colour-primary-600: #906B79;
-        --colour-primary-700: #745762;
-        --colour-primary-800: #563844;
-        --colour-primary-900: #41212E;
+        --colour-primary-500: 172, 122, 142;
+        --colour-primary-600: 144, 107, 121;
+        --colour-primary-700: 116, 87, 98;
+        --colour-primary-800: 86, 56, 68;
+        --colour-primary-900: 65, 33, 46;
 
         --colour-secondary-100: #F9FCFF;
 
         --colour-grey-100: 252, 252, 252;
-        --colour-grey-200: #F5F5F5;
-        --colour-grey-300: #DCDADE;
-        --colour-grey-400: #CBC9CD;
-        --colour-grey-500: #A7A5A9;
-        --colour-grey-600: #89878A;
-        --colour-grey-700: #636363;
-        --colour-grey-800: #303030;
-        --colour-grey-900: #242126;
+        --colour-grey-200: 245, 245, 245;
+        --colour-grey-300: 220, 218, 222;
+        --colour-grey-400: 203, 201, 205;
+        --colour-grey-500: 167, 165, 169;
+        --colour-grey-600: 137, 135, 138;
+        --colour-grey-700: 99, 99, 99;
+        --colour-grey-800: 48, 48, 48;
+        --colour-grey-900: 36, 33, 38;
 
         /* Header font */
         --font-family-header: 'Merriweather', serif;
@@ -103,7 +103,7 @@
     body {
         margin: 0;
         font-family: var(--font-family-primary);
-        color: var(--colour-grey-900);
+        color: rgba(var(--colour-grey-900), 1);
         font-size: var(--font-size-primary);
         background-color: rgba(var(--colour-grey-100), 1);
     }
@@ -128,7 +128,7 @@
     /* General styling */
 
     a {
-        color: var(--colour-primary-600);
+        color: rgba(var(--colour-primary-600), 1);
         text-decoration: underline;
     }
 
@@ -137,7 +137,7 @@
     h3,
     h4 {
         font-family: var(--font-family-header);
-        color: var(--colour-grey-800);
+        color: rgba(var(--colour-grey-800), 1);
     }
 
     h1 {
@@ -212,7 +212,7 @@
     select,
     input,
     textarea {
-        border: 1px solid var(--colour-grey-500);
+        border: 1px solid rgba(var(--colour-grey-500), 1);
         padding: 8px;
     }
 
@@ -221,11 +221,11 @@
     }
 
     hr {
-        border: 1px solid var(--colour-primary-200)
+        border: 1px solid rgba(var(--colour-primary-200), 1);
     }
 
     .basic_icon {
-        fill: var(--colour-primary-600);
+        fill: rgba(var(--colour-primary-600), 1);
         height: 12px;
         margin-left: 4px;
     }

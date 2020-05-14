@@ -112,8 +112,6 @@
 
     .buttons {
         a {
-            flex: 1;
-
             .main_button {
                 width: 100%;
             }
@@ -127,6 +125,14 @@
     @media screen and (min-width: 768px) {
         .popup_box {
             padding: 48px 96px;
+        }
+
+        .buttons {
+            display: flex;
+
+            a {
+                flex: 1;
+            }
         }
     }
 

@@ -35,7 +35,7 @@
 <style scoped lang="scss">
 
     .mobile_content_recap {
-        background-color: var(--colour-grey-200);
+        background-color: rgba(var(--colour-grey-200), 1);
         margin: 36px calc(var(--page-margin)*-1) 48px calc(var(--page-margin)*-1);
         padding: var(--page-margin);
         box-shadow: var(--box-shadow-400);
@@ -48,7 +48,7 @@
 
     svg {
         height: 26px;
-        fill: var(--colour-primary-700);
+        fill: rgba(var(--colour-primary-700), 1);
         margin: 0 12px 0 0;
     }
 

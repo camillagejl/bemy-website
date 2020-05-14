@@ -99,7 +99,7 @@
 
         td {
             &.value {
-                color: var(--colour-grey-700);
+                color: rgba(var(--colour-grey-700), 1);
             }
 
             &.key {

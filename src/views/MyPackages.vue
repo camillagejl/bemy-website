@@ -85,7 +85,7 @@
 <style scoped lang="scss">
 
     h2 {
-        color: var(--colour-primary-500);
+        color: rgba(var(--colour-primary-500), 1);
         margin-top: 24px;
     }
 

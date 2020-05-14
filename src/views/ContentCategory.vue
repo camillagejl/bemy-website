@@ -92,11 +92,11 @@
             font-family: var(--font-family-header);
             font-weight: 700;
             margin: 8px 0 4px 0;
-            color: var(--colour-grey-900);
+            color: rgba(var(--colour-grey-900), 1);
         }
 
         .product_price {
-            color: var(--colour-grey-700);
+            color: rgba(var(--colour-grey-700), 1);
         }
 
     }

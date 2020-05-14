@@ -44,7 +44,7 @@
         display: flex;
         align-items: center;
         margin-top: 12px;
-        color: var(--colour-grey-700);
+        color: rgba(var(--colour-primary-700), 1);
 
         &:before {
             content: '\2022';

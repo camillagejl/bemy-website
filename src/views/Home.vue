@@ -245,7 +245,7 @@
         font-family: var(--font-family-handwriting);
         font-weight: 400;
         font-size: 22px;
-        color: var(--colour-grey-700);
+        color: rgba(var(--colour-grey-700), 1);
         margin: 0;
     }
 
@@ -255,7 +255,7 @@
         align-items: center;
         justify-content: space-around;
         font-family: var(--font-family-header);
-        color: var(--colour-grey-800);
+        color: rgba(var(--colour-grey-800), 1);
         padding: 24px 0;
     }
 
@@ -284,7 +284,7 @@
     }
 
     .infographic_line {
-        background-color: var(--colour-primary-200);
+        background-color: rgba(var(--colour-primary-200), 1);
         margin: 8px 0;
         width: 1px;
         height: 32px;
@@ -324,7 +324,7 @@
         font-family: var(--font-family-handwriting);
         font-weight: 400;
         font-size: 30px;
-        color: var(--colour-grey-700);
+        color: rgba(var(--colour-grey-700), 1);
         margin: 4px 0;
     }
 

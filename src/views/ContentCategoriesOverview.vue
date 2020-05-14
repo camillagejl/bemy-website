@@ -67,8 +67,8 @@
         top: 80%;
         left: 0;
         right: 0;
-        background-color: rgba(var(--colour-grey-100), .8);
-        color: var(--colour-grey-700);
+        background-color: rgba(var(--colour-grey-100), .7);
+        color: rgba(var(--colour-primary-700), 1);
         padding: 8px;
         text-align: center;
     }

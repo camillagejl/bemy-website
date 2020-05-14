@@ -194,7 +194,7 @@
     }
 
     .de_emphasized {
-        background-color: var(--colour-primary-300);
+        background-color: rgba(var(--colour-primary-300), 1);
     }
 
     .rotate_270 {
