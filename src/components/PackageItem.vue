@@ -4,43 +4,27 @@
         <div class="package_item_flex">
 
             <div class="package_item_image relative_image rounded_box">
-                <img src="../assets/placeholders/box-color-2.png">
+                <img
+                :src="product.image">
             </div>
 
             <div class="package_item_info">
-                <h4>Rosa Gaveæske m. bånd</h4>
+                <h4>{{ product.title }}</h4>
 
-                <div class="package_item_grid">
-                    <strong>
-                        Størrelse
-                    </strong>
-                    <p>
-                        Large - L33 x B25 x H11 cm
-                    </p>
-
-                    <strong>
-                        Farve
-                    </strong>
-                    <p>
-                        Rosa
-                    </p>
-
-                    <strong>
-                        Design
-                    </strong>
-                    <p>
-                        I can't say I do without you
-                    </p>
-
-                    <strong>
-                        Tekst til indersiden af låget:
-                    </strong>
-                    <p>
-                        Til min sødeste kusine! Hav en god dag.
-                        Til min sødeste kusine! Hav en god dag.
-                    </p>
-                </div>
-
+                <table>
+                    <tr
+                        v-for="(selection, key) in product.selections"
+                    >
+                        <td class="key">
+                            <strong>
+                                {{ key }}
+                            </strong>
+                        </td>
+                        <td class="value">
+                            {{ selection }}
+                        </td>
+                    </tr>
+                </table>
             </div>
 
         </div>
@@ -74,11 +58,15 @@
         </div>
 
     </div>
+
 </template>
 
 <script>
     export default {
-        name: 'PackageItem'
+        name: 'PackageItem',
+        props: {
+            product: Object
+        }
     }
 </script>
 
@@ -100,14 +88,20 @@
             margin: 0 0 12px 0;
         }
 
-        p {
-            margin: 0 0 12px 0;
-            color: var(--colour-grey-700);
 
-            &:last-child {
-                margin: 0;
+        tr:nth-child(odd) {;
+        }
+
+        td {
+            line-height: 36px;;
+
+            &.value {
+                color: var(--colour-grey-700);
             }
 
+            &.key {
+                padding-right: 24px;
+            }
         }
     }
 
@@ -126,14 +120,6 @@
         }
 
         .package_item_flex {
-            flex: 1;
-        }
-
-        .package_item_grid {
-            margin-top: 12px;
-            display: grid;
-            grid-template-columns: repeat(2, auto);
-            grid-gap: 12px;
             flex: 1;
         }
 

@@ -1,9 +1,8 @@
 <template>
     <div class="main_navigation">
         <nav>
-
             <div class="package_name display_1024">
-                Amanda
+                {{ packages[activePackage].title}}
                 <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="pencil-alt"
                      class="basic_icon svg-inline--fa fa-pencil-alt fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
                      viewBox="0 0 512 512">
@@ -128,10 +127,17 @@
 
 <script>
     import ContentRecapList from "./ContentRecapList";
+    import {mapState} from "vuex";
 
     export default {
         name: 'MainNavigation',
-        components: {ContentRecapList}
+        components: {ContentRecapList},
+        computed: {
+            ...mapState([
+                'activePackage',
+                'packages'
+            ]),
+        }
     }
 </script>
 

@@ -21,8 +21,8 @@ export default new Vuex.Store({
                 displayPrice: '259,95',
                 id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzQ1ODk0MTgxODQ3ODg=',
                 selections: {
-                    Farve: 'Hvid',
-                    Design: 'New York',
+                    Farve: 'Mauve',
+                    Design: 'Pink Flower',
                     Navn: 'Amanda',
                     'Tekst i midten': '',
                     'Tekst i bunden': '06.06.2020',
@@ -33,12 +33,12 @@ export default new Vuex.Store({
         activePackage: 0,
         packages: [
             {
-                title: 'Amanda',
+                title: 'Miranda',
                 price: 359.95,
                 displayPrice: '359,95',
                 wrapping: {
                     title: 'Luksus Gaveæske m. bånd',
-                    image: 'https://cdn.shopify.com/s/files/1/0295/3897/5828/products/1541156180.jpg?v=1589011881', //selectedProduct.images[0]
+                    image: 'https://cdn.shopify.com/s/files/1/0295/3897/5828/products/box-color-2.png?v=1589393085', //selectedProduct.images[0]
                     price: 179.95,
                     displayPrice: '129,95',
                     id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzQ2MDAzOTg3NzQzNTY=',
