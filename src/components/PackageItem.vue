@@ -5,7 +5,7 @@
 
             <div class="package_item_image relative_image rounded_box">
                 <img
-                :src="product.image">
+                    :src="product.image">
             </div>
 
             <div class="package_item_info">
@@ -29,7 +29,9 @@
 
         </div>
 
-        <div class="edit_icons">
+        <div
+            v-if="editButtons === true"
+            class="edit_icons">
 
             <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="trash-alt"
                  class="basic_icon svg-inline--fa fa-trash-alt fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +67,8 @@
     export default {
         name: 'PackageItem',
         props: {
-            product: Object
+            product: Object,
+            editButtons: Boolean
         }
     }
 </script>
@@ -88,13 +91,13 @@
             margin: 0 0 12px 0;
         }
 
-
-        tr:nth-child(odd) {;
+        tr {
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 12px;
         }
 
         td {
-            line-height: 36px;;
-
             &.value {
                 color: var(--colour-grey-700);
             }
@@ -129,6 +132,11 @@
             p {
                 display: inline-block;
             }
+        }
+
+        tr {
+            display: table-row!important;
+            line-height: 36px;
         }
     }
 

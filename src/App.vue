@@ -51,7 +51,7 @@
         --colour-primary-100: #FCF7F8;
         --colour-primary-200: #EEE3E7;
         --colour-primary-300: #E0C1CD;
-        --colour-primary-400: #C59EAD;
+        --colour-primary-400: 197, 158, 173;
         --colour-primary-500: #AC7A8E;
         --colour-primary-600: #906B79;
         --colour-primary-700: #745762;
@@ -255,6 +255,14 @@
         display: none;
     }
 
+    .display_768 {
+        display: none;
+    }
+
+    .hide_768 {
+        display: block;
+    }
+
     .inline {
         display: inline-block;
     }
@@ -264,6 +272,14 @@
     @media screen and (min-width: 768px) {
         h1 {
             font-size: 36px;
+        }
+
+        .display_768 {
+            display: block;
+        }
+
+        .hide_768 {
+            display: none;
         }
     }
 

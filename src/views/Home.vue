@@ -279,7 +279,7 @@
         svg {
             height: 100%;
             width: 100%;
-            fill: var(--colour-primary-400);
+            fill: rgba(var(--colour-primary-400), 1);
         }
     }
 

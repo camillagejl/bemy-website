@@ -110,6 +110,21 @@
         </span>
 
         <span
+            class="button_icon"
+            v-if="icon === 'boxes'"
+            >
+            <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="boxes" class="svg-inline--fa fa-boxes fa-w-18"
+                 role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+    <g class="fa-group">
+        <path class="fa-secondary" fill="currentColor"
+              d="M480 288v96l-32-21.3-32 21.3v-96zM320 0v96l-32-21.3L256 96V0zM160 288v96l-32-21.3L96 384v-96z"></path>
+        <path class="fa-primary" fill="currentColor"
+              d="M560 288h-80v96l-32-21.3-32 21.3v-96h-80a16 16 0 0 0-16 16v192a16 16 0 0 0 16 16h224a16 16 0 0 0 16-16V304a16 16 0 0 0-16-16zm-384-64h224a16 16 0 0 0 16-16V16a16 16 0 0 0-16-16h-80v96l-32-21.3L256 96V0h-80a16 16 0 0 0-16 16v192a16 16 0 0 0 16 16zm64 64h-80v96l-32-21.3L96 384v-96H16a16 16 0 0 0-16 16v192a16 16 0 0 0 16 16h224a16 16 0 0 0 16-16V304a16 16 0 0 0-16-16z" opacity="0.4"></path>
+    </g>
+</svg>
+        </span>
+
+        <span
             class="button_icon rotate_270"
             v-if="icon === 'arrow_right'"
         >
@@ -175,7 +190,7 @@
     }
 
     .emphasized {
-        background-color: var(--colour-primary-400);
+        background-color: rgba(var(--colour-primary-400), 1);
     }
 
     .de_emphasized {

@@ -77,7 +77,7 @@
 
     .header_line {
         height: 3px;
-        background-color: var(--colour-primary-400);
+        background-color: rgba(var(--colour-primary-400), 1);
     }
 
     .header_logo {

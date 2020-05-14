@@ -26,7 +26,7 @@
                         <h2>
                             Beskrivelse
                         </h2>
-                        <div v-html="products[selectedProductIndex].description"></div>
+                        <div v-html="product.description"></div>
                     </div>
                 </section>
 
@@ -144,12 +144,17 @@
             </div>
 
             <div class="continue_button_container">
+
+                <router-link
+                    :to="{ name: 'ContentCategoriesOverview' }"
+                >
                 <MainButton
                     class="continue_button"
                     :emph="true"
                     :text="'Tilføj indhold'"
                     :icon="'arrow_right'"
                 />
+                </router-link>
             </div>
 
             <PriceFooter
@@ -345,6 +350,10 @@
         .continue_button_container {
             display: flex;
             justify-content: flex-end;
+
+            a {
+                text-decoration: none;
+            }
         }
 
         .continue_button {

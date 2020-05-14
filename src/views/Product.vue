@@ -18,6 +18,8 @@
                         :myDesignImages="myDesignImages()"
                     />
 
+<!--  -->
+
                     <div class="description display_1024">
                         <h2>
                             Beskrivelse
@@ -163,6 +165,12 @@
 
         </div>
 
+<!-- Popups on button click -->
+
+        <ProductPopup
+        :product="activeProduct"
+        />
+
     </div>
 </template>
 
@@ -171,10 +179,11 @@
     import {mapGetters, mapState} from "vuex";
     import ProductOptionWImages from "../components/ProductOptionWImages";
     import MainButton from "../components/MainButton";
+    import ProductPopup from "../components/ProductPopup";
 
     export default {
         name: 'Product',
-        components: {MainButton, ProductOptionWImages, ProductGallery},
+        components: {ProductPopup, MainButton, ProductOptionWImages, ProductGallery},
         props: {
             productId: String
         },

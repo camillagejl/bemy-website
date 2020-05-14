@@ -126,7 +126,7 @@
         font-size: 14px;
 
         &.selected {
-            background-color: var(--colour-primary-400);
+            background-color: rgba(var(--colour-primary-400), 1);
         }
     }
 
