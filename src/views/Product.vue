@@ -228,7 +228,8 @@
 
                 Object.keys(this.product.options).forEach(optionKey => {
 
-                    const imageObjects = this.optionImages(this.product.variants);
+                    const imageObjects = this.optionImages(this.product.variants, optionKey);
+                    console.log("imageObjects", imageObjects);
 
                     imageObjects.forEach(imageObject => {
 
