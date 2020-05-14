@@ -18,7 +18,7 @@
                         :myDesignImages="myDesignImages()"
                     />
 
-<!--  -->
+                    <!--  -->
 
                     <div class="description display_1024">
                         <h2>
@@ -148,6 +148,7 @@
                                 :emph="true"
                                 :text="'Tilføj til denne pakke'"
                                 :icon="'plus'"
+                                @click="displayAddedToPackage = true"
                             />
 
                             <MainButton
@@ -165,10 +166,20 @@
 
         </div>
 
-<!-- Popups on button click -->
-
+        <!-- Popup when adding to one package -->
         <ProductPopup
-        :product="activeProduct"
+            v-if="displayAddedToPackage"
+            :product="activeProduct"
+            :headline="'Produktet er tilføjet til din pakke'"
+            :popupType="'addedToPackage'"
+        />
+
+        <!-- Popup when adding to multiple packages -->
+        <ProductPopup
+            v-if="displayAddToPackages"
+            :product="activeProduct"
+            :headline="'Tilføj produkt til dine pakker'"
+            :popupType="'addToPackages'"
         />
 
     </div>
@@ -184,6 +195,12 @@
     export default {
         name: 'Product',
         components: {ProductPopup, MainButton, ProductOptionWImages, ProductGallery},
+        data() {
+            return {
+                displayAddedToPackage: false,
+                displayAddToPackages: true
+            }
+        },
         props: {
             productId: String
         },

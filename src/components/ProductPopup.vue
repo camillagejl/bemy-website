@@ -3,7 +3,7 @@
         <div class="popup_dim">
             <div class="popup_box rounded_box">
                 <h2>
-                    Produktet er tilføjet til din pakke
+                    {{ headline }}
                 </h2>
 
                 <!-- Shows product image on smaller screens -->
@@ -13,14 +13,36 @@
                     >
                 </div>
 
-                <!-- Shows package item on bigger screens -->
+                <!-- Shows product item on bigger screens -->
                 <PackageItem
                     class="display_768"
                     :product="product"
                     :editButtons="false"
                 />
 
-                <div class="buttons">
+                <!-- Shows packages to add the product to -->
+
+                <section
+                    v-if="popupType === 'addToPackages'"
+                    class="add_to_packages"
+                >
+
+                    <h3>Tilføj til pakker:</h3>
+
+                    <label
+                        class="package_title"
+                        v-for="pack in packages"
+                    >
+                        <input type="checkbox"> {{ pack.title }}
+                    </label>
+
+                </section>
+
+                <!-- Buttons for popup when added to package(s)-->
+                <div
+                    v-if="popupType === 'addedToPackage' || popupType === 'addedToPackages'"
+                    class="buttons"
+                >
                     <router-link
                         :to="{ name: 'MyPackages' }"
                     >
@@ -41,6 +63,32 @@
                         />
                     </router-link>
                 </div>
+
+                <!-- Buttons for popup when adding to several packages-->
+                <div
+                    v-if="popupType === 'addToPackages'"
+                    class="buttons"
+                >
+                    <router-link
+                        :to="{ name: 'MyPackages' }"
+                    >
+                        <MainButton
+                            :emph="false"
+                            :text="'Gå tilbage uden at tilføje'"
+                            :icon="'arrow_left'"
+                        />
+                    </router-link>
+
+                    <router-link
+                        :to="{ name: 'MyPackages' }"
+                    >
+                        <MainButton
+                            :emph="true"
+                            :text="'Tilføj til pakker'"
+                            :icon="'arrow_right'"
+                        />
+                    </router-link>
+                </div>
             </div>
         </div>
     </div>
@@ -49,12 +97,20 @@
 <script>
     import PackageItem from "./PackageItem";
     import MainButton from "./MainButton";
+    import {mapState} from "vuex";
 
     export default {
         name: 'ProductPopup',
         components: {MainButton, PackageItem},
         props: {
-            product: Object
+            product: Object,
+            headline: String,
+            popupType: String,
+        },
+        computed: {
+            ...mapState([
+                'packages'
+            ]),
         }
     }
 </script>
@@ -110,7 +166,22 @@
         margin-bottom: 48px;
     }
 
+    h3 {
+        font-weight: 600;
+    }
+
+    .add_to_packages {
+        color: rgba(var(--colour-grey-700), 1)
+    }
+
+    .package_title {
+        display: block;
+        margin-bottom: 12px;
+    }
+
     .buttons {
+        margin-top: 48px;
+
         a {
             .main_button {
                 width: 100%;
