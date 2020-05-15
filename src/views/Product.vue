@@ -182,6 +182,14 @@
             :popupType="'addToPackages'"
         />
 
+        <!-- Popup when added to multiple packages -->
+        <ProductPopup
+            v-if="displayAddedToPackages"
+            :product="activeProduct"
+            :headline="'Produktet er tilføjet til dine pakker'"
+            :popupType="'addedToPackages'"
+        />
+
     </div>
 </template>
 
@@ -198,7 +206,8 @@
         data() {
             return {
                 displayAddedToPackage: false,
-                displayAddToPackages: true
+                displayAddToPackages: false,
+                displayAddedToPackages: true
             }
         },
         props: {

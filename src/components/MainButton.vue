@@ -225,11 +225,14 @@
         background-color: rgba(var(--colour-primary-300), 1);
     }
 
+    /* For arrow right */
     .rotate_270 {
         transform: rotate(270deg);
     }
 
+    /* For arrow left */
     .rotate_90 {
         transform: rotate(90deg);
+        margin-right: 8px;
     }
 </style>

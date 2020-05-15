@@ -38,6 +38,22 @@
 
                 </section>
 
+                    <!-- Shows packages the product has been added to -->
+
+                    <section
+                        v-if="popupType === 'addedToPackages'"
+                        class="add_to_packages"
+                    >
+
+                        <div
+                            class="package_title"
+                            v-for="pack in packages"
+                        >
+                            &#10003; {{ pack.title }}
+                        </div>
+
+                </section>
+
                 <!-- Buttons for popup when added to package(s)-->
                 <div
                     v-if="popupType === 'addedToPackage' || popupType === 'addedToPackages'"
