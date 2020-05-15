@@ -97,7 +97,9 @@
                                     type="text"
                                     :maxlength="personalisation.characterMax"
                                     :placeholder="personalisation.placeholder"
+                                    :name="key"
                                     :value="activeProduct.selections[personalisation.key]"
+                                    @input="updateSelectionValueInStore"
                                 >
 
                                 <textarea
@@ -148,13 +150,14 @@
                                 :emph="true"
                                 :text="'Tilføj til denne pakke'"
                                 :icon="'plus'"
-                                @click="displayAddedToPackage = true"
+                                @click.native="displayAddedToPackage = true"
                             />
 
                             <MainButton
                                 :emph="false"
                                 :text="'Tilføj til flere pakker'"
                                 :icon="'plus-plus'"
+                                @click.native="displayAddToPackages = true"
                             />
                         </div>
 
@@ -195,10 +198,10 @@
 
 <script>
     import ProductGallery from "../components/ProductGallery";
-    import {mapGetters, mapState} from "vuex";
+    import {mapGetters, mapMutations, mapState} from "vuex";
     import ProductOptionWImages from "../components/ProductOptionWImages";
     import MainButton from "../components/MainButton";
-    import ProductPopup from "../components/ProductPopup";
+    import ProductPopup from "../components/Popup";
 
     export default {
         name: 'Product',
@@ -207,7 +210,7 @@
             return {
                 displayAddedToPackage: false,
                 displayAddToPackages: false,
-                displayAddedToPackages: true
+                displayAddedToPackages: false
             }
         },
         props: {
@@ -224,20 +227,36 @@
                 return this.productsById[this.productId];
             },
             activeProduct() {
-                return this.activeProducts[this.productId];
+                let activeProduct = this.activeProducts[this.productId];
+                if (!activeProduct) {
+                    console.log("logging", this.productId);
+                    this.addActiveProductFromProductId( {productId: this.productId });
+                    activeProduct = this.activeProducts[this.productId];
+                }
+                return activeProduct;
             },
             activeDesign() {
                 let thisDesign;
 
-                this.product.designs.forEach(design => {
-                    if (design.title === this.activeProduct.selections.Design) {
-                        thisDesign = design;
-                    }
-                });
+                if (this.product.designs) {
+                    this.product.designs.forEach(design => {
+                        if (design.title === this.activeProduct.selections.Design) {
+                            thisDesign = design;
+                        }
+                    });
+                }
                 return thisDesign;
             }
         },
         methods: {
+            ...mapMutations([
+                'addActiveProductFromProductId',
+                'updateSelectionValue'
+            ]),
+            updateSelectionValueInStore (e) {
+                this.updateSelectionValue({productId: this.productId, value: e.target.value, name: e.target.name });
+
+            },
             optionImages(variants, key) {
                 return variants.filter((obj, pos, arr) => {
                     return arr.map(mapObj => mapObj[key]).indexOf(obj[key]) === pos;
@@ -251,9 +270,11 @@
                     personalisations[personalisation] = this.product.personalisations[personalisation]
                 });
 
-                Object.keys(this.activeDesign.personalisations).forEach(personalisation => {
-                    personalisations[personalisation] = this.activeDesign.personalisations[personalisation];
-                });
+                if (this.activeDesign) {
+                    Object.keys(this.activeDesign.personalisations).forEach(personalisation => {
+                        personalisations[personalisation] = this.activeDesign.personalisations[personalisation];
+                    });
+                }
 
                 return personalisations
             },
@@ -275,11 +296,13 @@
                     })
                 });
 
-                this.product.designs.forEach(design => {
-                    if (design.title === this.activeProduct.selections.Design) {
-                        images.push(design.image);
-                    }
-                });
+                if (this.product.designs) {
+                    this.product.designs.forEach(design => {
+                        if (design.title === this.activeProduct.selections.Design) {
+                            images.push(design.image);
+                        }
+                    });
+                }
 
                 return images;
             }

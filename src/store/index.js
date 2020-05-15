@@ -181,6 +181,72 @@ export default new Vuex.Store({
         setCollections(state, payload) {
             state.collections = payload.collections;
         },
+        addActiveProductFromProductId(state, payload) {
+            const product = _.find(state.products, ['id', payload.productId]);
+            state.activeProducts[payload.productId] = {
+                title: product.title,
+                image: product.images[0],
+                price: product.price,
+                displayPrice: product.displayPrice,
+                id: product.id,
+                selections: {
+                }
+            };
+
+            Object.keys(product.options).forEach(option => {
+                console.log(option);
+                if (product.options[option][0] !== 'Default Title') {
+                state.activeProducts[payload.productId].selections[option] = product.options[option][0]
+                }
+            });
+
+            if (product.personalisations) {
+                Object.keys(product.personalisations).forEach(personalisation => {
+
+                    if (
+                        product.personalisations[personalisation].type === 'line_text' ||
+                        product.personalisations[personalisation].type === 'multiline_text' ||
+                        product.personalisations[personalisation].type === 'date' ||
+                        product.personalisations[personalisation].type === 'number'
+                    ) {
+                        state.activeProducts[payload.productId].selections[personalisation] = ''
+                    }
+
+                    if (product.personalisations[personalisation].type === 'dropdown') {
+                        state.activeProducts[payload.productId].selections[personalisation] = product.personalisations[personalisation].selectOptions[0];
+                    }
+
+                });
+            }
+
+
+            if (product.designs) {
+                state.activeProducts[payload.productId].selections.Design = product.designs[0].title;
+
+                Object.keys(product.designs[0].personalisations).forEach(personalisation => {
+                    state.activeProducts[payload.productId].selections[personalisation] = '';
+
+
+                    if (
+                        product.designs[0].personalisations[personalisation].type === 'line_text' ||
+                        product.designs[0].personalisations[personalisation].type === 'multiline_text' ||
+                        product.designs[0].personalisations[personalisation].type === 'date' ||
+                        product.designs[0].personalisations[personalisation].type === 'number'
+                    ) {
+                        state.activeProducts[payload.productId].selections[personalisation] = '';
+                    }
+
+                    if (product.designs[0].personalisations[personalisation].type === 'dropdown') {
+                        state.activeProducts[payload.productId].selections[personalisation] = product.personalisations[personalisation].selectOptions[0];
+                    }
+
+                });
+
+            }
+        },
+        updateSelectionValue(state, payload) {
+            state.activeProducts[payload.productId].selections[payload.name] = payload.value;
+        },
     },
     actions: {
         fetchProducts(context) {

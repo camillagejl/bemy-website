@@ -25,6 +25,12 @@
                         </td>
                     </tr>
                 </table>
+
+                <div class="product_price">
+                    <strong>
+                        {{ product.displayPrice }} kr
+                    </strong>
+                </div>
             </div>
 
         </div>
@@ -94,6 +100,7 @@
     }
 
     .package_item_info {
+        position: relative;
         flex: 3;
         margin-left: 12px;
 
@@ -119,7 +126,8 @@
     }
 
     .edit_icons {
-        text-align: center;
+        display: flex;
+        justify-content: center;
 
         .basic_icon {
             height: 24px;
@@ -129,6 +137,10 @@
 
     .delete_button svg {
         fill: rgba(var(--colour-primary-500), 1)
+    }
+
+    .product_price {
+        text-align: right;
     }
 
     @media screen and (min-width: 1024px) {
@@ -150,6 +162,17 @@
 
         tr {
             display: table-row !important;
+            line-height: 36px;
+        }
+
+        .edit_icons {
+            flex-direction: column;
+        }
+
+        .product_price {
+            position: absolute;
+            bottom: 0;
+            right: 0;
             line-height: 36px;
         }
     }
