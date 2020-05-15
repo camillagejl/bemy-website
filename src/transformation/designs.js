@@ -10,7 +10,7 @@ export function createDesignData(allRawProducts) {
     rawDesigns.forEach(design => {
 
         const thisDesign = {
-            title: design.node.selectedOptions[0].value,
+            Design: design.node.selectedOptions[0].value,
             id: design.node.id,
             image: design.node.image.originalSrc,
             personalisations: createPersonalisations(design.node.metafields.edges) // imported from products.js

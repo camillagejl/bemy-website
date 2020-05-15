@@ -13,23 +13,7 @@ export default new Vuex.Store({
         products: [],
         collections: [],
         designs: [],
-        activeProducts: {
-            'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzQ1ODk0MTgxODQ3ODg=': {
-                title: 'Personlig Kimono',
-                image: 'https://cdn.shopify.com/s/files/1/0295/3897/5828/products/1541156180.jpg?v=1589011881', //images[0]
-                price: 259.95,
-                displayPrice: '259,95',
-                id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzQ1ODk0MTgxODQ3ODg=',
-                selections: {
-                    Farve: 'Mauve',
-                    Design: 'Pink Flower',
-                    Navn: 'Amanda',
-                    'Tekst i midten': '',
-                    'Tekst i bunden': '06.06.2020',
-                    'Mock navn': 'Something I\'ve written here!'
-                }
-            }
-        },
+        activeProducts: {},
         activePackage: 0,
         packages: [
             {
@@ -133,6 +117,9 @@ export default new Vuex.Store({
         productsById: (state, getters) => {
             return _.keyBy(getters.computedProducts, 'id');
         },
+        getActiveProductById: (state, getters) => (id) => {
+            return state.activeProducts[id] || null;
+        },
         designsById: (state, getters) => {
             return _.keyBy(state.designs, 'id');
         },
@@ -183,7 +170,7 @@ export default new Vuex.Store({
         },
         addActiveProductFromProductId(state, payload) {
             const product = _.find(state.products, ['id', payload.productId]);
-            state.activeProducts[payload.productId] = {
+            let activeProduct = {
                 title: product.title,
                 image: product.images[0],
                 price: product.price,
@@ -196,7 +183,7 @@ export default new Vuex.Store({
             Object.keys(product.options).forEach(option => {
                 console.log(option);
                 if (product.options[option][0] !== 'Default Title') {
-                state.activeProducts[payload.productId].selections[option] = product.options[option][0]
+                activeProduct.selections[option] = product.options[option][0]
                 }
             });
 
@@ -209,11 +196,11 @@ export default new Vuex.Store({
                         product.personalisations[personalisation].type === 'date' ||
                         product.personalisations[personalisation].type === 'number'
                     ) {
-                        state.activeProducts[payload.productId].selections[personalisation] = ''
+                        activeProduct.selections[personalisation] = ''
                     }
 
                     if (product.personalisations[personalisation].type === 'dropdown') {
-                        state.activeProducts[payload.productId].selections[personalisation] = product.personalisations[personalisation].selectOptions[0];
+                        activeProduct.selections[personalisation] = product.personalisations[personalisation].selectOptions[0];
                     }
 
                 });
@@ -221,10 +208,10 @@ export default new Vuex.Store({
 
 
             if (product.designs) {
-                state.activeProducts[payload.productId].selections.Design = product.designs[0].title;
+                activeProduct.selections.Design = product.designs[0].Design;
 
                 Object.keys(product.designs[0].personalisations).forEach(personalisation => {
-                    state.activeProducts[payload.productId].selections[personalisation] = '';
+                    activeProduct.selections[personalisation] = '';
 
 
                     if (
@@ -233,19 +220,25 @@ export default new Vuex.Store({
                         product.designs[0].personalisations[personalisation].type === 'date' ||
                         product.designs[0].personalisations[personalisation].type === 'number'
                     ) {
-                        state.activeProducts[payload.productId].selections[personalisation] = '';
+                        activeProduct.selections[personalisation] = '';
                     }
 
                     if (product.designs[0].personalisations[personalisation].type === 'dropdown') {
-                        state.activeProducts[payload.productId].selections[personalisation] = product.personalisations[personalisation].selectOptions[0];
+                        activeProduct.selections[personalisation] = product.personalisations[personalisation].selectOptions[0];
                     }
 
                 });
 
             }
+
+            Vue.set(state.activeProducts, payload.productId, activeProduct);
         },
-        updateSelectionValue(state, payload) {
-            state.activeProducts[payload.productId].selections[payload.name] = payload.value;
+        updateInputSelectionValue(state, payload) {
+            Vue.set(state.activeProducts[payload.productId].selections, payload.name, payload.value);
+        },
+        updateImageSelectionValue(state, payload) {
+            console.log(payload.productId, payload.name, payload.value);
+            Vue.set(state.activeProducts[payload.productId].selections, payload.name, payload.value);
         },
     },
     actions: {

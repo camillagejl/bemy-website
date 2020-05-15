@@ -10,7 +10,7 @@
                 <div
                     v-for="(variant, index) in optionImages"
                     class="images_container"
-                    @click="$emit('updateSelectedProduct', index)"
+                    @click="updateImageSelectionValueInStore(optionKey, variant[optionKey])"
                 >
                     <div
                         class="option_image relative_image rounded_box"
@@ -36,12 +36,29 @@
 </template>
 
 <script>
+    import {mapMutations, mapState} from "vuex";
+
     export default {
         name: 'ProductOptionWImages',
         props: {
             selectedOption: String,
             optionKey: String,
-            optionImages: Array
+            optionImages: Array,
+            productId: String
+        },
+        computed: {
+            ...mapState([
+                'activeProducts'
+            ]),
+        },
+        methods: {
+            ...mapMutations([
+                'updateImageSelectionValue'
+            ]),
+            updateImageSelectionValueInStore(key, option) {
+                console.log(this.productId);
+                this.updateImageSelectionValue({productId: this.productId, value: option, name: key});
+            }
         }
     }
 </script>

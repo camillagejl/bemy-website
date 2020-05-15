@@ -8,6 +8,7 @@
                 Inspiration
             </div>
             <div
+                v-if="designTab"
                 @click="changeTabs(myDesignImages)"
                 class="gallery_tab">
                 Mit design
@@ -60,6 +61,7 @@
         props: {
             images: Array,
             myDesignImages: Array,
+            designTab: Boolean,
         },
         data() {
             return {
@@ -109,21 +111,24 @@
     }
 
     .gallery_tabs {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-gap: 4px;
+        display: flex;
         margin-bottom: 4px;
         padding-right: 4px;
     }
 
     .gallery_tab {
         background-color: rgba(var(--colour-primary-300), 1);
+        flex: 1;
         color: white;
         text-align: center;
         padding: 4px;
         border-radius: 5px 5px 0 0;
         font-weight: 300;
         font-size: 14px;
+
+        + .gallery_tab {
+            margin-left: 4px;
+        }
 
         &.selected {
             background-color: rgba(var(--colour-primary-400), 1);

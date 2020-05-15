@@ -16,6 +16,7 @@
                     <ProductGallery
                         :images="product.images"
                         :myDesignImages="myDesignImages()"
+                        :designTab="hasOptionImages"
                     />
 
                     <!--  -->
@@ -62,6 +63,7 @@
                             :selectedOption="activeProduct.selections[key]"
                             :optionKey="key"
                             :optionImages="optionImages(product.variants, key)"
+                            :productId="product.id"
                         />
 
                         <!-- Designs -->
@@ -70,6 +72,7 @@
                             :selectedOption="activeProduct.selections.Design"
                             :optionKey="'Design'"
                             :optionImages="product.designs"
+                            :productId="product.id"
                         />
 
 
@@ -99,27 +102,36 @@
                                     :placeholder="personalisation.placeholder"
                                     :name="key"
                                     :value="activeProduct.selections[personalisation.key]"
-                                    @input="updateSelectionValueInStore"
+                                    @input="updateInputSelectionValueInStore"
                                 >
 
                                 <textarea
                                     v-if="personalisation.type === 'multiline_text'"
                                     :maxlength="personalisation.characterMax"
                                     :placeholder="personalisation.placeholder"
+                                    :name="key"
+                                    :value="activeProduct.selections[personalisation.key]"
+                                    @input="updateInputSelectionValueInStore"
                                 ></textarea>
 
                                 <input
                                     v-if="personalisation.type === 'number'"
                                     type="number"
+                                    :name="key"
+                                    :value="activeProduct.selections[personalisation.key]"
+                                    @input="updateInputSelectionValueInStore"
                                 >
 
                                 <select
                                     v-if="personalisation.type === 'dropdown'"
                                     class="product_option option_w_dropdown"
+                                    :name="key"
+                                    :value="activeProduct.selections[personalisation.key]"
+                                    @input="updateInputSelectionValueInStore"
                                 >
                                     <option
                                         v-for="value in personalisation.selectOptions"
-                                        value="value"
+                                        :value="value"
                                     >
                                         {{ value }}
                                     </option>
@@ -221,17 +233,17 @@
                 'activeProducts'
             ]),
             ...mapGetters([
-                'productsById'
+                'productsById',
+                'getActiveProductById'
             ]),
             product() {
                 return this.productsById[this.productId];
             },
             activeProduct() {
-                let activeProduct = this.activeProducts[this.productId];
+                let activeProduct = this.getActiveProductById(this.productId);
                 if (!activeProduct) {
-                    console.log("logging", this.productId);
-                    this.addActiveProductFromProductId( {productId: this.productId });
-                    activeProduct = this.activeProducts[this.productId];
+                    this.addActiveProductFromProductId({productId: this.productId});
+                    activeProduct = this.getActiveProductById(this.productId);
                 }
                 return activeProduct;
             },
@@ -240,22 +252,27 @@
 
                 if (this.product.designs) {
                     this.product.designs.forEach(design => {
-                        if (design.title === this.activeProduct.selections.Design) {
-                            thisDesign = design;
+                        if (design.Design === this.activeProduct.selections.Design) {
+                            thisDesign = design
                         }
                     });
                 }
                 return thisDesign;
+            },
+            hasOptionImages() {
+                if (this.product.designs || this.product.optionsWithImages.length > 0) {
+                    return true;
+                }
             }
         },
         methods: {
             ...mapMutations([
                 'addActiveProductFromProductId',
-                'updateSelectionValue'
+                'updateInputSelectionValue',
+                'updateImageSelectionValue'
             ]),
-            updateSelectionValueInStore (e) {
-                this.updateSelectionValue({productId: this.productId, value: e.target.value, name: e.target.name });
-
+            updateInputSelectionValueInStore(e) {
+                this.updateInputSelectionValue({productId: this.productId, value: e.target.value, name: e.target.name});
             },
             optionImages(variants, key) {
                 return variants.filter((obj, pos, arr) => {
@@ -289,7 +306,9 @@
 
                     imageObjects.forEach(imageObject => {
 
-                        if (this.activeProduct.selections[optionKey] === imageObject[optionKey]) {
+                        if (
+                            this.activeProduct.selections[optionKey] === imageObject[optionKey] &&
+                            this.product.optionsWithImages.includes(optionKey)) {
                             images.push(imageObject.image);
                         }
 
@@ -298,7 +317,7 @@
 
                 if (this.product.designs) {
                     this.product.designs.forEach(design => {
-                        if (design.title === this.activeProduct.selections.Design) {
+                        if (design.Design === this.activeProduct.selections.Design) {
                             images.push(design.image);
                         }
                     });
