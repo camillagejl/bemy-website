@@ -228,6 +228,7 @@
         fill: rgba(var(--colour-primary-600), 1);
         height: 12px;
         margin-left: 4px;
+        cursor: pointer;
     }
 
     /* Components */

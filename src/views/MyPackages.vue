@@ -31,6 +31,8 @@
 
                 <PackageItem
                 :product="packages[activePackage].wrapping"
+                :editButton="true"
+                :deleteButton="false"
                 />
             </div>
 
@@ -43,6 +45,8 @@
                 <PackageItem
                     v-for="product in packages[activePackage].products"
                     :product="product"
+                    :editButton="true"
+                    :deleteButton="true"
                 />
             </div>
 
