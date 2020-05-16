@@ -45,10 +45,14 @@
                                 <strong class="line_break">
                                     {{ key }}:
                                 </strong>
-                                <select>
+                                <select
+                                    :name="key"
+                                    :value="activeProduct.selections[key]"
+                                    @input="updateInputSelectionValueInStore"
+                                >
                                     <option
                                         v-for="value in option"
-                                        value="value"
+                                        :value="value"
                                     >
                                         {{ value }}
                                     </option>
@@ -157,7 +161,10 @@
                             </strong>
                         </div>
 
-                        <div class="add_buttons">
+                        <div
+                            v-if="isVariantAvailable"
+                                class="add_buttons"
+                        >
                             <MainButton
                                 :emph="true"
                                 :text="'Tilføj til denne pakke'"
@@ -171,6 +178,13 @@
                                 :icon="'plus-plus'"
                                 @click.native="displayAddToPackages = true"
                             />
+                        </div>
+
+                        <div
+                            v-else
+                            class="not_available rounded_box"
+                        >
+                            Denne variant er ikke tilgælgelig
                         </div>
 
                     </div>
@@ -263,6 +277,34 @@
                 if (this.product.designs || this.product.optionsWithImages.length > 0) {
                     return true;
                 }
+            },
+            isVariantAvailable() {
+                const variantsMatching = [];
+                let isVariant;
+
+                this.product.variants.forEach(variant => {
+                    const variantMatches = [];
+
+                    Object.keys(this.product.options).forEach(optionKey => {
+
+                        if (variant[optionKey] === this.activeProduct.selections[optionKey]) {
+                            variantMatches.push(true)
+                        } else {
+                            variantMatches.push(false);
+                        }
+                    });
+
+                    if (variantMatches.includes(false)) {
+                        variantsMatching.push(false);
+                    } else {
+                        variantsMatching.push(true);
+                    }
+
+                    isVariant = variantsMatching.includes(true);
+
+                });
+
+                return isVariant;
             }
         },
         methods: {
@@ -374,6 +416,13 @@
         .main_button {
             width: 100%;
         }
+    }
+
+    .not_available {
+        margin-top: 24px;
+        background-color: rgba(var(--colour-grey-300), 1);
+        text-align: center;
+        padding: 12px;
     }
 
     @media screen and (min-width: 768px) {
