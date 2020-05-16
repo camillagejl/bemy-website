@@ -20,20 +20,20 @@ export default new Vuex.Store({
                 title: 'Miranda',
                 price: 359.95,
                 displayPrice: '359,95',
-                wrapping: {
-                    title: 'Luksus Gaveæske m. bånd',
-                    image: 'https://cdn.shopify.com/s/files/1/0295/3897/5828/products/box-color-2.png?v=1589393085', //selectedProduct.images[0]
-                    price: 179.95,
-                    displayPrice: '129,95',
-                    id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzQ2MDAzOTg3NzQzNTY=',
-                    selections: {
-                        Farve: 'Rosa',
-                        Design: 'Will you be my bridesmaid?',
-                        Navn: 'Amanda',
-                        'Lille tekst': 'Pedersen',
-                        'Tekst til indersiden af låget': 'Vil du være min brudepige?',
-                    }
-                },
+                // wrapping: {
+                //     // title: 'Luksus Gaveæske m. bånd',
+                //     // image: 'https://cdn.shopify.com/s/files/1/0295/3897/5828/products/box-color-2.png?v=1589393085', //selectedProduct.images[0]
+                //     // price: 179.95,
+                //     // displayPrice: '129,95',
+                //     // id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzQ2MDAzOTg3NzQzNTY=',
+                //     // selections: {
+                //     //     Farve: 'Rosa',
+                //     //     Design: 'Will you be my bridesmaid?',
+                //     //     Navn: 'Amanda',
+                //     //     'Lille tekst': 'Pedersen',
+                //     //     'Tekst til indersiden af låget': 'Vil du være min brudepige?',
+                //     // }
+                // },
                 products: [
                     {
                         title: 'Personlig Kimono',
@@ -63,7 +63,7 @@ export default new Vuex.Store({
                         }
                     }
                 ]
-            },{
+            }, {
                 title: 'Miranda',
                 price: 359.95,
                 displayPrice: '359,95',
@@ -170,20 +170,20 @@ export default new Vuex.Store({
         },
         addActiveProductFromProductId(state, payload) {
             const product = _.find(state.products, ['id', payload.productId]);
+
             let activeProduct = {
                 title: product.title,
                 image: product.images[0],
                 price: product.price,
                 displayPrice: product.displayPrice,
                 id: product.id,
-                selections: {
-                }
+                selections: {}
             };
 
             Object.keys(product.options).forEach(option => {
                 console.log(option);
                 if (product.options[option][0] !== 'Default Title') {
-                activeProduct.selections[option] = product.options[option][0]
+                    activeProduct.selections[option] = product.options[option][0]
                 }
             });
 
@@ -231,13 +231,15 @@ export default new Vuex.Store({
 
             }
 
-            Vue.set(state.activeProducts, payload.productId, activeProduct);
+            if (payload.type === 'product') {
+                Vue.set(state.activeProducts, payload.productId, activeProduct);
+            }
+
+            if (payload.type === 'wrapping') {
+                Vue.set(state.packages[state.activePackage], 'wrapping', activeProduct);
+            }
         },
-        updateInputSelectionValue(state, payload) {
-            Vue.set(state.activeProducts[payload.productId].selections, payload.name, payload.value);
-        },
-        updateImageSelectionValue(state, payload) {
-            console.log(payload.productId, payload.name, payload.value);
+        updateSelectionValue(state, payload) {
             Vue.set(state.activeProducts[payload.productId].selections, payload.name, payload.value);
         },
     },

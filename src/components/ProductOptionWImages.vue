@@ -53,11 +53,10 @@
         },
         methods: {
             ...mapMutations([
-                'updateImageSelectionValue'
+                'updateSelectionValue'
             ]),
             updateImageSelectionValueInStore(key, option) {
-                console.log(this.productId);
-                this.updateImageSelectionValue({productId: this.productId, value: option, name: key});
+                this.updateSelectionValue({productId: this.productId, value: option, name: key});
             }
         }
     }

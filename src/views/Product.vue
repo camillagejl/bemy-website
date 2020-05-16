@@ -184,7 +184,7 @@
                             v-else
                             class="not_available rounded_box"
                         >
-                            Denne variant er ikke tilgælgelig
+                            Denne variant findes desværre ikke.
                         </div>
 
                     </div>
@@ -256,7 +256,7 @@
             activeProduct() {
                 let activeProduct = this.getActiveProductById(this.productId);
                 if (!activeProduct) {
-                    this.addActiveProductFromProductId({productId: this.productId});
+                    this.addActiveProductFromProductId({productId: this.productId, type: 'product'});
                     activeProduct = this.getActiveProductById(this.productId);
                 }
                 return activeProduct;
@@ -274,7 +274,7 @@
                 return thisDesign;
             },
             hasOptionImages() {
-                if (this.product.designs || this.product.optionsWithImages.length > 0) {
+                if (this.product.designs || this.product.optionsWithImages && this.product.optionsWithImages.length > 0) {
                     return true;
                 }
             },
@@ -304,17 +304,19 @@
 
                 });
 
+                if (this.product.variants.length > 1) {
                 return isVariant;
+                }
+                return true;
             }
         },
         methods: {
             ...mapMutations([
                 'addActiveProductFromProductId',
-                'updateInputSelectionValue',
-                'updateImageSelectionValue'
+                'updateSelectionValue',
             ]),
             updateInputSelectionValueInStore(e) {
-                this.updateInputSelectionValue({productId: this.productId, value: e.target.value, name: e.target.name});
+                this.updateSelectionValue({productId: this.productId, value: e.target.value, name: e.target.name});
             },
             optionImages(variants, key) {
                 return variants.filter((obj, pos, arr) => {

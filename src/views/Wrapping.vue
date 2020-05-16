@@ -20,6 +20,7 @@
                     <ProductGallery
                         :images="product.images"
                         :myDesignImages="myDesignImages()"
+                        :designTab="true"
                     />
 
                     <div class="description display_1024">
@@ -169,7 +170,7 @@
 
 <script>
     import ProductGallery from "../components/ProductGallery";
-    import {mapGetters, mapState} from "vuex";
+    import {mapGetters, mapMutations, mapState} from "vuex";
     import ProductOptionWImages from "../components/ProductOptionWImages";
     import PriceFooter from "../components/PriceFooter";
     import MainButton from "../components/MainButton";
@@ -177,11 +178,6 @@
     export default {
         name: 'Wrapping',
         components: {MainButton, PriceFooter, ProductOptionWImages, ProductGallery},
-        data() {
-            return {
-                selectedProductIndex: 0
-            }
-        },
         computed: {
             ...mapState([
                 'activePackage',
@@ -201,7 +197,16 @@
                 return this.wrappings.products.map(value => this.productsById[value]);
             },
             activeWrapping() {
-                return this.packages[this.activePackage].wrapping;
+                let activeWrapping = this.packages[this.activePackage].wrapping;
+
+                if (!activeWrapping) {
+                    if (this.products) {
+                    this.addActiveProductFromProductId({productId: this.products[0].id, type: 'wrapping'});
+                    activeWrapping = this.packages[this.activePackage].wrapping;
+                    }
+                }
+
+                return activeWrapping;
             },
             product() {
                 return this.productsById[this.activeWrapping.id];
@@ -222,6 +227,10 @@
             }
         },
         methods: {
+            ...mapMutations([
+                'addActiveProductFromProductId',
+                'updateSelectionValue',
+            ]),
             optionImages(variants, key) {
                 return variants.filter((obj, pos, arr) => {
                     return arr.map(mapObj => mapObj[key]).indexOf(obj[key]) === pos;
