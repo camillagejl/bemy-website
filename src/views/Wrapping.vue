@@ -39,12 +39,13 @@
                         :selectedOption="product.title"
                         :optionKey="'Design'"
                         :optionImages="products"
+                        :productType="'wrappingProduct'"
                     />
 
                     <!-- Product option w. dropdown -->
                     <div
                         v-for="(option, key) in product.options"
-                        v-if="option[0] !== 'Default Title' && !product.optionsWithImages || product.optionsWithImages && !product.optionsWithImages.includes(key)"
+                        v-if="option[0] !== 'Default Title' && !product.optionsWithImages && activeWrapping || product.optionsWithImages && !product.optionsWithImages.includes(key) && activeWrapping"
                         class="product_option option_w_dropdown"
                     >
                         <label>
@@ -73,6 +74,8 @@
                         :selectedOption="activeWrapping.selections[key]"
                         :optionKey="key"
                         :optionImages="optionImages(product.variants, key)"
+                        :productId="product.id"
+                        :productType="'wrapping'"
                     />
 
                     <!-- Designs -->
@@ -81,6 +84,8 @@
                         :selectedOption="activeWrapping.selections.Design"
                         :optionKey="'Design'"
                         :optionImages="product.designs"
+                        :productId="product.id"
+                        :productType="'wrapping'"
                     />
 
                     <!-- Personalisations -->
@@ -213,7 +218,7 @@
                 let activeWrapping = this.packages[this.activePackage].wrapping;
 
                 if (!activeWrapping) {
-                    if (this.products) {
+                    if (this.products[0]) {
                         this.addActiveProductFromProductId({productId: this.products[0].id, type: 'wrapping'});
                         activeWrapping = this.packages[this.activePackage].wrapping;
                     }
@@ -231,11 +236,14 @@
             activeDesign() {
                 let thisDesign = null;
 
-                this.product.designs.forEach(design => {
-                    if (design.Design === this.activeWrapping.selections.Design) {
-                        thisDesign = design;
-                    }
-                });
+                if (this.product.designs) {
+                    this.product.designs.forEach(design => {
+                        if (design.Design === this.activeWrapping.selections.Design) {
+                            thisDesign = design;
+                        }
+                    });
+                }
+
                 return thisDesign;
             }
         },
@@ -245,7 +253,12 @@
                 'updateSelectionValue',
             ]),
             updateInputSelectionValueInStore(e) {
-                this.updateSelectionValue({productId: this.productId, value: e.target.value, name: e.target.name, type: 'wrapping'});
+                this.updateSelectionValue({
+                    productId: this.productId,
+                    value: e.target.value,
+                    name: e.target.name,
+                    type: 'wrapping'
+                });
             },
             optionImages(variants, key) {
                 return variants.filter((obj, pos, arr) => {
@@ -291,15 +304,17 @@
                     })
                 });
 
-                this.product.designs.forEach(design => {
-                    if (!design) {
-                        return;
-                    }
+                if (this.product.designs) {
+                    this.product.designs.forEach(design => {
+                        if (!design) {
+                            return;
+                        }
 
-                    if (design.title === this.activeWrapping.selections.Design) {
-                        images.push(design.image);
-                    }
-                });
+                        if (design.title === this.activeWrapping.selections.Design) {
+                            images.push(design.image);
+                        }
+                    })
+                }
 
                 return images;
             }

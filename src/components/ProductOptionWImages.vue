@@ -2,15 +2,42 @@
     <div class="product_option_w_images product_option">
 
         <div>
-                        <span class="line_break">
-            <strong>{{ optionKey }}</strong>: {{ selectedOption }}
-                        </span>
+            <span class="line_break">
+                <strong>{{ optionKey }}</strong>: {{ selectedOption }}
+            </span>
 
             <div class="option_images">
                 <div
+                    v-if="productType === 'product' || productType === 'wrapping'"
                     v-for="(variant, index) in optionImages"
                     class="images_container"
                     @click="updateImageSelectionValueInStore(optionKey, variant[optionKey])"
+                >
+                    <div
+                        class="option_image relative_image rounded_box"
+                        v-bind:class="{ selected : variant[optionKey] === selectedOption || variant.title === selectedOption }"
+                    >
+                        <!--For Shopify variants, i.e. only one image-->
+                        <img
+                            v-if="variant.image"
+                            :src="variant.image"
+                        >
+
+                        <!-- For Shopify produts, i.e. with several images -->
+                        <img
+                            v-if="variant.images"
+                            :src="variant.images[0]"
+                        >
+                    </div>
+                </div>
+            </div>
+
+            <div class="option_images">
+                <div
+                    v-if="productType === 'wrappingProduct'"
+                    v-for="(variant, index) in optionImages"
+                    class="images_container"
+                    @click="setActiveWrapping(variant.id)"
                 >
                     <div
                         class="option_image relative_image rounded_box"
@@ -44,7 +71,8 @@
             selectedOption: String,
             optionKey: String,
             optionImages: Array,
-            productId: String
+            productId: String,
+            productType: String
         },
         computed: {
             ...mapState([
@@ -53,10 +81,19 @@
         },
         methods: {
             ...mapMutations([
+                'addActiveProductFromProductId',
                 'updateSelectionValue'
             ]),
             updateImageSelectionValueInStore(key, option) {
-                this.updateSelectionValue({productId: this.productId, value: option, name: key});
+                this.updateSelectionValue({
+                    productId: this.productId,
+                    value: option,
+                    name: key,
+                    type: this.productType
+                });
+            },
+            setActiveWrapping(productId) {
+                this.addActiveProductFromProductId({productId: productId, type: 'wrapping'});
             }
         }
     }

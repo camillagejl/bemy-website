@@ -68,6 +68,7 @@
                             :optionKey="key"
                             :optionImages="optionImages(product.variants, key)"
                             :productId="product.id"
+                            :productType="'product'"
                         />
 
                         <!-- Designs -->
@@ -77,6 +78,7 @@
                             :optionKey="'Design'"
                             :optionImages="product.designs"
                             :productId="product.id"
+                            :productType="'product'"
                         />
 
 
