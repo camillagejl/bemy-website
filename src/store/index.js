@@ -163,7 +163,7 @@ export default new Vuex.Store({
             state.products = payload.products;
         },
         setDesigns(state, payload) {
-            state.designs = payload.products; // Martin, hjælp!
+            state.designs = payload.products;
         },
         setCollections(state, payload) {
             state.collections = payload.collections;
@@ -240,7 +240,12 @@ export default new Vuex.Store({
             }
         },
         updateSelectionValue(state, payload) {
-            Vue.set(state.activeProducts[payload.productId].selections, payload.name, payload.value);
+            if (payload.type === 'product') {
+                Vue.set(state.activeProducts[payload.productId].selections, payload.name, payload.value);
+            }
+            if (payload.type === 'wrapping') {
+                Vue.set(state.packages[state.activePackage].wrapping.selections, payload.name, payload.value);
+            }
         },
     },
     actions: {

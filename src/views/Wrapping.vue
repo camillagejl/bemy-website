@@ -51,10 +51,14 @@
                             <strong class="line_break">
                                 {{ key }}:
                             </strong>
-                            <select>
+                            <select
+                                :name="key"
+                                :value="activeWrapping.selections[key]"
+                                @input="updateInputSelectionValueInStore"
+                            >
                                 <option
                                     v-for="value in option"
-                                    value="value"
+                                    :value="value"
                                 >
                                     {{ value }}
                                 </option>
@@ -104,29 +108,38 @@
                                 type="text"
                                 :maxlength="personalisation.characterMax"
                                 :placeholder="personalisation.placeholder"
+                                :name="key"
                                 :value="activeWrapping.selections[personalisation.key]"
+                                @input="updateInputSelectionValueInStore"
                             >
 
                             <textarea
                                 v-if="personalisation.type === 'multiline_text'"
                                 :maxlength="personalisation.characterMax"
                                 :placeholder="personalisation.placeholder"
+                                :name="key"
                                 :value="activeWrapping.selections[personalisation.key]"
+                                @input="updateInputSelectionValueInStore"
                             ></textarea>
 
                             <input
                                 v-if="personalisation.type === 'number'"
                                 type="number"
+                                :name="key"
                                 :value="activeWrapping.selections[personalisation.key]"
+                                @input="updateInputSelectionValueInStore"
                             >
 
                             <select
                                 v-if="personalisation.type === 'dropdown'"
                                 class="option_w_dropdown"
+                                :name="key"
+                                :value="activeWrapping.selections[personalisation.key]"
+                                @input="updateInputSelectionValueInStore"
                             >
                                 <option
                                     v-for="value in personalisation.selectOptions"
-                                    value="value"
+                                    :value="value"
                                 >
                                     {{ value }}
                                 </option>
@@ -149,12 +162,12 @@
                 <router-link
                     :to="{ name: 'ContentCategoriesOverview' }"
                 >
-                <MainButton
-                    class="continue_button"
-                    :emph="true"
-                    :text="'Tilføj indhold'"
-                    :icon="'arrow_right'"
-                />
+                    <MainButton
+                        class="continue_button"
+                        :emph="true"
+                        :text="'Tilføj indhold'"
+                        :icon="'arrow_right'"
+                    />
                 </router-link>
             </div>
 
@@ -201,25 +214,25 @@
 
                 if (!activeWrapping) {
                     if (this.products) {
-                    this.addActiveProductFromProductId({productId: this.products[0].id, type: 'wrapping'});
-                    activeWrapping = this.packages[this.activePackage].wrapping;
+                        this.addActiveProductFromProductId({productId: this.products[0].id, type: 'wrapping'});
+                        activeWrapping = this.packages[this.activePackage].wrapping;
                     }
                 }
 
                 return activeWrapping;
             },
             product() {
+                if (!this.activeWrapping) {
+                    return;
+                }
+
                 return this.productsById[this.activeWrapping.id];
             },
             activeDesign() {
                 let thisDesign = null;
 
                 this.product.designs.forEach(design => {
-                    if (!design) {
-                        return
-                    }
-
-                    if (design.title === this.activeWrapping.selections.Design) {
+                    if (design.Design === this.activeWrapping.selections.Design) {
                         thisDesign = design;
                     }
                 });
@@ -231,6 +244,9 @@
                 'addActiveProductFromProductId',
                 'updateSelectionValue',
             ]),
+            updateInputSelectionValueInStore(e) {
+                this.updateSelectionValue({productId: this.productId, value: e.target.value, name: e.target.name, type: 'wrapping'});
+            },
             optionImages(variants, key) {
                 return variants.filter((obj, pos, arr) => {
                     return arr.map(mapObj => mapObj[key]).indexOf(obj[key]) === pos;

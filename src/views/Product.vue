@@ -316,7 +316,7 @@
                 'updateSelectionValue',
             ]),
             updateInputSelectionValueInStore(e) {
-                this.updateSelectionValue({productId: this.productId, value: e.target.value, name: e.target.name});
+                this.updateSelectionValue({productId: this.productId, value: e.target.value, name: e.target.name, type: 'product'});
             },
             optionImages(variants, key) {
                 return variants.filter((obj, pos, arr) => {
