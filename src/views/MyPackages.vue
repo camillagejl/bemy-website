@@ -23,16 +23,68 @@
                 </svg>
             </h2>
 
+            <div
+                v-if="!packages[activePackage].wrapping || packages[activePackage].products.length"
+                class="package_empty"
+            >
+                Du er endnu ikke begyndt på at designe din egen pakke.
+                <router-link :to="{ name: 'Wrapping' }">Start ved at designe din indpakning,</router-link>
+                eller
+                <router-link :to="{ name: 'Home' }">bliv inspireret af vores færdige pakker</router-link>
+                .
+
+
+                <div
+                    class="package_buttons"
+                >
+                    <router-link
+                        :to="{ name: 'ContentCategoriesOverview' }">
+                        <MainButton
+                            :emph="true"
+                            :text="'Tryk her for at tilføje indhold'"
+                            :icon="'product'"
+                        />
+                    </router-link>
+
+                    <router-link
+                        :to="{ name: 'ContentCategoriesOverview' }">
+                        <MainButton
+                            :emph="true"
+                            :text="'Tryk her for at tilføje indhold'"
+                            :icon="'product'"
+                        />
+                    </router-link>
+                </div>
+            </div>
+
             <div class="package_wrapping">
 
                 <h3>
                     Indpakning
                 </h3>
 
+                <div
+                    class="nothing_found"
+                    v-if="!packages[activePackage].wrapping">
+                    <p>
+                        Du har endnu ikke designet din indpakning.
+                    </p>
+
+                    <router-link
+                        :to="{ name: 'Wrapping' }">
+                        <MainButton
+                            :emph="true"
+                            :text="'Tryk her for at designe din indpakning'"
+                            :icon="'wrapping'"
+                        />
+                    </router-link>
+                </div>
+
                 <PackageItem
-                :product="packages[activePackage].wrapping"
-                :editButton="true"
-                :deleteButton="false"
+                    v-if="packages[activePackage].wrapping"
+                    :product="packages[activePackage].wrapping"
+                    :editButton="true"
+                    :deleteButton="false"
                 />
             </div>
 
@@ -42,7 +94,25 @@
                     Indhold
                 </h3>
 
+                <div
+                    class="nothing_found"
+                    v-if="!packages[activePackage].products.length">
+                    <p>
+                        Du har endnu ikke tilføjet noget indhold til din pakke.
+                    </p>
+
+                    <router-link
+                        :to="{ name: 'ContentCategoriesOverview' }">
+                        <MainButton
+                            :emph="true"
+                            :text="'Tryk her for at tilføje indhold'"
+                            :icon="'product'"
+                        />
+                    </router-link>
+                </div>
+
                 <PackageItem
+                    v-if="packages[activePackage].products.length"
                     v-for="product in packages[activePackage].products"
                     :product="product"
                     :editButton="true"
@@ -50,7 +120,10 @@
                 />
             </div>
 
-            <div class="package_buttons">
+            <div
+                v-if="packages[activePackage].wrapping || packages[activePackage].products.length"
+                class="package_buttons"
+            >
                 <MainButton
                     :emph="false"
                     :text="'Slet pakke'"
@@ -105,27 +178,58 @@
         margin-top: 12px;
     }
 
-    .main_button {
+    a {
         width: 100%;
 
-        + .main_button {
+        + a {
             margin-top: 8px;
         }
     }
 
+    .main_button {
+        width: 100%;
+    }
+
+    .package_content {
+        margin-top: 48px;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .package_empty {
+        margin: 24px 0 48px 0;
+    }
+
     @media screen and (min-width: 1024px) {
         .package_item,
-        .package_buttons {
+        .package_buttons,
+        .nothing_found {
             max-width: 1000px;
         }
 
         .package_buttons {
             display: flex;
+            margin-top: 48px;
         }
 
-        .main_button + .main_button {
-            margin: 0 0 0 8px;
+        a {
+            max-width: 50%;
+
+            + a {
+                margin: 0 0 0 8px;
+            }
         }
+
+        .main_button {
+            width: 50%;
+
+            + .main_button {
+                margin: 0 0 0 8px;
+            }
+        }
+
     }
 
 </style>

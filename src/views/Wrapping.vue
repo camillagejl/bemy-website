@@ -177,6 +177,7 @@
             </div>
 
             <PriceFooter
+                v-if="activeWrapping"
                 :price="activeWrapping.displayPrice"
             />
 
