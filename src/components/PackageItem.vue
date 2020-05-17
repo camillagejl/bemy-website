@@ -57,7 +57,8 @@
 
             <div
                 class="delete_button"
-                v-if="deleteButton">
+                v-if="deleteButton"
+            >
                 <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="trash-alt"
                      class="basic_icon svg-inline--fa fa-trash-alt fa-w-14" role="img"
                      xmlns="http://www.w3.org/2000/svg"

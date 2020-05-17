@@ -24,7 +24,7 @@
             </h2>
 
             <div
-                v-if="!packages[activePackage].wrapping || packages[activePackage].products.length"
+                v-if="!packages[activePackage].wrapping && !packages[activePackage].products.length"
                 class="package_empty"
             >
                 Du er endnu ikke begyndt på at designe din egen pakke.
@@ -139,6 +139,30 @@
             </div>
         </section>
 
+
+        <section>
+            <hr>
+            <div
+                v-if="packages[activePackage].wrapping || packages[activePackage].products.length"
+                class="package_buttons"
+            >
+                <MainButton
+                    :emph="true"
+                    :text="'Ny pakke'"
+                    :icon="'plus'"
+                />
+
+                <MainButton
+                    :color="'checkout'"
+                    :text="'Gå til Checkout'"
+                    :icon="'cart'"
+                />
+
+            </div>
+        </section>
+
+
+
     </div>
 </template>
 
@@ -223,13 +247,11 @@
         }
 
         .main_button {
-            width: 50%;
 
             + .main_button {
                 margin: 0 0 0 8px;
             }
         }
-
     }
 
 </style>
