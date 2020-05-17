@@ -3,14 +3,18 @@
 
         <div class="gallery_tabs">
             <div
-                @click="changeTabs(images)"
-                class="gallery_tab selected">
+                @click="changeTabs(images, 'imagesTab')"
+                class="gallery_tab"
+                v-bind:class="{ selected : activeTab === 'imagesTab' }"
+            >
                 Inspiration
             </div>
             <div
                 v-if="designTab"
-                @click="changeTabs(myDesignImages)"
-                class="gallery_tab">
+                @click="changeTabs(myDesignImages, 'designTab')"
+                class="gallery_tab"
+                v-bind:class="{ selected : activeTab === 'designTab' }"
+            >
                 Mit design
             </div>
         </div>
@@ -67,7 +71,8 @@
             return {
                 thumbsPosition: 0,
                 selectedImage: this.images[0],
-                currentImages: this.images
+                currentImages: this.images,
+                activeTab: 'imagesTab'
             }
         },
         methods: {
@@ -88,14 +93,9 @@
             selectImage(image) {
                 this.selectedImage = image;
             },
-            changeTabs(showImages) {
+            changeTabs(showImages, clickedTab) {
 
-                if (this.currentImages !== showImages)
-
-                document.querySelectorAll(".gallery_tab").forEach(tab => {
-                    tab.classList.toggle("selected");
-                });
-
+                this.activeTab = clickedTab;
                 this.currentImages = showImages;
                 this.selectedImage = showImages[0];
             }
