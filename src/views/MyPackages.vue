@@ -5,10 +5,13 @@
             Mine pakker
         </h1>
 
-        <section class="package">
+        <section
+            v-for="(pack, index) in packages"
+            class="package"
+        >
             <hr>
             <h2>
-                Denne pakke: {{ packages[activePackage].title }}
+                Denne pakke: {{ pack.title }}
                 <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="pencil-alt"
                      class="basic_icon svg-inline--fa fa-pencil-alt fa-w-16" role="img"
                      xmlns="http://www.w3.org/2000/svg"
@@ -24,7 +27,7 @@
             </h2>
 
             <div
-                v-if="!packages[activePackage].wrapping && !packages[activePackage].products.length"
+                v-if="!pack.wrapping && !pack.products.length"
                 class="package_empty"
             >
                 Du er endnu ikke begyndt på at designe din egen pakke.
@@ -65,7 +68,7 @@
 
                 <div
                     class="nothing_found"
-                    v-if="!packages[activePackage].wrapping">
+                    v-if="!pack.wrapping">
                     <p>
                         Du har endnu ikke designet din indpakning.
                     </p>
@@ -81,8 +84,8 @@
                 </div>
 
                 <PackageItem
-                    v-if="packages[activePackage].wrapping"
-                    :product="packages[activePackage].wrapping"
+                    v-if="pack.wrapping"
+                    :product="pack.wrapping"
                     :editButton="true"
                     :deleteButton="false"
                 />
@@ -96,7 +99,7 @@
 
                 <div
                     class="nothing_found"
-                    v-if="!packages[activePackage].products.length">
+                    v-if="!pack.products.length">
                     <p>
                         Du har endnu ikke tilføjet noget indhold til din pakke.
                     </p>
@@ -112,8 +115,8 @@
                 </div>
 
                 <PackageItem
-                    v-if="packages[activePackage].products.length"
-                    v-for="product in packages[activePackage].products"
+                    v-if="pack.products.length"
+                    v-for="product in pack.products"
                     :product="product"
                     :editButton="true"
                     :deleteButton="true"
@@ -121,7 +124,7 @@
             </div>
 
             <div
-                v-if="packages[activePackage].wrapping || packages[activePackage].products.length"
+                v-if="pack.wrapping || pack.products.length"
                 class="package_buttons"
             >
                 <MainButton
@@ -131,9 +134,18 @@
                 />
 
                 <MainButton
+                    v-if="activePackage !== index"
+                    :emph="true"
+                    :text="'Redigér pakke'"
+                    :icon="'edit'"
+                    @click.native="changeActivePackageInStore(index)"
+                />
+
+                <MainButton
                     :emph="true"
                     :text="'Duplikér pakke'"
                     :icon="'duplicate'"
+                    @click.native="addPackageInStore(index)"
                 />
 
             </div>
@@ -150,6 +162,7 @@
                     :emph="true"
                     :text="'Ny pakke'"
                     :icon="'plus'"
+                    @click.native="addPackageInStore('new')"
                 />
 
                 <MainButton
@@ -162,14 +175,13 @@
         </section>
 
 
-
     </div>
 </template>
 
 <script>
     import PackageItem from "../components/PackageItem";
     import MainButton from "../components/MainButton";
-    import {mapState} from "vuex";
+    import {mapMutations, mapState} from "vuex";
 
     export default {
         name: 'MyPackages',
@@ -177,8 +189,20 @@
         computed: {
             ...mapState([
                 'activePackage',
-                'packages'
+                'packages',
             ]),
+        },
+        methods: {
+            ...mapMutations([
+                'addNewPackage',
+                'changeActivePackage'
+            ]),
+            addPackageInStore(pack) {
+                this.addNewPackage({ pack: pack });
+            },
+            changeActivePackageInStore(index) {
+                this.changeActivePackage({ index: index })
+            }
         }
     }
 </script>

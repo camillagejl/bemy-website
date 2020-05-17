@@ -1,7 +1,10 @@
 <template>
     <div class="main_navigation">
         <nav>
-            <div class="package_name display_1024">
+            <div
+                v-if="packages[activePackage]"
+                class="package_name display_1024"
+            >
                 {{ packages[activePackage].title}}
                 <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="pencil-alt"
                      class="basic_icon svg-inline--fa fa-pencil-alt fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
@@ -49,6 +52,7 @@
                 </div>
 
                 <WrappingRecapList
+                    v-if="packages[activePackage]"
                     class="display_1024"
                 />
             </div>
