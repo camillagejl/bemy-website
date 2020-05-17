@@ -48,6 +48,9 @@
                     </router-link>
                 </div>
 
+                <WrappingRecapList
+                    class="display_1024"
+                />
             </div>
 
             <div class="nav_section">
@@ -128,10 +131,11 @@
 <script>
     import ContentRecapList from "./ContentRecapList";
     import {mapState} from "vuex";
+    import WrappingRecapList from "./WrappingRecapList";
 
     export default {
         name: 'MainNavigation',
-        components: {ContentRecapList},
+        components: {WrappingRecapList, ContentRecapList},
         computed: {
             ...mapState([
                 'activePackage',
