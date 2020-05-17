@@ -220,6 +220,10 @@
         resize: vertical;
     }
 
+    .developer_note {
+        color: red;
+    }
+
     hr {
         border: 1px solid rgba(var(--colour-primary-200), 1);
     }

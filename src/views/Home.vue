@@ -142,7 +142,9 @@
 
         </section>
 
-        <section id="our_concept">
+        <section
+            class="text_section"
+            id="our_concept">
             <h2 class="h2_sub_section">
                 Vores koncept
             </h2>
@@ -155,7 +157,8 @@
             </p>
 
             <p>
-                Vores mål er, at det skal være nemt for dig at lave den helt perfekte, personlige gave, og få den leveret
+                Vores mål er, at det skal være nemt for dig at lave den helt perfekte, personlige gave, og få den
+                leveret
                 direkte til modtageren. Vi har et hav af kvalitetsprodukter, som du kan personalisere med et af vores
                 designs, modtagerens navn og dine egne tekster. Det eneste, du skal gøre, er at sammensætte din pakke
                 - så klarer vi indpakningen og afsendelsen for dig.
@@ -163,14 +166,14 @@
 
             <p>
                 <a>
-                Vælg en af vores pakker forneden,
+                    Vælg en af vores pakker forneden,
                 </a>
                 eller start rejsen ved at
 
                 <router-link
                     :to="{ name: 'Wrapping' }"
                 >
-                designe din egen indpakning.
+                    designe din egen indpakning.
                 </router-link>
             </p>
 
@@ -178,7 +181,7 @@
                 Har du specielle krav, eller ønsker du et design, som vi ikke har?
                 <router-link
                     :to="{ name: 'Contact' }"
-                    >
+                >
                     Så hører vi gerne fra dig!
                 </router-link>
             </p>
@@ -187,6 +190,7 @@
         </section>
 
         <section id="our_packages">
+            <div class="text_section">
             <h2 class="h2_sub_section">
                 Gør en af vores pakker til din helt egen
             </h2>
@@ -204,13 +208,24 @@
                 Bliv inspireret af vores pakker, eller tilføj en pakke direkte til din egen pakke. Derefter kan du selv
                 ændre og personalisere alt, du har lyst til, og tilføje så mange personer, du har brug for.
             </p>
-
-            <div class="our_packages_container">
-
-                <img src="../assets/placeholders/our-packages.jpg">
-
+            <p class="developer_note">
+                <strong>
+                    Developer-note:
+                </strong>
+                Nedenstående er et mockup af, hvordan færdige pakker skal se ud på desktop. Når man trykker på en
+                "kategori", dukker de færdige pakker i denne kategori op. Tryk for at få en "demo".
+            </p>
             </div>
 
+            <div
+                class="our_packages_container"
+                @click="updatePackagesPlaceholder"
+            >
+
+                <img :src="ourPackagesPlaceholder"
+                >
+
+            </div>
         </section>
 
 
@@ -223,6 +238,23 @@
     export default {
         name: 'Home',
         components: {MainButton},
+        data() {
+            return {
+                ourPackagesPlaceholder: require('./../assets/placeholders/our-packages.jpg'),
+            }
+        },
+        methods: {
+            updatePackagesPlaceholder() {
+                console.log("ye");
+                if (this.ourPackagesPlaceholder === require('./../assets/placeholders/our-packages.jpg')) {
+                    console.log("closed");
+                    this.ourPackagesPlaceholder = require('./../assets/placeholders/our-packages-open.jpg')
+                } else if (this.ourPackagesPlaceholder === require('./../assets/placeholders/our-packages-open.jpg')) {
+                    console.log("open");
+                    this.ourPackagesPlaceholder = require('./../assets/placeholders/our-packages.jpg')
+                }
+            }
+        }
     }
 </script>
 
@@ -308,16 +340,37 @@
 
     .arrow_down {
         display: none;
+
+        animation-name: arrow_down_kf;
+        animation-iteration-count: infinite;
+        animation-fill-mode: forwards;
+        animation-direction: alternate;
+        animation-duration: 1s;
+        animation-timing-function: ease-in;
+    }
+
+    @keyframes arrow_down_kf {
+        0% {
+            transform: none;
+        }
+
+        100% {
+            transform: scale(1.1);
+        }
+    }
+
+    .text_section {
+        max-width: 800px;
     }
 
     .h2_sub_section {
         padding-top: 48px;
-    }
-
-
-    .h2_sub_section {
         font-size: 24px;
         font-weight: 400;
+    }
+
+    .our_packages_container {
+        cursor: pointer;
     }
 
     .h3_handwriting {
@@ -358,9 +411,9 @@
             margin-bottom: 24px;
 
             svg {
-            height: 36px;
-            width: 36px;
-        }
+                height: 36px;
+                width: 36px;
+            }
         }
 
         .home_continue_buttons {
