@@ -171,7 +171,7 @@
                                 :emph="true"
                                 :text="'Tilføj til denne pakke'"
                                 :icon="'plus'"
-                                @click.native="displayAddedToPackage = true"
+                                @click.native="addToPackage"
                             />
 
                             <MainButton
@@ -316,6 +316,7 @@
             ...mapMutations([
                 'addActiveProductFromProductId',
                 'updateSelectionValue',
+                'addProductToPackage'
             ]),
             updateInputSelectionValueInStore(e) {
                 this.updateSelectionValue({productId: this.productId, value: e.target.value, name: e.target.name, type: 'product'});
@@ -370,6 +371,12 @@
                 }
 
                 return images;
+            },
+            addToPackage() {
+                document.querySelector("body").style.overflowY = "hidden"; // Fix this
+                this.displayAddedToPackage = true;
+                console.log(this.activeProduct);
+                this.addProductToPackage({ product: this.activeProduct })
             }
         }
     }

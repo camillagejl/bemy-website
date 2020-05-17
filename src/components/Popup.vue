@@ -134,7 +134,7 @@
 <style scoped lang="scss">
 
     .product_popup {
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
         right: 0;

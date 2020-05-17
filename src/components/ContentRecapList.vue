@@ -1,7 +1,9 @@
 <template>
     <div class="content_recap_list">
 
+
         <div
+            v-if="packages[activePackage].products"
             v-for="product in packages[activePackage].products"
             class="recap_list_item"
         >

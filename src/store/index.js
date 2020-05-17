@@ -247,6 +247,9 @@ export default new Vuex.Store({
                 Vue.set(state.packages[state.activePackage].wrapping.selections, payload.name, payload.value);
             }
         },
+        addProductToPackage(state, payload) {
+            state.packages[state.activePackage].products.push(payload.product);
+        }
     },
     actions: {
         fetchProducts(context) {
