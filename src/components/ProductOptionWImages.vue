@@ -1,7 +1,9 @@
 <template>
     <div class="product_option_w_images product_option">
 
-        <div>
+        <div
+        v-if="optionKey"
+        >
             <span class="line_break">
                 <strong>{{ optionKey }}</strong>: {{ selectedOption }}
             </span>

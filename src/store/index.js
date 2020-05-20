@@ -95,6 +95,11 @@ export default new Vuex.Store({
                 if (product.options[option][0] !== 'Default Title') {
                     activeProduct.selections[option] = product.options[option][0]
                 }
+
+                if
+                (product.options[option].selectOptions) {
+                    activeProduct.selections[option] = product.options[option].selectOptions[0]
+                }
             });
 
             if (product.personalisations) {

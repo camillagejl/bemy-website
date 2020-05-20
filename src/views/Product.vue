@@ -90,6 +90,7 @@
                             :personalisationKey="key"
                             :productId="product.id"
                             :activeProduct="activeProduct"
+                            :productType="'product'"
                         />
 
                     </div>
@@ -346,30 +347,10 @@
         }
     }
 
-    .option_label {
-        p {
-            display: inline-block;
-        }
-    }
-
-    .line_break {
-        display: block;
-        margin-bottom: 8px;
-    }
-
-    select {
-        min-width: 100px;
-    }
-
     .product_price {
         font-size: 24px;
         margin-top: 24px;
         text-align: right;
-    }
-
-    input[type = text] {
-        box-sizing: border-box;
-        width: 100%;
     }
 
     .add_buttons {

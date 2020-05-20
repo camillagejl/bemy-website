@@ -12,18 +12,11 @@
                 <h4>{{ product.title }}</h4>
 
                 <table>
-                    <tr
+                    <PersonalisationTr
                         v-for="(selection, key) in product.selections"
-                    >
-                        <td class="key">
-                            <strong>
-                                {{ key }}
-                            </strong>
-                        </td>
-                        <td class="value">
-                            {{ selection }}
-                        </td>
-                    </tr>
+                        :selection="selection"
+                        :selectionKey="key"
+                    />
                 </table>
 
                 <div class="product_price">
@@ -80,8 +73,10 @@
 </template>
 
 <script>
+    import PersonalisationTr from "./PersonalisationTr";
     export default {
         name: 'PackageItem',
+        components: {PersonalisationTr},
         props: {
             product: Object,
             editButton: Boolean,

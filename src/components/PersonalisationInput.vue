@@ -1,14 +1,13 @@
 <template>
-    <div class="input product_option">
-
-
-
+    <div class="personalisation_input product_option">
 
         <label
+            v-if="personalisation"
         >
+
                         <span class="line_break">
                         <strong>
-                            {{ personalisation.key }}
+                            {{ personalisationKey }}
                         </strong>
 
                         <span
@@ -24,7 +23,7 @@
                 :maxlength="personalisation.characterMax"
                 :placeholder="personalisation.placeholder"
                 :name="personalisationKey"
-                :value="activeProduct.selections[personalisation.key]"
+                :value="activeProduct.selections[personalisationKey]"
                 @input="updateInputSelectionValueInStore"
             >
 
@@ -33,7 +32,7 @@
                 :maxlength="personalisation.characterMax"
                 :placeholder="personalisation.placeholder"
                 :name="personalisationKey"
-                :value="activeProduct.selections[personalisation.key]"
+                :value="activeProduct.selections[personalisationKey]"
                 @input="updateInputSelectionValueInStore"
             ></textarea>
 
@@ -41,17 +40,18 @@
                 v-if="personalisation.type === 'number'"
                 type="number"
                 :name="personalisationKey"
-                :value="activeProduct.selections[personalisation.key]"
+                :value="activeProduct.selections[personalisationKey]"
                 @input="updateInputSelectionValueInStore"
             >
 
             <select
-                v-if="personalisation.type === 'dropdown'"
+                v-if="personalisation.type === 'dropdown' || type === 'dropdown'"
                 class="product_option option_w_dropdown"
                 :name="personalisationKey"
-                :value="activeProduct.selections[personalisation.key]"
+                :value="activeProduct.selections[personalisationKey]"
                 @input="updateInputSelectionValueInStore"
             >
+
                 <option
                     v-for="value in personalisation.selectOptions"
                     :value="value"
@@ -61,7 +61,6 @@
             </select>
 
         </label>
-
     </div>
 </template>
 
@@ -71,11 +70,13 @@
     export default {
         name: 'PersonalisationInput',
         props: {
-                personalisation: Object,
+            personalisation: Object,
             personalisationKey: String,
             activeProduct: Object,
-            productId: String
-            },
+            productId: String,
+            productType: String,
+            type: String
+        },
         methods: {
             ...mapMutations([
                 'updateSelectionValue',
@@ -85,7 +86,7 @@
                     productId: this.productId,
                     value: e.target.value,
                     name: e.target.name,
-                    type: 'product'
+                    type: this.productType
                 });
             }
         }
@@ -93,4 +94,34 @@
 </script>
 
 <style scoped lang="scss">
+
+
+    .option_label {
+        p {
+            display: inline;
+        }
+    }
+
+    .selection_in_text {
+        strong,
+        div {
+            display: inline-block;
+        }
+    }
+
+    .line_break {
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    select {
+        min-width: 100px;
+    }
+
+    input[type = text],
+    textarea {
+        box-sizing: border-box;
+        width: 100%;
+    }
+
 </style>

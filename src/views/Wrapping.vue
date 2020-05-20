@@ -43,29 +43,40 @@
                     />
 
                     <!-- Product option w. dropdown -->
-                    <div
+<!--                    <div-->
+<!--                        v-for="(option, key) in product.options"-->
+<!--                        v-if="option[0] !== 'Default Title' && !product.optionsWithImages && activeWrapping || product.optionsWithImages && !product.optionsWithImages.includes(key) && activeWrapping"-->
+<!--                        class="product_option option_w_dropdown"-->
+<!--                    >-->
+<!--                        <label>-->
+<!--                            <strong class="line_break">-->
+<!--                                {{ key }}:-->
+<!--                            </strong>-->
+<!--                            <select-->
+<!--                                :name="key"-->
+<!--                                :value="activeWrapping.selections[key]"-->
+<!--                                @input="updateInputSelectionValueInStore"-->
+<!--                            >-->
+<!--                                <option-->
+<!--                                    v-for="value in option"-->
+<!--                                    :value="value"-->
+<!--                                >-->
+<!--                                    {{ value }}-->
+<!--                                </option>-->
+<!--                            </select>-->
+<!--                        </label>-->
+<!--                    </div>-->
+
+                    <PersonalisationInput
                         v-for="(option, key) in product.options"
                         v-if="option[0] !== 'Default Title' && !product.optionsWithImages && activeWrapping || product.optionsWithImages && !product.optionsWithImages.includes(key) && activeWrapping"
-                        class="product_option option_w_dropdown"
-                    >
-                        <label>
-                            <strong class="line_break">
-                                {{ key }}:
-                            </strong>
-                            <select
-                                :name="key"
-                                :value="activeWrapping.selections[key]"
-                                @input="updateInputSelectionValueInStore"
-                            >
-                                <option
-                                    v-for="value in option"
-                                    :value="value"
-                                >
-                                    {{ value }}
-                                </option>
-                            </select>
-                        </label>
-                    </div>
+                        :personalisation="option"
+                        :type="'dropdown'"
+                        :personalisationKey="key"
+                        :productId="product.id"
+                        :activeProduct="activeWrapping"
+                        :productType="'wrapping'"
+                    />
 
                     <!-- Product option w. images -->
                     <ProductOptionWImages
@@ -89,69 +100,14 @@
                     />
 
                     <!-- Personalisations -->
-                    <div
-                        v-if="allPersonalisations"
+                    <PersonalisationInput
                         v-for="(personalisation, key) in allPersonalisations()"
-                        class="product_option"
-                    >
-                        <label
-                        >
-                        <span class="line_break">
-                        <strong>
-                            {{ personalisation.key }}
-                        </strong>
-
-                        <span
-                            v-if="personalisation.characterMax"
-                        >
-                        (maks. {{personalisation.characterMax }} tegn)
-                            </span>
-                        </span>
-
-                            <input
-                                v-if="personalisation.type === 'line_text'"
-                                type="text"
-                                :maxlength="personalisation.characterMax"
-                                :placeholder="personalisation.placeholder"
-                                :name="key"
-                                :value="activeWrapping.selections[personalisation.key]"
-                                @input="updateInputSelectionValueInStore"
-                            >
-
-                            <textarea
-                                v-if="personalisation.type === 'multiline_text'"
-                                :maxlength="personalisation.characterMax"
-                                :placeholder="personalisation.placeholder"
-                                :name="key"
-                                :value="activeWrapping.selections[personalisation.key]"
-                                @input="updateInputSelectionValueInStore"
-                            ></textarea>
-
-                            <input
-                                v-if="personalisation.type === 'number'"
-                                type="number"
-                                :name="key"
-                                :value="activeWrapping.selections[personalisation.key]"
-                                @input="updateInputSelectionValueInStore"
-                            >
-
-                            <select
-                                v-if="personalisation.type === 'dropdown'"
-                                class="option_w_dropdown"
-                                :name="key"
-                                :value="activeWrapping.selections[personalisation.key]"
-                                @input="updateInputSelectionValueInStore"
-                            >
-                                <option
-                                    v-for="value in personalisation.selectOptions"
-                                    :value="value"
-                                >
-                                    {{ value }}
-                                </option>
-                            </select>
-
-                        </label>
-                    </div>
+                        :personalisation="personalisation"
+                        :productId="product.id"
+                        :personalisationKey="personalisation.key"
+                        :activeProduct="activeWrapping"
+                        :productType="'wrapping'"
+                    />
 
                     <div class="product_price">
                         <strong>
@@ -193,10 +149,11 @@
     import ProductOptionWImages from "../components/ProductOptionWImages";
     import PriceFooter from "../components/PriceFooter";
     import MainButton from "../components/MainButton";
+    import PersonalisationInput from "../components/PersonalisationInput";
 
     export default {
         name: 'Wrapping',
-        components: {MainButton, PriceFooter, ProductOptionWImages, ProductGallery},
+        components: {PersonalisationInput, MainButton, PriceFooter, ProductOptionWImages, ProductGallery},
         computed: {
             ...mapState([
                 'activePackage',
@@ -356,15 +313,6 @@
         }
     }
 
-    .line_break {
-        display: block;
-        margin-bottom: 12px;
-    }
-
-    select {
-        min-width: 100px;
-    }
-
     .product_price {
         font-size: 24px;
         margin-top: 24px;
@@ -374,12 +322,6 @@
     .continue_button {
         width: 100%;
         margin-top: 48px;
-    }
-
-    input[type = text],
-    textarea {
-        box-sizing: border-box;
-        width: 100%;
     }
 
     @media screen and (min-width: 768px) {

@@ -79,15 +79,15 @@ export function getProductIds(rawIds) {
 }
 
 export function createProductOptions(options) {
-    const productOptions = {
-
-    };
+    const productOptions = {};
 
     options.forEach(option => {
-        productOptions[option.name] = [];
+        productOptions[option.name] = {
+            selectOptions: []
+        };
 
         option.values.forEach(value => {
-            productOptions[option.name].push(value);
+            productOptions[option.name].selectOptions.push(value);
         })
     });
 
