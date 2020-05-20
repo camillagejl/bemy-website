@@ -83,68 +83,15 @@
 
 
                         <!-- Personalisations -->
-                        <div
+
+                        <PersonalisationInput
                             v-for="(personalisation, key) in allPersonalisations()"
-                            class="product_option"
-                        >
-                            <label
-                            >
-                        <span class="line_break">
-                        <strong>
-                            {{ personalisation.key }}
-                        </strong>
+                            :personalisation="personalisation"
+                            :personalisationKey="key"
+                            :productId="product.id"
+                            :activeProduct="activeProduct"
+                        />
 
-                        <span
-                            v-if="personalisation.characterMax"
-                        >
-                        (maks. {{personalisation.characterMax }} tegn)
-                            </span>
-                        </span>
-
-                                <input
-                                    v-if="personalisation.type === 'line_text'"
-                                    type="text"
-                                    :maxlength="personalisation.characterMax"
-                                    :placeholder="personalisation.placeholder"
-                                    :name="key"
-                                    :value="activeProduct.selections[personalisation.key]"
-                                    @input="updateInputSelectionValueInStore"
-                                >
-
-                                <textarea
-                                    v-if="personalisation.type === 'multiline_text'"
-                                    :maxlength="personalisation.characterMax"
-                                    :placeholder="personalisation.placeholder"
-                                    :name="key"
-                                    :value="activeProduct.selections[personalisation.key]"
-                                    @input="updateInputSelectionValueInStore"
-                                ></textarea>
-
-                                <input
-                                    v-if="personalisation.type === 'number'"
-                                    type="number"
-                                    :name="key"
-                                    :value="activeProduct.selections[personalisation.key]"
-                                    @input="updateInputSelectionValueInStore"
-                                >
-
-                                <select
-                                    v-if="personalisation.type === 'dropdown'"
-                                    class="product_option option_w_dropdown"
-                                    :name="key"
-                                    :value="activeProduct.selections[personalisation.key]"
-                                    @input="updateInputSelectionValueInStore"
-                                >
-                                    <option
-                                        v-for="value in personalisation.selectOptions"
-                                        :value="value"
-                                    >
-                                        {{ value }}
-                                    </option>
-                                </select>
-
-                            </label>
-                        </div>
                     </div>
 
                     <div class="description hide_1024">
@@ -165,7 +112,7 @@
 
                         <div
                             v-if="isVariantAvailable"
-                                class="add_buttons"
+                            class="add_buttons"
                         >
                             <MainButton
                                 :emph="true"
@@ -230,10 +177,11 @@
     import ProductOptionWImages from "../components/ProductOptionWImages";
     import MainButton from "../components/MainButton";
     import ProductPopup from "../components/Popup";
+    import PersonalisationInput from "../components/PersonalisationInput";
 
     export default {
         name: 'Product',
-        components: {ProductPopup, MainButton, ProductOptionWImages, ProductGallery},
+        components: {PersonalisationInput, ProductPopup, MainButton, ProductOptionWImages, ProductGallery},
         data() {
             return {
                 displayAddedToPackage: false,
@@ -307,7 +255,7 @@
                 });
 
                 if (this.product.variants.length > 1) {
-                return isVariant;
+                    return isVariant;
                 }
                 return true;
             }
@@ -319,7 +267,12 @@
                 'addProductToPackage'
             ]),
             updateInputSelectionValueInStore(e) {
-                this.updateSelectionValue({productId: this.productId, value: e.target.value, name: e.target.name, type: 'product'});
+                this.updateSelectionValue({
+                    productId: this.productId,
+                    value: e.target.value,
+                    name: e.target.name,
+                    type: 'product'
+                });
             },
             optionImages(variants, key) {
                 return variants.filter((obj, pos, arr) => {
@@ -349,7 +302,6 @@
                 Object.keys(this.product.options).forEach(optionKey => {
 
                     const imageObjects = this.optionImages(this.product.variants, optionKey);
-                    console.log("imageObjects", imageObjects);
 
                     imageObjects.forEach(imageObject => {
 
@@ -375,8 +327,7 @@
             addToPackage() {
                 document.querySelector("body").style.overflowY = "hidden"; // Fix this
                 this.displayAddedToPackage = true;
-                console.log(this.activeProduct);
-                this.addProductToPackage({ product: this.activeProduct })
+                this.addProductToPackage({product: this.activeProduct})
             }
         }
     }

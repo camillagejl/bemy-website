@@ -96,13 +96,15 @@
                 </div>
 
                 <div class="home_continue_buttons">
-                    <a href="#our_packages">
+                    <router-link
+                    :to="{ name: 'Inspiration' }"
+                    >
                         <MainButton
                             :emph="true"
                             :text="'Bliv inspireret af vores pakker'"
                             :icon="'arrow_down'"
                         />
-                    </a>
+                    </router-link>
 
                     <router-link
                         :to="{ name: 'Wrapping' }">

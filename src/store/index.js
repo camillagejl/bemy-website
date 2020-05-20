@@ -92,7 +92,6 @@ export default new Vuex.Store({
             };
 
             Object.keys(product.options).forEach(option => {
-                console.log(option);
                 if (product.options[option][0] !== 'Default Title') {
                     activeProduct.selections[option] = product.options[option][0]
                 }
@@ -159,7 +158,6 @@ export default new Vuex.Store({
             }
         },
         addProductToPackage(state, payload) {
-            console.log(state.activePackage, state.packages[state.activePackage]);
             state.packages[state.activePackage].products.push(payload.product);
         },
         addNewPackage(state, payload) {
@@ -177,7 +175,6 @@ export default new Vuex.Store({
                     };
             } else {
                 newPackage = _.cloneDeep(state.packages[payload.pack]);
-                console.log(payload.pack);
             }
 
             state.packages.push(newPackage);

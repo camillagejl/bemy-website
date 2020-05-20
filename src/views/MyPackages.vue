@@ -30,36 +30,37 @@
                 v-if="!pack.wrapping && !pack.products.length"
                 class="package_empty"
             >
-                Du er endnu ikke begyndt på at designe din egen pakke.
-                <router-link :to="{ name: 'Wrapping' }">Start ved at designe din indpakning,</router-link>
-                eller
-                <router-link :to="{ name: 'Home' }">bliv inspireret af vores færdige pakker</router-link>
-                .
-
+                Du er endnu ikke begyndt at designe denne pakke.
 
                 <div
                     class="package_buttons"
                 >
                     <router-link
-                        :to="{ name: 'ContentCategoriesOverview' }">
+                        :to="{ name: 'Inspiration' }"
+                    >
                         <MainButton
                             :emph="true"
-                            :text="'Tryk her for at tilføje indhold'"
-                            :icon="'product'"
+                            :text="'Bliv inspireret af vores pakker'"
+                            :icon="'boxes'"
                         />
                     </router-link>
 
                     <router-link
-                        :to="{ name: 'ContentCategoriesOverview' }">
+                        :to="{ name: 'Wrapping' }">
                         <MainButton
-                            :emph="true"
-                            :text="'Tryk her for at tilføje indhold'"
-                            :icon="'product'"
+                            :emph="false"
+                            :text="'Design din egen pakke'"
+                            :icon="'arrow_right'"
                         />
                     </router-link>
+
                 </div>
             </div>
 
+            <div
+                v-else
+                class="package_content_container"
+            >
             <div class="package_wrapping">
 
                 <h3>
@@ -71,16 +72,12 @@
                     v-if="!pack.wrapping">
                     <p>
                         Du har endnu ikke designet din indpakning.
+                        <router-link
+                            :to="{ name: 'Wrapping' }">
+                            Tryk her for at designe din indpakning
+                        </router-link>.
                     </p>
 
-                    <router-link
-                        :to="{ name: 'Wrapping' }">
-                        <MainButton
-                            :emph="true"
-                            :text="'Tryk her for at designe din indpakning'"
-                            :icon="'wrapping'"
-                        />
-                    </router-link>
                 </div>
 
                 <PackageItem
@@ -101,17 +98,11 @@
                     class="nothing_found"
                     v-if="!pack.products.length">
                     <p>
-                        Du har endnu ikke tilføjet noget indhold til din pakke.
-                    </p>
-
-                    <router-link
+                        Du har endnu ikke tilføjet noget indhold til din pakke.                     <router-link
                         :to="{ name: 'ContentCategoriesOverview' }">
-                        <MainButton
-                            :emph="true"
-                            :text="'Tryk her for at tilføje indhold'"
-                            :icon="'product'"
-                        />
-                    </router-link>
+                        Tryk her for at tilføje indhold
+                    </router-link>.
+                    </p>
                 </div>
 
                 <PackageItem
@@ -149,10 +140,11 @@
                 />
 
             </div>
+            </div>
         </section>
 
 
-        <section>
+        <section class="packages_end">
             <hr>
             <div
                 v-if="packages[activePackage].wrapping || packages[activePackage].products.length"
@@ -248,6 +240,10 @@
 
     .package_empty {
         margin: 24px 0 48px 0;
+    }
+
+    .packages_end {
+        margin-top: 96px;
     }
 
     @media screen and (min-width: 1024px) {
