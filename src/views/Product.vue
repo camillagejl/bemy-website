@@ -36,29 +36,16 @@
                     <div class="product_options">
 
                         <!-- Product option w. dropdown -->
-                        <div
+                        <PersonalisationInput
                             v-for="(option, key) in product.options"
-                            v-if="option[0] !== 'Default Title' && !product.optionsWithImages || product.optionsWithImages && !product.optionsWithImages.includes(key)"
-                            class="product_option option_w_dropdown"
-                        >
-                            <label>
-                                <strong class="line_break">
-                                    {{ key }}:
-                                </strong>
-                                <select
-                                    :name="key"
-                                    :value="activeProduct.selections[key]"
-                                    @input="updateInputSelectionValueInStore"
-                                >
-                                    <option
-                                        v-for="value in option"
-                                        :value="value"
-                                    >
-                                        {{ value }}
-                                    </option>
-                                </select>
-                            </label>
-                        </div>
+                            v-if="option[0] !== 'Default Title' && !product.optionsWithImages && activeProduct || product.optionsWithImages && !product.optionsWithImages.includes(key) && activeProduct"
+                            :personalisation="option"
+                            :type="'dropdown'"
+                            :personalisationKey="key"
+                            :productId="product.id"
+                            :activeProduct="activeProduct"
+                            :productType="'product'"
+                        />
 
                         <!-- Product option w. images -->
                         <ProductOptionWImages
@@ -308,6 +295,7 @@
 
                         if (
                             this.activeProduct.selections[optionKey] === imageObject[optionKey] &&
+                            this.product.optionsWithImages &&
                             this.product.optionsWithImages.includes(optionKey)) {
                             images.push(imageObject.image);
                         }

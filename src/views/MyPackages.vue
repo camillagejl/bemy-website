@@ -83,8 +83,11 @@
                 <PackageItem
                     v-if="pack.wrapping"
                     :product="pack.wrapping"
+                    :productType="'wrapping'"
                     :editButton="true"
                     :deleteButton="false"
+                    :productId="pack.id"
+                    :editDestination="{ name: 'Wrapping' }"
                 />
             </div>
 
@@ -109,8 +112,10 @@
                     v-if="pack.products.length"
                     v-for="product in pack.products"
                     :product="product"
+                    :productType="'product'"
                     :editButton="true"
                     :deleteButton="true"
+                    :editDestination="{ name: 'Product', params: { productId: product.id } }"
                 />
             </div>
 

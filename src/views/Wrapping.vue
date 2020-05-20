@@ -43,29 +43,6 @@
                     />
 
                     <!-- Product option w. dropdown -->
-<!--                    <div-->
-<!--                        v-for="(option, key) in product.options"-->
-<!--                        v-if="option[0] !== 'Default Title' && !product.optionsWithImages && activeWrapping || product.optionsWithImages && !product.optionsWithImages.includes(key) && activeWrapping"-->
-<!--                        class="product_option option_w_dropdown"-->
-<!--                    >-->
-<!--                        <label>-->
-<!--                            <strong class="line_break">-->
-<!--                                {{ key }}:-->
-<!--                            </strong>-->
-<!--                            <select-->
-<!--                                :name="key"-->
-<!--                                :value="activeWrapping.selections[key]"-->
-<!--                                @input="updateInputSelectionValueInStore"-->
-<!--                            >-->
-<!--                                <option-->
-<!--                                    v-for="value in option"-->
-<!--                                    :value="value"-->
-<!--                                >-->
-<!--                                    {{ value }}-->
-<!--                                </option>-->
-<!--                            </select>-->
-<!--                        </label>-->
-<!--                    </div>-->
 
                     <PersonalisationInput
                         v-for="(option, key) in product.options"

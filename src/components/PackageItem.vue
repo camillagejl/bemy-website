@@ -13,10 +13,12 @@
 
                 <table>
                     <PersonalisationTr
+                        v-if="!editable"
                         v-for="(selection, key) in product.selections"
                         :selection="selection"
                         :selectionKey="key"
                     />
+
                 </table>
 
                 <div class="product_price">
@@ -31,9 +33,11 @@
         <div
             class="edit_icons">
 
-            <div
+            <router-link
+                :to="editDestination"
                 class="edit_button"
-                v-if="editButton">
+                v-if="editButton"
+            >
                 <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="pencil-alt"
                      class="basic_icon svg-inline--fa fa-pencil-alt fa-w-16" role="img"
                      xmlns="http://www.w3.org/2000/svg"
@@ -46,7 +50,7 @@
                               d="M.37 483.85a24 24 0 0 0 19.47 27.8 24.27 24.27 0 0 0 8.33 0l67.32-16.16-79-79zM412.3 210.78l-111-111a12.13 12.13 0 0 0-17.1 0L32 352h64v64h64v64l252.27-252.25a12 12 0 0 0 .03-16.97zm-114.41-24.93l-154 154a14 14 0 1 1-19.8-19.8l154-154a14 14 0 1 1 19.8 19.8z"></path>
                     </g>
                 </svg>
-            </div>
+            </router-link>
 
             <div
                 class="delete_button"
@@ -74,13 +78,21 @@
 
 <script>
     import PersonalisationTr from "./PersonalisationTr";
+    import PersonalisationInput from "./PersonalisationInput";
     export default {
         name: 'PackageItem',
-        components: {PersonalisationTr},
+        components: {PersonalisationInput, PersonalisationTr},
+        data() {
+            return {
+                editable: false,
+                editDestination: String
+            }
+        },
         props: {
             product: Object,
             editButton: Boolean,
-            deleteButton: Boolean
+            deleteButton: Boolean,
+            productType: String
         }
     }
 </script>
@@ -102,22 +114,6 @@
 
         h4 {
             margin: 0 0 12px 0;
-        }
-
-        tr {
-            display: flex;
-            flex-direction: column;
-            padding-bottom: 12px;
-        }
-
-        td {
-            &.value {
-                color: rgba(var(--colour-grey-700), 1);
-            }
-
-            &.key {
-                padding-right: 24px;
-            }
         }
     }
 

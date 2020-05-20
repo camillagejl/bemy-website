@@ -14,31 +14,31 @@
 </template>
 
 <script>
-    import {mapMutations} from "vuex";
-
     export default {
         name: 'PersonalisationTr',
         props: {
             selection: String,
             selectionKey: String
         },
-        methods: {
-            ...mapMutations([
-                'updateSelectionValue',
-            ]),
-            updateInputSelectionValueInStore(e) {
-                this.updateSelectionValue({
-                    productId: this.productId,
-                    value: e.target.value,
-                    name: e.target.name,
-                    type: this.productType
-                });
-            }
-        }
     }
 </script>
 
 <style scoped lang="scss">
 
+    tr {
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 12px;
+    }
+
+    td {
+        &.value {
+            color: rgba(var(--colour-grey-700), 1);
+        }
+
+        &.key {
+            padding-right: 24px;
+        }
+    }
 
 </style>
