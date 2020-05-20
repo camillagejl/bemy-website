@@ -143,9 +143,9 @@
     }
 
     .popup_dim {
+        background-color: rgba(var(--colour-primary-400), .5);
         height: 100%;
         width: 100%;
-        background-color: rgba(var(--colour-primary-400), .5);
         display: flex;
         justify-content: center;
         align-items: center;

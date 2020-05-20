@@ -4,7 +4,7 @@
 
         <div class="desktop_flex_row">
             <MainNavigation/>
-            <div class="main_section">
+            <div class="main_section" ref="scrolled">
                 <main>
                     <router-view/>
                 </main>
@@ -28,6 +28,8 @@
             return {
                 collections: [],
                 products: [],
+                scroll_positions: {},
+                remember: []
             }
         },
         methods: {
@@ -39,8 +41,22 @@
         mounted() {
             this.fetchProducts();
             this.fetchCollections();
-        }
+        },
+        created() {
+            // Scrolls to top, when router view is in a scrollable parent.
+            // https://github.com/vuejs/vue-router/issues/1187#issuecomment-500406965
+            this.$router.afterEach((to, from) => {
+                this.scroll_positions[from.name] = this.$refs.scrolled.scrollTop;
 
+                let scroll = 0;
+                if (this.scroll_positions.hasOwnProperty(to.name) && this.remember.includes(to.name)) {
+                    scroll = this.scroll_positions[to.name];
+                }
+                this.$nextTick(() => {
+                    this.$refs.scrolled.scrollTop = scroll;
+                });
+            });
+        }
     }
 </script>
 
@@ -58,7 +74,7 @@
         --colour-primary-800: 86, 56, 68;
         --colour-primary-900: 65, 33, 46;
 
-        --colour-secondary-100: #F9FCFF;
+        --colour-secondary-100: 249, 252, 255;
 
         --colour-grey-100: 252, 252, 252;
         --colour-grey-200: 245, 245, 245;
@@ -322,7 +338,7 @@
             box-shadow: none;
         }
 
-    /* Helpers */
+        /* Helpers */
 
         .display_1024 {
             display: block;

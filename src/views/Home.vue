@@ -296,7 +296,7 @@
     }
 
     .infographic_icon {
-        background-color: var(--colour-secondary-100);
+        background-color: rgba(var(--colour-secondary-100), 1);
         display: inline-block;
         flex: 1;
         box-sizing: border-box;

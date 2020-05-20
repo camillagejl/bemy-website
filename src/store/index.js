@@ -176,7 +176,7 @@ export default new Vuex.Store({
                         products: []
                     };
             } else {
-                newPackage = state.packages[payload.pack];
+                newPackage = _.cloneDeep(state.packages[payload.pack]);
                 console.log(payload.pack);
             }
 

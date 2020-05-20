@@ -23,7 +23,7 @@
         bottom: 0;
         left: 0;
         right: 0;
-        background-color: var(--colour-secondary-100);
+        background-color: rgba(var(--colour-secondary-100), 1);
         height: 105px;
         box-shadow: var(--box-shadow-400-top);
     }

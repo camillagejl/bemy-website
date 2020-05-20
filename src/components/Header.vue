@@ -56,7 +56,7 @@
 
 <style scoped lang="scss">
     .header {
-        background-color: var(--colour-secondary-100);
+        background-color: rgba(var(--colour-secondary-100), 1);
         height: 50px;
         box-shadow: var(--box-shadow-400);
 
