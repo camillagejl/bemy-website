@@ -85,14 +85,19 @@
         data() {
             return {
                 editable: false,
-                editDestination: String
             }
         },
         props: {
             product: Object,
             editButton: Boolean,
             deleteButton: Boolean,
-            productType: String
+            productType: String,
+            editDestination: Object
+        },
+        methods: {
+            replaceActiveProduct() {
+                console.log(product)
+            }
         }
     }
 </script>

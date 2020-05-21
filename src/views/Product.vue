@@ -1,7 +1,7 @@
 <template>
     <div class="product">
 
-        <div v-if="!product">
+        <div v-if="!product || !activeProduct">
             Loading... or no product found.
         </div>
 
@@ -99,7 +99,7 @@
                         </div>
 
                         <div
-                            v-if="isVariantAvailable"
+                            v-if="!editingCurrentProduct && isVariantAvailable"
                             class="add_buttons"
                         >
                             <MainButton
@@ -118,7 +118,19 @@
                         </div>
 
                         <div
-                            v-else
+                            v-if="editingCurrentProduct && isVariantAvailable"
+                            class="save_edit_button"
+                        >
+                            <MainButton
+                                :emph="true"
+                                :text="'Gem ændringer'"
+                                :icon="'save'"
+                                @click.native="displayAddToPackages = true"
+                            />
+                        </div>
+
+                        <div
+                            v-if="!isVariantAvailable"
                             class="not_available rounded_box"
                         >
                             Denne variant findes desværre ikke.
@@ -131,6 +143,9 @@
             </div>
 
         </div>
+
+
+        <!-- ======================================== POPUPS ======================================== -->
 
         <!-- Popup when adding to one package -->
         <ProductPopup
@@ -181,7 +196,10 @@
             }
         },
         props: {
-            productId: String
+            productId: String,
+            editingCurrentProduct: Boolean,
+            editingPackageIndex: Number,
+            editingProductIndex: Number
         },
         computed: {
             ...mapState([
@@ -196,10 +214,26 @@
             },
             activeProduct() {
                 let activeProduct = this.getActiveProductById(this.productId);
-                if (!activeProduct) {
-                    this.addActiveProductFromProductId({productId: this.productId, type: 'product'});
+
+                if (!this.editingCurrentProduct) {
+                    if (!activeProduct) {
+                        this.addActiveProductFromProductId({productId: this.productId, type: 'product'});
+                        activeProduct = this.getActiveProductById(this.productId);
+                    }
+                }
+
+                if (this.editingCurrentProduct) {
+                    console.log("productId:", this.productId, "packageIndex", this.editingPackageIndex, "productIndex:", this.editingProductIndex)
+
+                    this.addActiveProductFromProductId({
+                        productId: this.productId,
+                        type: 'editingProduct',
+                        packageIndex: this.editingPackageIndex,
+                        productIndex: this.editingProductIndex
+                    });
                     activeProduct = this.getActiveProductById(this.productId);
                 }
+
                 return activeProduct;
             },
             activeDesign() {
@@ -228,10 +262,14 @@
 
                     Object.keys(this.product.options).forEach(optionKey => {
 
-                        if (variant[optionKey] === this.activeProduct.selections[optionKey]) {
-                            variantMatches.push(true)
-                        } else {
-                            variantMatches.push(false);
+                        if (this.activeProduct) {
+
+                            if (variant[optionKey] === this.activeProduct.selections[optionKey]) {
+                                variantMatches.push(true)
+                            } else {
+                                variantMatches.push(false);
+                            }
+
                         }
                     });
 
@@ -262,7 +300,7 @@
                 this.displayAddedToPackage = false;
                 this.displayAddToPackages = false;
                 this.displayAddedToPackages = false;
-                this.toggleAppOverflow({ bool: true })
+                this.toggleAppOverflow({bool: true})
             },
             updateInputSelectionValueInStore(e) {
                 this.updateSelectionValue({
@@ -304,6 +342,7 @@
                     imageObjects.forEach(imageObject => {
 
                         if (
+                            this.activeProduct &&
                             this.activeProduct.selections[optionKey] === imageObject[optionKey] &&
                             this.product.optionsWithImages &&
                             this.product.optionsWithImages.includes(optionKey)) {
@@ -313,7 +352,7 @@
                     })
                 });
 
-                if (this.product.designs) {
+                if (this.product.designs && this.activeProduct) {
                     this.product.designs.forEach(design => {
                         if (design.Design === this.activeProduct.selections.Design) {
                             images.push(design.image);
@@ -326,7 +365,7 @@
             addToPackage() {
                 this.displayAddedToPackage = true;
                 this.addProductToPackage({product: this.activeProduct});
-                this.toggleAppOverflow({ bool: false })
+                this.toggleAppOverflow({bool: false})
             }
         }
     }
@@ -364,6 +403,11 @@
         background-color: rgba(var(--colour-grey-300), 1);
         text-align: center;
         padding: 12px;
+    }
+
+    .save_edit_button .main_button {
+        width: 100%;
+        margin-top: 24px;
     }
 
     @media screen and (min-width: 768px) {

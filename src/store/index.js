@@ -151,11 +151,18 @@ export default new Vuex.Store({
             }
 
             if (payload.type === 'product') {
+                console.log("Creating new product");
                 Vue.set(state.activeProducts, payload.productId, activeProduct);
             }
 
             if (payload.type === 'wrapping') {
+                console.log("Creating new wrapping");
                 Vue.set(state.packages[state.activePackage], 'wrapping', activeProduct);
+            }
+
+            if (payload.type === 'editingProduct') {
+                console.log("Changing product");
+                Vue.set(state.activeProducts, payload.productId, _.cloneDeep(state.packages[payload.packageIndex].products[payload.productIndex]));
             }
         },
         updateSelectionValue(state, payload) {
@@ -167,7 +174,7 @@ export default new Vuex.Store({
             }
         },
         addProductToPackage(state, payload) {
-            state.packages[state.activePackage].products.push(payload.product);
+            state.packages[state.activePackage].products.push(_.cloneDeep(payload.product));
         },
         addNewPackage(state, payload) {
 

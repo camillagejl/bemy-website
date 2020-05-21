@@ -61,90 +61,102 @@
                 v-else
                 class="package_content_container"
             >
-            <div class="package_wrapping">
+                <div class="package_wrapping">
 
-                <h3>
-                    Indpakning
-                </h3>
+                    <h3>
+                        Indpakning
+                    </h3>
 
-                <div
-                    class="nothing_found"
-                    v-if="!pack.wrapping">
-                    <p>
-                        Du har endnu ikke designet din indpakning.
-                        <router-link
-                            :to="{ name: 'Wrapping' }">
-                            Tryk her for at designe din indpakning
-                        </router-link>.
-                    </p>
+                    <div
+                        class="nothing_found"
+                        v-if="!pack.wrapping">
+                        <p>
+                            Du har endnu ikke designet din indpakning.
+                            <router-link
+                                :to="{ name: 'Wrapping' }">
+                                Tryk her for at designe din indpakning
+                            </router-link>
+                            .
+                        </p>
 
+                    </div>
+
+                    <PackageItem
+                        v-if="pack.wrapping"
+                        :product="pack.wrapping"
+                        :productType="'wrapping'"
+                        :editButton="true"
+                        :deleteButton="false"
+                        :productId="pack.id"
+                        :editDestination="{ name: 'Wrapping' }"
+                    />
                 </div>
 
-                <PackageItem
-                    v-if="pack.wrapping"
-                    :product="pack.wrapping"
-                    :productType="'wrapping'"
-                    :editButton="true"
-                    :deleteButton="false"
-                    :productId="pack.id"
-                    :editDestination="{ name: 'Wrapping' }"
-                />
-            </div>
+                <div class="package_content">
 
-            <div class="package_content">
+                    <h3>
+                        Indhold
+                    </h3>
 
-                <h3>
-                    Indhold
-                </h3>
+                    <div
+                        class="nothing_found"
+                        v-if="!pack.products.length">
+                        <p>
+                            Du har endnu ikke tilføjet noget indhold til din pakke.
+                            <router-link
+                                :to="{ name: 'ContentCategoriesOverview' }">
+                                Tryk her for at tilføje indhold
+                            </router-link>
+                            .
+                        </p>
+                    </div>
 
-                <div
-                    class="nothing_found"
-                    v-if="!pack.products.length">
-                    <p>
-                        Du har endnu ikke tilføjet noget indhold til din pakke.                     <router-link
-                        :to="{ name: 'ContentCategoriesOverview' }">
-                        Tryk her for at tilføje indhold
-                    </router-link>.
-                    </p>
+                    <PackageItem
+                        v-if="pack.products.length"
+                        v-for="(product, productIndex) in pack.products"
+                        :product="product"
+                        :productType="'product'"
+                        :editButton="true"
+                        :deleteButton="true"
+                        :editDestination="{
+                    name: 'Product',
+                    params: {
+                    productId: product.id,
+                    editingCurrentProduct: true,
+                    editingPackageIndex: index,
+                    editingProductIndex: productIndex
+                    }
+                    }
+"
+                    />
                 </div>
 
-                <PackageItem
-                    v-if="pack.products.length"
-                    v-for="product in pack.products"
-                    :product="product"
-                    :productType="'product'"
-                    :editButton="true"
-                    :deleteButton="true"
-                    :editDestination="{ name: 'Product', params: { productId: product.id } }"
-                />
-            </div>
+                <div
+                    v-if="pack.wrapping || pack.products.length"
+                    class="package_buttons"
+                >
+                    <MainButton
+                        :emph="false"
+                        :text="'Slet pakke'"
+                        :icon="'trash'"
+                    />
 
-            <div
-                v-if="pack.wrapping || pack.products.length"
-                class="package_buttons"
-            >
-                <MainButton
-                    :emph="false"
-                    :text="'Slet pakke'"
-                    :icon="'trash'"
-                />
+                    <MainButton
+                        v-if="activePackage !== index"
+                        :emph="true"
+                        :text="'Redigér pakke'"
+                        :icon="'edit'"
+                        @click.native="changeActivePackageInStore(index)"
+                    />
 
-                <MainButton
-                    v-if="activePackage !== index"
-                    :emph="true"
-                    :text="'Redigér pakke'"
-                    :icon="'edit'"
-                    @click.native="changeActivePackageInStore(index)"
-                />
+                    <MainButton
+                        :emph="true"
+                        :text="'Duplikér pakke'"
+                        :icon="'duplicate'"
+                        @click.native="addPackageInStore(index)"
+                    />
 
-                <MainButton
-                    :emph="true"
-                    :text="'Duplikér pakke'"
-                    :icon="'duplicate'"
-                    @click.native="addPackageInStore(index)"
-                />
-
-            </div>
+                </div>
             </div>
         </section>
 
@@ -195,10 +207,10 @@
                 'changeActivePackage'
             ]),
             addPackageInStore(pack) {
-                this.addNewPackage({ pack: pack });
+                this.addNewPackage({pack: pack});
             },
             changeActivePackageInStore(index) {
-                this.changeActivePackage({ index: index })
+                this.changeActivePackage({index: index})
             }
         }
     }

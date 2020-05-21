@@ -2,9 +2,8 @@
     <div class="personalisation_input product_option">
 
         <label
-            v-if="personalisation"
+            v-if="activeProduct && personalisation"
         >
-
                         <span class="line_break">
                         <strong>
                             {{ personalisationKey }}

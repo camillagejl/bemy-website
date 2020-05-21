@@ -18,7 +18,7 @@
                 <router-link
                     v-else
                     v-for="productId in category.products"
-                    :to="{ name: 'Product', params: { productId: productId } }"
+                    :to="{ name: 'Product', params: { productId: productId, editingCurrentProduct: false } }"
                     class="product_preview"
                 >
                     <div v-if="!productsById[productId]">

@@ -82,6 +82,8 @@ const router = new VueRouter({
     mode: 'history',
     base: process.env.BASE_URL,
     routes,
+
+    // scrollBehaviour only works for mobile, since this scrolls normally.
     scrollBehavior (to, from, savedPosition) {
         return { x: 0, y: 0 }
     }
