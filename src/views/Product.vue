@@ -125,7 +125,7 @@
                                 :emph="true"
                                 :text="'Gem ændringer'"
                                 :icon="'save'"
-                                @click.native="displayAddToPackages = true"
+                                @click.native="addToPackage"
                             />
                         </div>
 
@@ -222,8 +222,8 @@
                     }
                 }
 
-                if (this.editingCurrentProduct) {
-                    console.log("productId:", this.productId, "packageIndex", this.editingPackageIndex, "productIndex:", this.editingProductIndex)
+                if (this.editingCurrentProduct && activeProduct !== this.getActiveProductById(this.productId)) {
+                    console.log("productId:", this.productId, "packageIndex", this.editingPackageIndex, "productIndex:", this.editingProductIndex);
 
                     this.addActiveProductFromProductId({
                         productId: this.productId,
@@ -231,7 +231,8 @@
                         packageIndex: this.editingPackageIndex,
                         productIndex: this.editingProductIndex
                     });
-                    activeProduct = this.getActiveProductById(this.productId);
+
+                        activeProduct = this.getActiveProductById(this.productId);
                 }
 
                 return activeProduct;
@@ -363,9 +364,19 @@
                 return images;
             },
             addToPackage() {
-                this.displayAddedToPackage = true;
-                this.addProductToPackage({product: this.activeProduct});
-                this.toggleAppOverflow({bool: false})
+                if (!this.editingCurrentProduct) {
+                    this.displayAddedToPackage = true;
+                    this.addProductToPackage({product: this.activeProduct});
+                    this.toggleAppOverflow({bool: false})
+                }
+
+                if (this.editingCurrentProduct) {
+                    this.addProductToPackage({
+                        product: this.activeProduct,
+                        packageIndex: this.editingPackageIndex,
+                        productIndex: this.editingProductIndex
+                    });
+                }
             }
         }
     }
