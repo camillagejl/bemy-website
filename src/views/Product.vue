@@ -193,6 +193,7 @@
                 displayAddedToPackage: false,
                 displayAddToPackages: false,
                 displayAddedToPackages: false,
+                activeProductUpdated: false
             }
         },
         props: {
@@ -222,7 +223,7 @@
                     }
                 }
 
-                if (this.editingCurrentProduct && activeProduct !== this.getActiveProductById(this.productId)) {
+                if (this.editingCurrentProduct && !this.activeProductUpdated) {
                     console.log("productId:", this.productId, "packageIndex", this.editingPackageIndex, "productIndex:", this.editingProductIndex);
 
                     this.addActiveProductFromProductId({
@@ -232,6 +233,7 @@
                         productIndex: this.editingProductIndex
                     });
 
+                    this.activeProductUpdated = true;
                         activeProduct = this.getActiveProductById(this.productId);
                 }
 
