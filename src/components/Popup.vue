@@ -69,15 +69,12 @@
                         />
                     </router-link>
 
-                    <router-link
-                        :to="{ name: 'MyPackages' }"
-                    >
                         <MainButton
                             :emph="true"
                             :text="'Fortsæt shopping'"
                             :icon="'arrow_right'"
+                            @click.native="closePopup"
                         />
-                    </router-link>
                 </div>
 
                 <!-- Buttons for popup when adding to several packages-->
@@ -85,15 +82,12 @@
                     v-if="popupType === 'addToPackages'"
                     class="buttons"
                 >
-                    <router-link
-                        :to="{ name: 'MyPackages' }"
-                    >
                         <MainButton
                             :emph="false"
                             :text="'Gå tilbage uden at tilføje'"
                             :icon="'arrow_left'"
+                            @click.native="closePopup"
                         />
-                    </router-link>
 
                     <router-link
                         :to="{ name: 'MyPackages' }"
@@ -122,6 +116,7 @@
             product: Object,
             headline: String,
             popupType: String,
+            closePopup: Function,
         },
         computed: {
             ...mapState([
@@ -134,6 +129,7 @@
 <style scoped lang="scss">
 
     .product_popup {
+        z-index: 2;
         position: fixed;
         top: 0;
         left: 0;

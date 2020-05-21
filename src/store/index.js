@@ -15,6 +15,7 @@ export default new Vuex.Store({
         designs: [],
         activeProducts: {},
         activePackage: 0,
+        appOverflow: true,
         packages: [
             {
                 title: 'Din pakke',
@@ -78,6 +79,9 @@ export default new Vuex.Store({
         },
         setCollections(state, payload) {
             state.collections = payload.collections;
+        },
+        toggleAppOverflow(state, payload) {
+            state.appOverflow = payload.bool
         },
         addActiveProductFromProductId(state, payload) {
             const product = _.find(state.products, ['id', payload.productId]);

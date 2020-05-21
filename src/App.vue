@@ -1,5 +1,7 @@
 <template>
-    <div id="app">
+    <div
+        id="app"
+    v-bind:class="{ overflowHidden : !appOverflow }">
         <Header/>
 
         <div class="desktop_flex_row">
@@ -20,7 +22,7 @@
     import Header from "./components/Header";
     import MainNavigation from "./components/MainNavigation";
     import Footer from "./components/Footer";
-    import {mapActions, mapGetters} from "vuex";
+    import {mapActions, mapGetters, mapState} from "vuex";
 
     export default {
         components: {MainNavigation, Footer, Header, Home},
@@ -56,6 +58,11 @@
                     this.$refs.scrolled.scrollTop = scroll;
                 });
             });
+        },
+        computed: {
+            ...mapState([
+                'appOverflow'
+            ]),
         }
     }
 </script>
@@ -128,6 +135,10 @@
         box-sizing: border-box;
         padding-bottom: 50px;
         height: 100vh;
+    }
+
+    .overflowHidden {
+        overflow-y: hidden;
     }
 
     .desktop_flex_row {

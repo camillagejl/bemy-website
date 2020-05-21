@@ -138,6 +138,7 @@
             :product="activeProduct"
             :headline="'Produktet er tilføjet til din pakke'"
             :popupType="'addedToPackage'"
+            :closePopup="closePopup"
         />
 
         <!-- Popup when adding to multiple packages -->
@@ -146,6 +147,7 @@
             :product="activeProduct"
             :headline="'Tilføj produkt til dine pakker'"
             :popupType="'addToPackages'"
+            :closePopup="closePopup"
         />
 
         <!-- Popup when added to multiple packages -->
@@ -154,6 +156,7 @@
             :product="activeProduct"
             :headline="'Produktet er tilføjet til dine pakker'"
             :popupType="'addedToPackages'"
+            :closePopup="closePopup"
         />
 
     </div>
@@ -174,7 +177,7 @@
             return {
                 displayAddedToPackage: false,
                 displayAddToPackages: false,
-                displayAddedToPackages: false
+                displayAddedToPackages: false,
             }
         },
         props: {
@@ -252,8 +255,15 @@
             ...mapMutations([
                 'addActiveProductFromProductId',
                 'updateSelectionValue',
-                'addProductToPackage'
+                'addProductToPackage',
+                'toggleAppOverflow'
             ]),
+            closePopup() {
+                this.displayAddedToPackage = false;
+                this.displayAddToPackages = false;
+                this.displayAddedToPackages = false;
+                this.toggleAppOverflow({ bool: true })
+            },
             updateInputSelectionValueInStore(e) {
                 this.updateSelectionValue({
                     productId: this.productId,
@@ -314,9 +324,9 @@
                 return images;
             },
             addToPackage() {
-                document.querySelector("body").style.overflowY = "hidden"; // Fix this
                 this.displayAddedToPackage = true;
-                this.addProductToPackage({product: this.activeProduct})
+                this.addProductToPackage({product: this.activeProduct});
+                this.toggleAppOverflow({ bool: false })
             }
         }
     }
