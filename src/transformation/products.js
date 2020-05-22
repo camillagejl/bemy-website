@@ -1,4 +1,3 @@
-
 export function createProductData(allRawProducts) {
 
     const rawProducts = allRawProducts.filter(product => product.node.productType !== 'Design-collection');
@@ -82,13 +81,16 @@ export function createProductOptions(options) {
     const productOptions = {};
 
     options.forEach(option => {
-        productOptions[option.name] = {
-            selectOptions: []
-        };
+        console.log(option);
+        if (option.name !== 'Title' && option.values[0] !== 'Default Title') {
+            productOptions[option.name] = {
+                selectOptions: []
+            };
 
-        option.values.forEach(value => {
-            productOptions[option.name].selectOptions.push(value);
-        })
+            option.values.forEach(value => {
+                productOptions[option.name].selectOptions.push(value);
+            })
+        }
     });
 
     return productOptions;
