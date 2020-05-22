@@ -181,10 +181,12 @@
         </section>
 
 
-        <section class="packages_end">
+        <section
+            v-if="packages[activePackage].wrapping"
+            class="packages_end"
+        >
             <hr>
             <div
-                v-if="packages[activePackage].wrapping || packages[activePackage].products.length"
                 class="package_buttons"
             >
                 <MainButton
@@ -234,7 +236,7 @@
                 this.changeActivePackage({index: index})
             },
             deletePackageInStore(packageIndex) {
-                this.deletePackage({ packageIndex: packageIndex })
+                this.deletePackage({packageIndex: packageIndex})
             }
         }
     }
