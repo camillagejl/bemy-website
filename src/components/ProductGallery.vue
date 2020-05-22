@@ -3,7 +3,7 @@
 
         <div class="gallery_tabs">
             <div
-                @click="changeTabs(images, 'imagesTab')"
+                @click="changeTabs('imagesTab')"
                 class="gallery_tab"
                 v-bind:class="{ selected : activeTab === 'imagesTab' }"
             >
@@ -11,7 +11,7 @@
             </div>
             <div
                 v-if="designTab"
-                @click="changeTabs(packages[activePackage].wrapping.designImages, 'designTab')"
+                @click="changeTabs('designTab')"
                 class="gallery_tab"
                 v-bind:class="{ selected : activeTab === 'designTab' }"
             >
@@ -67,7 +67,8 @@
         props: {
             images: Array,
             designTab: Boolean,
-            productType: String
+            productType: String,
+            productId: String
         },
         data() {
             return {
@@ -80,6 +81,7 @@
             ...mapState([
                 'activePackage',
                 'packages',
+                'activeProducts'
             ]),
             currentImages() {
                 if (this.activeTab === 'imagesTab') {
@@ -90,8 +92,8 @@
                     return this.packages[this.activePackage].wrapping.designImages;
                 }
 
-                if (this.activeTab === 'designTab' && this.productType === 'product') {
-                    return this.packages[this.activePackage].wrapping.designImages;
+                if (this.activeTab === 'designTab' && this.productType === 'product' && this.activeProducts[this.productId]) {
+                    return this.activeProducts[this.productId].designImages;
                 }
             },
             selectedImage() {
@@ -113,7 +115,7 @@
                         this.thumbsPosition--;
                 }
             },
-            changeTabs(showImages, clickedTab) {
+            changeTabs(clickedTab) {
                 this.activeTab = clickedTab;
                 this.selectedImageIndex = 0;
             }

@@ -17,6 +17,7 @@
                         :images="product.images"
                         :designTab="hasOptionImages"
                         :productType="'product'"
+                        :productId="productId"
                     />
 
                     <!--  -->
@@ -56,6 +57,7 @@
                             :optionImages="optionImages(product.variants, key)"
                             :productId="product.id"
                             :productType="'product'"
+                            :setDesignImagesInStore="setDesignImagesInStore"
                         />
 
                         <!-- Designs -->
@@ -66,6 +68,7 @@
                             :optionImages="product.designs"
                             :productId="product.id"
                             :productType="'product'"
+                            :setDesignImagesInStore="setDesignImagesInStore"
                         />
 
 
@@ -375,6 +378,10 @@
                 }
 
                 return images;
+            },
+            setDesignImagesInStore() {
+                this.setDesignImages({images: this.myDesignImages(), productType: 'product',
+                productId: this.productId });
             },
             addToPackage() {
                 if (!this.editingCurrentProduct) {

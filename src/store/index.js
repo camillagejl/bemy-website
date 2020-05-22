@@ -182,7 +182,7 @@ export default new Vuex.Store({
             }
 
             if (state.activeProducts[payload.productId] && payload.productType === 'product') {
-                console.log(state.activeProducts[payload.productId]);
+                console.log("Setting!", state.activeProducts[payload.productId]);
                 Vue.set(state.activeProducts[payload.productId], 'designImages', payload.images)
             }
         },
