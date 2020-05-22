@@ -19,7 +19,7 @@
                 <section class="gallery_container">
                     <ProductGallery
                         :images="product.images"
-                        :myDesignImages="myDesignImages()"
+                        :activeWrapping="activeWrapping"
                         :designTab="true"
                     />
 
@@ -35,11 +35,11 @@
 
                     <!-- Select product -->
                     <ProductOptionWImages
-                        @updateSelectedProduct="updateSelectedProduct"
                         :selectedOption="product.title"
-                        :optionKey="'Design'"
+                        :optionKey="'Indpakning'"
                         :optionImages="products"
                         :productType="'wrappingProduct'"
+                        :setActiveProductIndex="setActiveProductIndex"
                     />
 
                     <!-- Product option w. dropdown -->
@@ -64,16 +64,18 @@
                         :optionImages="optionImages(product.variants, key)"
                         :productId="product.id"
                         :productType="'wrapping'"
+                        :setDesignImagesInStore="setDesignImagesInStore"
                     />
 
                     <!-- Designs -->
                     <ProductOptionWImages
-                        v-if="product.designs"
+                        v-if="product.designs && activeWrapping.selections"
                         :selectedOption="activeWrapping.selections.Design"
                         :optionKey="'Design'"
                         :optionImages="product.designs"
                         :productId="product.id"
                         :productType="'wrapping'"
+                        :setDesignImagesInStore="setDesignImagesInStore"
                     />
 
                     <!-- Personalisations -->
@@ -131,10 +133,15 @@
     export default {
         name: 'Wrapping',
         components: {PersonalisationInput, MainButton, PriceFooter, ProductOptionWImages, ProductGallery},
+        data() {
+            return {
+                activeProductIndex: 0
+            }
+        },
         computed: {
             ...mapState([
                 'activePackage',
-                'packages'
+                'packages',
             ]),
             ...mapGetters([
                 'productsById',
@@ -152,9 +159,13 @@
             activeWrapping() {
                 let activeWrapping = this.packages[this.activePackage].wrapping;
 
-                if (!activeWrapping) {
-                    if (this.products[0]) {
-                        this.addActiveProductFromProductId({productId: this.products[0].id, type: 'wrapping'});
+                if (!activeWrapping || this.products[this.activeProductIndex].id !== this.packages[this.activePackage].wrapping.id) {
+                    if (this.products && this.products[this.activeProductIndex]) {
+                        this.addActiveProductFromProductId({
+                            productId: this.products[this.activeProductIndex].id,
+                            type: 'wrapping'
+                        });
+                        this.setDesignImages({images: this.myDesignImages(), productType: 'wrapping'});
                         activeWrapping = this.packages[this.activePackage].wrapping;
                     }
                 }
@@ -173,6 +184,10 @@
 
                 if (this.product.designs) {
                     this.product.designs.forEach(design => {
+                        if (!design) {
+                            return;
+                        }
+
                         if (design.Design === this.activeWrapping.selections.Design) {
                             thisDesign = design;
                         }
@@ -186,7 +201,12 @@
             ...mapMutations([
                 'addActiveProductFromProductId',
                 'updateSelectionValue',
+                'setDesignImages'
             ]),
+            setActiveProductIndex(productIndex) {
+                console.log("Setting...", productIndex);
+                this.activeProductIndex = productIndex
+            },
             updateInputSelectionValueInStore(e) {
                 this.updateSelectionValue({
                     productId: this.productId,
@@ -199,10 +219,6 @@
                 return variants.filter((obj, pos, arr) => {
                     return arr.map(mapObj => mapObj[key]).indexOf(obj[key]) === pos;
                 });
-            },
-            updateSelectedProduct(index) {
-                this.selectedProductIndex = index;
-                console.log(this.selectedProductIndex);
             },
             allPersonalisations() {
                 let personalisations = {};
@@ -223,17 +239,15 @@
             },
 
             myDesignImages() {
-                const images = [];
+                let images = [];
 
                 Object.keys(this.product.options).forEach(optionKey => {
 
                     const imageObjects = this.optionImages(this.product.variants, optionKey);
 
                     imageObjects.forEach(imageObject => {
-
-                        console.log("Object", imageObject, imageObject[optionKey]);
-
                         if (this.activeWrapping.selections[optionKey] === imageObject[optionKey]) {
+                            console.log("selections", this.activeWrapping.selections);
                             images.push(imageObject.image);
                         }
                     })
@@ -245,13 +259,16 @@
                             return;
                         }
 
-                        if (design.title === this.activeWrapping.selections.Design) {
+                        if (design.Design === this.activeWrapping.selections.Design) {
                             images.push(design.image);
                         }
                     })
                 }
 
                 return images;
+            },
+            setDesignImagesInStore() {
+                this.setDesignImages({images: this.myDesignImages(), productType: 'wrapping'});
             }
         }
     }

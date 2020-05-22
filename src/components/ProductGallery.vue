@@ -11,7 +11,7 @@
             </div>
             <div
                 v-if="designTab"
-                @click="changeTabs(myDesignImages, 'designTab')"
+                @click="changeTabs(packages[activePackage].wrapping.designImages, 'designTab')"
                 class="gallery_tab"
                 v-bind:class="{ selected : activeTab === 'designTab' }"
             >
@@ -60,19 +60,37 @@
 </template>
 
 <script>
+    import {mapState} from "vuex";
+
     export default {
         name: 'ProductGallery',
         props: {
             images: Array,
             myDesignImages: Array,
             designTab: Boolean,
+            designImages: Array,
+            activeWrapping: Object,
         },
         data() {
             return {
                 thumbsPosition: 0,
                 selectedImage: this.images[0],
-                currentImages: this.images,
                 activeTab: 'imagesTab'
+            }
+        },
+        computed: {
+            ...mapState([
+                'activePackage',
+                'packages',
+            ]),
+            currentImages() {
+                if (this.activeTab === 'imagesTab') {
+                    return this.images
+                }
+
+                if (this.activeTab === 'designTab') {
+                    return this.packages[this.activePackage].wrapping.designImages;
+                }
             }
         },
         methods: {
@@ -94,10 +112,8 @@
                 this.selectedImage = image;
             },
             changeTabs(showImages, clickedTab) {
-
                 this.activeTab = clickedTab;
-                this.currentImages = showImages;
-                this.selectedImage = showImages[0];
+                this.selectedImage = this.currentImages[0];
             }
         }
     }

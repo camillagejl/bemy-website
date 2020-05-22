@@ -126,7 +126,7 @@ export default new Vuex.Store({
             }
 
 
-            if (product.designs) {
+            if (product.designs && product.designs[0]) {
                 activeProduct.selections.Design = product.designs[0].Design;
 
                 Object.keys(product.designs[0].personalisations).forEach(personalisation => {
@@ -173,6 +173,12 @@ export default new Vuex.Store({
             }
             if (payload.type === 'wrapping') {
                 Vue.set(state.packages[state.activePackage].wrapping.selections, payload.name, payload.value);
+            }
+        },
+        setDesignImages(state, payload) {
+            if (state.packages[state.activePackage] && payload.productType === 'wrapping') {
+                console.log(state.packages[state.activePackage].wrapping);
+                Vue.set(state.packages[state.activePackage].wrapping, 'designImages', payload.images)
             }
         },
         addProductToPackage(state, payload) {

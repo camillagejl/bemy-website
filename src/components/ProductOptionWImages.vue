@@ -39,8 +39,9 @@
                     v-if="productType === 'wrappingProduct'"
                     v-for="(variant, index) in optionImages"
                     class="images_container"
-                    @click="setActiveWrapping(variant.id)"
+                    @click="setActiveProductIndex(index)"
                 >
+
                     <div
                         class="option_image relative_image rounded_box"
                         v-bind:class="{ selected : variant[optionKey] === selectedOption || variant.title === selectedOption }"
@@ -74,7 +75,9 @@
             optionKey: String,
             optionImages: Array,
             productId: String,
-            productType: String
+            productType: String,
+            setActiveProductIndex: Function,
+            setDesignImagesInStore: Function
         },
         computed: {
             ...mapState([
@@ -93,10 +96,11 @@
                     name: key,
                     type: this.productType
                 });
+                this.setDesignImagesInStore();
             },
-            setActiveWrapping(productId) {
-                this.addActiveProductFromProductId({productId: productId, type: 'wrapping'});
-            }
+            // setActiveWrapping(productId) {
+            //     this.addActiveProductFromProductId({productId: productId, type: 'wrapping'});
+            // },
         }
     }
 </script>
