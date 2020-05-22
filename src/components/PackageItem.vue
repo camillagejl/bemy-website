@@ -5,7 +5,13 @@
 
             <div class="package_item_image relative_image rounded_box">
                 <img
-                    :src="product.image">
+                    v-if="product.designImages.length"
+                    :src="product.designImages[0]"
+                >
+                <img
+                    v-else
+                    :src="product.image"
+                >
             </div>
 
             <div class="package_item_info">

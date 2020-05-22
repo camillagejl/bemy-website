@@ -222,7 +222,11 @@
                 if (!this.editingCurrentProduct) {
                     if (!activeProduct) {
                         this.addActiveProductFromProductId({productId: this.productId, type: 'product'});
-                        this.setDesignImages({images: this.myDesignImages(), productType: 'product', productId: this.productId});
+                        this.setDesignImages({
+                            images: this.myDesignImages(),
+                            productType: 'product',
+                            productId: this.productId
+                        });
 
                         activeProduct = this.getActiveProductById(this.productId);
                     }
@@ -239,7 +243,7 @@
                     });
 
                     this.activeProductUpdated = true;
-                        activeProduct = this.getActiveProductById(this.productId);
+                    activeProduct = this.getActiveProductById(this.productId);
                 }
 
                 return activeProduct;
@@ -380,8 +384,11 @@
                 return images;
             },
             setDesignImagesInStore() {
-                this.setDesignImages({images: this.myDesignImages(), productType: 'product',
-                productId: this.productId });
+                this.setDesignImages({
+                    images: this.myDesignImages(),
+                    productType: 'product',
+                    productId: this.productId
+                });
             },
             addToPackage() {
                 if (!this.editingCurrentProduct) {
