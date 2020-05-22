@@ -25,7 +25,7 @@
                 <div class="gallery_thumbs">
                     <div
                         v-for="(image, index) in currentImages"
-                        :style="{ transform: `translateY(${imagesTranslation(thumbsPosition)}%) translateY(calc(${thumbsPosition} * (-11px))`}"
+                        :style="{ transform: `translateY(${imagesTranslation(thumbsPosition)}%) translateY(calc(${thumbsPosition} * (-12px))`}"
                         class="gallery_thumbnail relative_image rounded_box selected"
                         @click="selectedImageIndex = index"
                     >
@@ -199,7 +199,7 @@
     }
 
     .gallery_thumbnail + .gallery_thumbnail {
-        margin-top: 11px;
+        margin-top: 12px;
     }
 
     .slideshow_button {
@@ -218,7 +218,7 @@
         }
 
         &.bottom {
-            bottom: 7px;
+            bottom: 5px;
             border-radius: 0 0 5px 5px;
         }
     }

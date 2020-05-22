@@ -88,6 +88,15 @@
                         :productType="'wrapping'"
                     />
 
+                    <div class="description hide_1024">
+                        <h2>
+                            Beskrivelse
+                        </h2>
+
+                        <div v-html="product.description"></div>
+
+                    </div>
+
                     <div class="product_price">
                         <strong>
                             {{ activeWrapping.displayPrice }} kr
@@ -308,15 +317,24 @@
         }
     }
 
+    .description {
+        margin-top: 24px;
+    }
+
     .product_price {
         font-size: 24px;
         margin-top: 24px;
         text-align: right;
     }
 
+    .continue_button_container a {
+        text-decoration: none;
+    }
+
     .continue_button {
         width: 100%;
         margin-top: 48px;
+
     }
 
     @media screen and (min-width: 768px) {
@@ -328,10 +346,6 @@
         .continue_button_container {
             display: flex;
             justify-content: flex-end;
-
-            a {
-                text-decoration: none;
-            }
         }
 
         .continue_button {
@@ -354,10 +368,6 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-        }
-
-        .description {
-            margin-top: 24px;
         }
     }
 

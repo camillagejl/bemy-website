@@ -66,6 +66,7 @@
                             :emph="false"
                             :text="'Se dine pakker'"
                             :icon="'boxes'"
+                            @click.native="closePopup"
                         />
                     </router-link>
 

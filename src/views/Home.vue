@@ -341,6 +341,8 @@
 
     .arrow_down {
         display: none;
+        width: fit-content;
+        margin: 0 auto;
 
         animation-name: arrow_down_kf;
         animation-iteration-count: infinite;

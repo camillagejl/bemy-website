@@ -425,6 +425,10 @@
         }
     }
 
+    .description {
+        margin-top: 24px;
+    }
+
     .product_price {
         font-size: 24px;
         margin-top: 24px;
@@ -432,10 +436,14 @@
     }
 
     .add_buttons {
-        margin-top: 24px;
+        margin-top: 36px;
 
         .main_button {
             width: 100%;
+
+            + .main_button {
+                margin-top: 12px;
+            }
         }
     }
 
@@ -482,10 +490,6 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-        }
-
-        .description {
-            margin-top: 24px;
         }
     }
 
