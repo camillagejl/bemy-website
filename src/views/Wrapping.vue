@@ -242,11 +242,13 @@
                 let images = [];
 
                 Object.keys(this.product.options).forEach(optionKey => {
-
                     const imageObjects = this.optionImages(this.product.variants, optionKey);
 
                     imageObjects.forEach(imageObject => {
-                        if (this.activeWrapping.selections[optionKey] === imageObject[optionKey]) {
+                        if (
+                            this.activeWrapping.selections[optionKey] === imageObject[optionKey] &&
+                            this.product.optionsWithImages.includes(optionKey)
+                        ) {
                             images.push(imageObject.image);
                         }
                     })

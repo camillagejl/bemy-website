@@ -81,7 +81,6 @@ export function createProductOptions(options) {
     const productOptions = {};
 
     options.forEach(option => {
-        console.log(option);
         if (option.name !== 'Title' && option.values[0] !== 'Default Title') {
             productOptions[option.name] = {
                 selectOptions: []

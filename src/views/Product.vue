@@ -354,6 +354,8 @@
 
                 Object.keys(this.product.options).forEach(optionKey => {
 
+                    console.log("optionKey", optionKey);
+
                     const imageObjects = this.optionImages(this.product.variants, optionKey);
 
                     imageObjects.forEach(imageObject => {
@@ -362,7 +364,8 @@
                             this.activeProduct &&
                             this.activeProduct.selections[optionKey] === imageObject[optionKey] &&
                             this.product.optionsWithImages &&
-                            this.product.optionsWithImages.includes(optionKey)) {
+                            this.product.optionsWithImages.includes(optionKey)
+                        ) {
                             images.push(imageObject.image);
                         }
 
