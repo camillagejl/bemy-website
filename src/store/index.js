@@ -9,163 +9,163 @@ import {displayPrice} from "../helperFunctions";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-        state: {
-            products: [],
-            collections: [],
-            designs: [],
-            activeProducts: {},
-            activePackage: 0,
-            appOverflow: true,
-            packages: [
-                {
-                    title: 'Din pakke',
-                    price: 0,
-                    displayPrice: '0',
-                    products: []
+    state: {
+        products: [],
+        collections: [],
+        designs: [],
+        activeProducts: {},
+        activePackage: 0,
+        appOverflow: true,
+        packages: [
+            {
+                title: 'Din pakke',
+                price: 0,
+                displayPrice: '0',
+                products: []
+            }
+        ],
+    },
+    getters: {
+        productsById: (state, getters) => {
+            return _.keyBy(getters.computedProducts, 'id');
+        },
+        getActiveProductById: (state, getters) => (id) => {
+            return state.activeProducts[id] || null;
+        },
+        designsById: (state, getters) => {
+            return _.keyBy(state.designs, 'id');
+        },
+        productCategoriesById: (state, getters) => {
+            return _.keyBy(getters.productCategories, 'id');
+        },
+        computedProducts: (state, getters) => {
+            return state.products
+                .map(product => {
+                    if (product.designs) {
+                        const rawProductDesigns = product.designs.map(value => getters.designsById[value]);
+
+                        product.designs = [];
+
+                        rawProductDesigns.forEach(design => {
+                            product.designs.push(design);
+                        })
+                    }
+
+                    product.displayPrice = displayPrice(product.price);
+
+                    return product;
+                });
+        },
+        productCategories: (state, getters) => {
+            return state.collections
+                .filter(collection => collection.type === 'Product-category')
+                ;
+        },
+        wrappings: (state, getters) => {
+            return state.collections
+                .filter(collection => collection.type === 'Wrapping')[0]
+                ;
+        },
+        templateCategories: (state, getters) => {
+            return state.collections.filter(collection => collection.type === 'Template-category');
+        },
+    },
+    mutations: {
+        setProducts(state, payload) {
+            state.products = payload.products;
+        },
+        setDesigns(state, payload) {
+            state.designs = payload.products;
+        },
+        setCollections(state, payload) {
+            state.collections = payload.collections;
+        },
+        toggleAppOverflow(state, payload) {
+            state.appOverflow = payload.bool
+        },
+        addActiveProductFromProductId(state, payload) {
+            const product = _.find(state.products, ['id', payload.productId]);
+
+            let activeProduct = {
+                title: product.title,
+                image: product.images[0],
+                price: product.price,
+                displayPrice: product.displayPrice,
+                id: product.id,
+                selections: {}
+            };
+
+            Object.keys(product.options).forEach(option => {
+                if (product.options[option][0] !== 'Default Title') {
+                    activeProduct.selections[option] = product.options[option][0]
                 }
-            ],
-        },
-        getters: {
-            productsById: (state, getters) => {
-                return _.keyBy(getters.computedProducts, 'id');
-            },
-            getActiveProductById: (state, getters) => (id) => {
-                return state.activeProducts[id] || null;
-            },
-            designsById: (state, getters) => {
-                return _.keyBy(state.designs, 'id');
-            },
-            productCategoriesById: (state, getters) => {
-                return _.keyBy(getters.productCategories, 'id');
-            },
-            computedProducts: (state, getters) => {
-                return state.products
-                    .map(product => {
-                        if (product.designs) {
-                            const rawProductDesigns = product.designs.map(value => getters.designsById[value]);
 
-                            product.designs = [];
+                if
+                (product.options[option].selectOptions) {
+                    activeProduct.selections[option] = product.options[option].selectOptions[0]
+                }
+            });
 
-                            rawProductDesigns.forEach(design => {
-                                product.designs.push(design);
-                            })
-                        }
+            if (product.personalisations) {
+                Object.keys(product.personalisations).forEach(personalisation => {
 
-                        product.displayPrice = displayPrice(product.price);
-
-                        return product;
-                    });
-            },
-            productCategories: (state, getters) => {
-                return state.collections
-                    .filter(collection => collection.type === 'Product-category')
-                    ;
-            },
-            wrappings: (state, getters) => {
-                return state.collections
-                    .filter(collection => collection.type === 'Wrapping')[0]
-                    ;
-            },
-            templateCategories: (state, getters) => {
-                return state.collections.filter(collection => collection.type === 'Template-category');
-            },
-        },
-        mutations: {
-            setProducts(state, payload) {
-                state.products = payload.products;
-            },
-            setDesigns(state, payload) {
-                state.designs = payload.products;
-            },
-            setCollections(state, payload) {
-                state.collections = payload.collections;
-            },
-            toggleAppOverflow(state, payload) {
-                state.appOverflow = payload.bool
-            },
-            addActiveProductFromProductId(state, payload) {
-                const product = _.find(state.products, ['id', payload.productId]);
-
-                let activeProduct = {
-                    title: product.title,
-                    image: product.images[0],
-                    price: product.price,
-                    displayPrice: product.displayPrice,
-                    id: product.id,
-                    selections: {}
-                };
-
-                Object.keys(product.options).forEach(option => {
-                    if (product.options[option][0] !== 'Default Title') {
-                        activeProduct.selections[option] = product.options[option][0]
+                    if (
+                        product.personalisations[personalisation].type === 'line_text' ||
+                        product.personalisations[personalisation].type === 'multiline_text' ||
+                        product.personalisations[personalisation].type === 'date' ||
+                        product.personalisations[personalisation].type === 'number'
+                    ) {
+                        activeProduct.selections[personalisation] = ''
                     }
 
-                    if
-                    (product.options[option].selectOptions) {
-                        activeProduct.selections[option] = product.options[option].selectOptions[0]
+                    if (product.personalisations[personalisation].type === 'dropdown') {
+                        activeProduct.selections[personalisation] = product.personalisations[personalisation].selectOptions[0];
                     }
+
+                });
+            }
+
+
+            if (product.designs) {
+                activeProduct.selections.Design = product.designs[0].Design;
+
+                Object.keys(product.designs[0].personalisations).forEach(personalisation => {
+                    activeProduct.selections[personalisation] = '';
+
+
+                    if (
+                        product.designs[0].personalisations[personalisation].type === 'line_text' ||
+                        product.designs[0].personalisations[personalisation].type === 'multiline_text' ||
+                        product.designs[0].personalisations[personalisation].type === 'date' ||
+                        product.designs[0].personalisations[personalisation].type === 'number'
+                    ) {
+                        activeProduct.selections[personalisation] = '';
+                    }
+
+                    if (product.designs[0].personalisations[personalisation].type === 'dropdown') {
+                        activeProduct.selections[personalisation] = product.personalisations[personalisation].selectOptions[0];
+                    }
+
                 });
 
-                if (product.personalisations) {
-                    Object.keys(product.personalisations).forEach(personalisation => {
+            }
 
-                        if (
-                            product.personalisations[personalisation].type === 'line_text' ||
-                            product.personalisations[personalisation].type === 'multiline_text' ||
-                            product.personalisations[personalisation].type === 'date' ||
-                            product.personalisations[personalisation].type === 'number'
-                        ) {
-                            activeProduct.selections[personalisation] = ''
-                        }
+            if (payload.type === 'product') {
+                console.log("Creating new product");
+                Vue.set(state.activeProducts, payload.productId, activeProduct);
+            }
 
-                        if (product.personalisations[personalisation].type === 'dropdown') {
-                            activeProduct.selections[personalisation] = product.personalisations[personalisation].selectOptions[0];
-                        }
+            if (payload.type === 'wrapping') {
+                console.log("Creating new wrapping");
+                Vue.set(state.packages[state.activePackage], 'wrapping', activeProduct);
+            }
 
-                    });
+            if (payload.type === 'editingProduct') {
+                console.log("Changing product");
+                if (state.activeProducts[payload.productId] !== state.packages[payload.packageIndex].products[payload.productIndex]) {
+                    Vue.set(state.activeProducts, payload.productId, _.cloneDeep(state.packages[payload.packageIndex].products[payload.productIndex]));
                 }
-
-
-                if (product.designs) {
-                    activeProduct.selections.Design = product.designs[0].Design;
-
-                    Object.keys(product.designs[0].personalisations).forEach(personalisation => {
-                        activeProduct.selections[personalisation] = '';
-
-
-                        if (
-                            product.designs[0].personalisations[personalisation].type === 'line_text' ||
-                            product.designs[0].personalisations[personalisation].type === 'multiline_text' ||
-                            product.designs[0].personalisations[personalisation].type === 'date' ||
-                            product.designs[0].personalisations[personalisation].type === 'number'
-                        ) {
-                            activeProduct.selections[personalisation] = '';
-                        }
-
-                        if (product.designs[0].personalisations[personalisation].type === 'dropdown') {
-                            activeProduct.selections[personalisation] = product.personalisations[personalisation].selectOptions[0];
-                        }
-
-                    });
-
-                }
-
-                if (payload.type === 'product') {
-                    console.log("Creating new product");
-                    Vue.set(state.activeProducts, payload.productId, activeProduct);
-                }
-
-                if (payload.type === 'wrapping') {
-                    console.log("Creating new wrapping");
-                    Vue.set(state.packages[state.activePackage], 'wrapping', activeProduct);
-                }
-
-                if (payload.type === 'editingProduct') {
-                    console.log("Changing product");
-                    if (state.activeProducts[payload.productId] !== state.packages[payload.packageIndex].products[payload.productIndex]) {
-                        Vue.set(state.activeProducts, payload.productId, _.cloneDeep(state.packages[payload.packageIndex].products[payload.productIndex]));
-                    }
-                }
+            }
         },
         updateSelectionValue(state, payload) {
             if (payload.type === 'product') {
@@ -179,12 +179,18 @@ export default new Vuex.Store({
             if (payload.packageIndex === undefined) {
                 console.log("Adding new product");
                 state.packages[state.activePackage].products.push(_.cloneDeep(payload.product));
-            }
-
-            else {
+            } else {
                 console.log("Changing product in package");
                 Vue.set(state.packages[payload.packageIndex].products, payload.productIndex, _.cloneDeep(payload.product));
             }
+        },
+        deleteProductFromPackage(state, payload) {
+            // Filters the package products to remove the one that is being deleted
+            let newPackageState = state.packages[payload.packageIndex].products.filter(function(product) {
+                return product !== state.packages[payload.packageIndex].products[payload.productIndex]
+            });
+
+            Vue.set(state.packages[payload.packageIndex], 'products', newPackageState)
         },
         addNewPackage(state, payload) {
 
@@ -214,12 +220,10 @@ export default new Vuex.Store({
             state.activePackage = payload.index;
         }
     },
-    actions
-:
-{
-    fetchProducts(context)
-    {
-        Vue.axios.post('/api/2020-01/graphql.json', `
+    actions:
+        {
+            fetchProducts(context) {
+                Vue.axios.post('/api/2020-01/graphql.json', `
 {
   products(first: 250) {
     edges {
@@ -283,15 +287,14 @@ export default new Vuex.Store({
 }
 
                 `)
-            .then((response) => {
-                context.commit('setProducts', {products: createProductData(response.data.data.products.edges)});
-                context.commit('setDesigns', {products: createDesignData(response.data.data.products.edges)});
-            });
-    }
-,
-    fetchCollections(context)
-    {
-        Vue.axios.post('/api/2020-01/graphql.json', `
+                    .then((response) => {
+                        context.commit('setProducts', {products: createProductData(response.data.data.products.edges)});
+                        context.commit('setDesigns', {products: createDesignData(response.data.data.products.edges)});
+                    });
+            }
+            ,
+            fetchCollections(context) {
+                Vue.axios.post('/api/2020-01/graphql.json', `
                 {
   collections(first: 250) {
     edges {
@@ -315,14 +318,13 @@ export default new Vuex.Store({
 }
 
                 `)
-            .then((response) => {
-                context.commit('setCollections', {collections: createCollectionData(response.data.data.collections.edges)});
-            });
-    }
-,
-}
-,
-modules: {
-}
+                    .then((response) => {
+                        context.commit('setCollections', {collections: createCollectionData(response.data.data.collections.edges)});
+                    });
+            }
+            ,
+        }
+    ,
+    modules: {}
 })
 ;

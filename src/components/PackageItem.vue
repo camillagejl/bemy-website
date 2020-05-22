@@ -55,6 +55,7 @@
             <div
                 class="delete_button"
                 v-if="deleteButton"
+                @click="deleteInStore"
             >
                 <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="trash-alt"
                      class="basic_icon svg-inline--fa fa-trash-alt fa-w-14" role="img"
@@ -79,6 +80,7 @@
 <script>
     import PersonalisationTr from "./PersonalisationTr";
     import PersonalisationInput from "./PersonalisationInput";
+    import {mapMutations} from "vuex";
     export default {
         name: 'PackageItem',
         components: {PersonalisationInput, PersonalisationTr},
@@ -92,11 +94,16 @@
             editButton: Boolean,
             deleteButton: Boolean,
             productType: String,
-            editDestination: Object
+            editDestination: Object,
+            packageIndex: Number,
+            productIndex: Number
         },
         methods: {
-            replaceActiveProduct() {
-                console.log(product)
+            ...mapMutations([
+                'deleteProductFromPackage'
+            ]),
+            deleteInStore() {
+                this.deleteProductFromPackage({ packageIndex: this.packageIndex, productIndex: this.productIndex })
             }
         }
     }

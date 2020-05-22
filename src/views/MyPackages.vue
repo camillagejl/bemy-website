@@ -118,6 +118,8 @@
                         :productType="'product'"
                         :editButton="true"
                         :deleteButton="true"
+                        :packageIndex="index"
+                        :productIndex="productIndex"
                         :editDestination="{
                     name: 'Product',
                     params: {
