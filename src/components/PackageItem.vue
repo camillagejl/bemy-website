@@ -55,7 +55,7 @@
             <div
                 class="delete_button"
                 v-if="deleteButton"
-                @click="deleteInStore"
+                @click="deleteProductInStore"
             >
                 <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="trash-alt"
                      class="basic_icon svg-inline--fa fa-trash-alt fa-w-14" role="img"
@@ -102,9 +102,9 @@
             ...mapMutations([
                 'deleteProductFromPackage'
             ]),
-            deleteInStore() {
+            deleteProductInStore() {
                 this.deleteProductFromPackage({ packageIndex: this.packageIndex, productIndex: this.productIndex })
-            }
+            },
         }
     }
 </script>

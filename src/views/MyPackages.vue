@@ -141,6 +141,7 @@
                         :emph="false"
                         :text="'Slet pakke'"
                         :icon="'trash'"
+                        @click.native="deletePackageInStore(index)"
                     />
 
                     <MainButton
@@ -200,19 +201,23 @@
         computed: {
             ...mapState([
                 'activePackage',
-                'packages',
+                'packages'
             ]),
         },
         methods: {
             ...mapMutations([
                 'addNewPackage',
-                'changeActivePackage'
+                'changeActivePackage',
+                'deletePackage'
             ]),
             addPackageInStore(pack) {
                 this.addNewPackage({pack: pack});
             },
             changeActivePackageInStore(index) {
                 this.changeActivePackage({index: index})
+            },
+            deletePackageInStore(packageIndex) {
+                this.deletePackage({ packageIndex: packageIndex })
             }
         }
     }

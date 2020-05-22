@@ -192,6 +192,36 @@ export default new Vuex.Store({
 
             Vue.set(state.packages[payload.packageIndex], 'products', newPackageState)
         },
+        deletePackage(state, payload) {
+            // Filters the package products to remove the one that is being deleted
+            let newPackageState = state.packages.filter(function(product) {
+                return product !== state.packages[payload.packageIndex]
+            });
+
+            if (!newPackageState.length) {
+                newPackageState.push(
+                    {
+                        title: 'Din pakke',
+                        price: 0,
+                        displayPrice: '0',
+                        products: []
+                    }
+                )
+            }
+
+            console.log(newPackageState);
+
+            if (state.activePackage === payload.packageIndex) {
+                Vue.set(state, 'activePackage', 0)
+            }
+
+            else if (state.activePackage > payload.packageIndex) {
+
+                Vue.set(state, 'activePackage', state.activePackage-1)
+            }
+
+            Vue.set(state, 'packages', newPackageState)
+        },
         addNewPackage(state, payload) {
 
             let newPackage;
