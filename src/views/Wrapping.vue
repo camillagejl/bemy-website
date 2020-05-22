@@ -18,8 +18,8 @@
             >
                 <section class="gallery_container">
                     <ProductGallery
+                        :productType="'wrapping'"
                         :images="product.images"
-                        :activeWrapping="activeWrapping"
                         :designTab="true"
                     />
 
@@ -247,7 +247,6 @@
 
                     imageObjects.forEach(imageObject => {
                         if (this.activeWrapping.selections[optionKey] === imageObject[optionKey]) {
-                            console.log("selections", this.activeWrapping.selections);
                             images.push(imageObject.image);
                         }
                     })

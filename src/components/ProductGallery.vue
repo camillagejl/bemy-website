@@ -66,10 +66,8 @@
         name: 'ProductGallery',
         props: {
             images: Array,
-            myDesignImages: Array,
             designTab: Boolean,
-            designImages: Array,
-            activeWrapping: Object,
+            productType: String
         },
         data() {
             return {
@@ -88,7 +86,11 @@
                     return this.images
                 }
 
-                if (this.activeTab === 'designTab') {
+                if (this.activeTab === 'designTab' && this.productType === 'wrapping') {
+                    return this.packages[this.activePackage].wrapping.designImages;
+                }
+
+                if (this.activeTab === 'designTab' && this.productType === 'product') {
                     return this.packages[this.activePackage].wrapping.designImages;
                 }
             },
@@ -110,9 +112,6 @@
                     if (this.thumbsPosition > 0)
                         this.thumbsPosition--;
                 }
-            },
-            selectImage(image) {
-                this.selectedImage = image;
             },
             changeTabs(showImages, clickedTab) {
                 this.activeTab = clickedTab;

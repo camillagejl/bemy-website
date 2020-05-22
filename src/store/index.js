@@ -180,6 +180,11 @@ export default new Vuex.Store({
                 console.log(state.packages[state.activePackage].wrapping);
                 Vue.set(state.packages[state.activePackage].wrapping, 'designImages', payload.images)
             }
+
+            if (state.activeProducts[payload.productId] && payload.productType === 'product') {
+                console.log(state.activeProducts[payload.productId]);
+                Vue.set(state.activeProducts[payload.productId], 'designImages', payload.images)
+            }
         },
         addProductToPackage(state, payload) {
             if (payload.packageIndex === undefined) {

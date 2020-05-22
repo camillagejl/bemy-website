@@ -15,8 +15,8 @@
                 <section class="gallery_container">
                     <ProductGallery
                         :images="product.images"
-                        :myDesignImages="myDesignImages()"
                         :designTab="hasOptionImages"
+                        :productType="'product'"
                     />
 
                     <!--  -->
@@ -219,6 +219,8 @@
                 if (!this.editingCurrentProduct) {
                     if (!activeProduct) {
                         this.addActiveProductFromProductId({productId: this.productId, type: 'product'});
+                        this.setDesignImages({images: this.myDesignImages(), productType: 'product', productId: this.productId});
+
                         activeProduct = this.getActiveProductById(this.productId);
                     }
                 }
@@ -240,10 +242,14 @@
                 return activeProduct;
             },
             activeDesign() {
-                let thisDesign;
+                let thisDesign = null;
 
                 if (this.product.designs) {
                     this.product.designs.forEach(design => {
+                        if (!design) {
+                            return;
+                        }
+
                         if (design.Design === this.activeProduct.selections.Design) {
                             thisDesign = design
                         }
@@ -297,7 +303,8 @@
                 'addActiveProductFromProductId',
                 'updateSelectionValue',
                 'addProductToPackage',
-                'toggleAppOverflow'
+                'toggleAppOverflow',
+                'setDesignImages'
             ]),
             closePopup() {
                 this.displayAddedToPackage = false;
@@ -357,6 +364,10 @@
 
                 if (this.product.designs && this.activeProduct) {
                     this.product.designs.forEach(design => {
+                        if (!design) {
+                            return;
+                        }
+
                         if (design.Design === this.activeProduct.selections.Design) {
                             images.push(design.image);
                         }
