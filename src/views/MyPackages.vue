@@ -74,15 +74,14 @@
                             Du har endnu ikke designet din indpakning.
                             <router-link
                                 :to="{ name: 'Wrapping' }">
-                                Tryk her for at designe din indpakning
+                                Klik her for at designe din indpakning.
                             </router-link>
-                            .
                         </p>
 
                     </div>
 
                     <PackageItem
-                        v-if="pack.wrapping"
+                        v-if="pack.wrapping && pack.wrapping.isAvailable"
                         :product="pack.wrapping"
                         :productType="'wrapping'"
                         :editButton="true"
@@ -90,6 +89,24 @@
                         :productId="pack.id"
                         :editDestination="{ name: 'Wrapping' }"
                     />
+
+                    <div
+                        v-if="pack.wrapping && !pack.wrapping.isAvailable"
+                    >
+                        Din valgte indpakning er desværre ikke tilgængelig.
+                        <router-link
+                            :to="{ name: 'Wrapping' }"
+                        >
+                            <MainButton
+                                class="unavailable_wrapping"
+                                :emph="true"
+                                :text="'Klik her for at designe din indpakning'"
+                                :icon="'wrapping'"
+                            />
+
+                        </router-link>
+
+                    </div>
                 </div>
 
                 <div class="package_content">
@@ -268,6 +285,10 @@
 
     .packages_end {
         margin-top: 96px;
+    }
+
+    .unavailable_wrapping {
+        margin-top: 24px;
     }
 
     @media screen and (min-width: 1024px) {

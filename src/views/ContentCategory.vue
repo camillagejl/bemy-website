@@ -4,7 +4,7 @@
         <MobileContentRecap class="hide_1024"/>
 
         <div v-if="!category">
-            Loading...
+            Vent venligst...
         </div>
         <div v-else>
             <h1>
@@ -21,8 +21,10 @@
                     :to="{ name: 'Product', params: { productId: productId, editingCurrentProduct: false } }"
                     class="product_preview"
                 >
-                    <div v-if="!productsById[productId]">
-                        Loading!
+                    <div
+                        v-if="!productsById[productId]"
+                    >
+                        Vent venligst...
                     </div>
                     <div v-else>
                         <div class="product_image relative_image">

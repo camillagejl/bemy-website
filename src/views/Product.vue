@@ -95,7 +95,10 @@
                     </div>
 
                     <div class="product_bottom">
-                        <div class="product_price">
+                        <div
+                            v-if="isVariantAvailable"
+                            class="product_price"
+                        >
                             <strong>
                                 {{ product.displayPrice }} kr
                             </strong>
@@ -136,7 +139,7 @@
                             v-if="!isVariantAvailable"
                             class="not_available rounded_box"
                         >
-                            Denne variant findes desværre ikke.
+                            Denne variant findes desværre ikke
                         </div>
 
                     </div>
@@ -468,6 +471,7 @@
 
                 + .main_button {
                     margin-left: 12px;
+                    margin-top: 0;
                 }
             }
 

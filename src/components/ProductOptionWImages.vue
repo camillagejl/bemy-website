@@ -98,9 +98,6 @@
                 });
                 this.setDesignImagesInStore();
             },
-            // setActiveWrapping(productId) {
-            //     this.addActiveProductFromProductId({productId: productId, type: 'wrapping'});
-            // },
         }
     }
 </script>

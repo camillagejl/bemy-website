@@ -1,5 +1,8 @@
 <template>
-    <div class="mobile_content_recap">
+    <div
+        v-if="packages[activePackage].products.length"
+        class="mobile_content_recap"
+    >
 
 <div class="header">
         <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="tshirt"
@@ -26,9 +29,16 @@
 
 <script>
     import ContentRecapList from "./ContentRecapList";
+    import {mapState} from "vuex";
     export default {
         name: 'MobileContentRecap',
-        components: {ContentRecapList}
+        components: {ContentRecapList},
+        computed: {
+            ...mapState([
+                'activePackage',
+                'packages'
+            ]),
+        }
     }
 </script>
 

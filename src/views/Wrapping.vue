@@ -10,7 +10,7 @@
                 Indpakning
             </h1>
 
-            <div v-if="!product">No product to show</div>
+            <div v-if="!product">Vent venligst...</div>
 
             <div
                 v-else
@@ -97,32 +97,45 @@
 
                     </div>
 
-                    <div class="product_price">
+                    <div
+                        v-if="isVariantAvailable"
+                        class="product_price"
+                    >
                         <strong>
                             {{ activeWrapping.displayPrice }} kr
                         </strong>
                     </div>
 
+                    <div class="continue_button_container">
+
+                        <router-link
+                            v-if="isVariantAvailable"
+                            :to="{ name: 'ContentCategoriesOverview' }"
+                        >
+                            <MainButton
+                                class="continue_button"
+                                :emph="true"
+                                :text="'Gå videre til indhold'"
+                                :icon="'arrow_right'"
+                            />
+                        </router-link>
+
+                        <div
+                            v-if="!isVariantAvailable"
+                            class="not_available rounded_box"
+                        >
+                            Denne indpakning findes desværre ikke
+                        </div>
+                    </div>
+
                 </section>
-            </div>
 
-            <div class="continue_button_container">
-
-                <router-link
-                    :to="{ name: 'ContentCategoriesOverview' }"
-                >
-                    <MainButton
-                        class="continue_button"
-                        :emph="true"
-                        :text="'Tilføj indhold'"
-                        :icon="'arrow_right'"
-                    />
-                </router-link>
             </div>
 
             <PriceFooter
                 v-if="activeWrapping"
                 :price="activeWrapping.displayPrice"
+                :isAvailable="isVariantAvailable"
             />
 
         </div>
@@ -168,7 +181,7 @@
             activeWrapping() {
                 let activeWrapping = this.packages[this.activePackage].wrapping;
 
-                if (!activeWrapping || this.products[this.activeProductIndex].id !== this.packages[this.activePackage].wrapping.id) {
+                if (!activeWrapping || this.activeProductIndex > 0 && this.products[this.activeProductIndex].id !== this.packages[this.activePackage].wrapping.id) {
                     if (this.products && this.products[this.activeProductIndex]) {
                         this.addActiveProductFromProductId({
                             productId: this.products[this.activeProductIndex].id,
@@ -204,13 +217,50 @@
                 }
 
                 return thisDesign;
+            },
+            isVariantAvailable() {
+                const variantsMatching = [];
+                let isVariant;
+
+                this.product.variants.forEach(variant => {
+                    const variantMatches = [];
+
+                    Object.keys(this.product.options).forEach(optionKey => {
+
+                        if (this.activeWrapping) {
+
+                            if (variant[optionKey] === this.activeWrapping.selections[optionKey]) {
+                                variantMatches.push(true)
+                            } else {
+                                variantMatches.push(false);
+                            }
+
+                        }
+                    });
+
+                    if (variantMatches.includes(false)) {
+                        variantsMatching.push(false);
+                    } else {
+                        variantsMatching.push(true);
+                    }
+
+                    isVariant = variantsMatching.includes(true);
+
+                });
+
+                this.setIsWrappingAvailable({ isAvailable: isVariant });
+
+                if (this.product.variants.length > 1) {
+                    return isVariant;
+                }
             }
         },
         methods: {
             ...mapMutations([
                 'addActiveProductFromProductId',
                 'updateSelectionValue',
-                'setDesignImages'
+                'setDesignImages',
+                'setIsWrappingAvailable'
             ]),
             setActiveProductIndex(productIndex) {
                 console.log("Setting...", productIndex);
@@ -255,7 +305,9 @@
 
                     imageObjects.forEach(imageObject => {
                         if (
+                            this.activeWrapping &&
                             this.activeWrapping.selections[optionKey] === imageObject[optionKey] &&
+                            this.product.optionsWithImages &&
                             this.product.optionsWithImages.includes(optionKey)
                         ) {
                             images.push(imageObject.image);
@@ -327,48 +379,57 @@
         text-align: right;
     }
 
-    .continue_button_container a {
-        text-decoration: none;
-    }
-
-    .continue_button {
-        width: 100%;
+    .continue_button_container {
         margin-top: 48px;
 
+        a {
+            text-decoration: none;
+        }
     }
-
-    @media screen and (min-width: 768px) {
-        .option_images {
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-            grid-gap: 12px;
-        }
-
-        .continue_button_container {
-            display: flex;
-            justify-content: flex-end;
-        }
 
         .continue_button {
-            width: 400px;
-        }
-    }
-
-    @media screen and (min-width: 1024px) {
-        .product_container {
-            display: flex;
+            width: 100%;
         }
 
-        .gallery_container {
-            flex: 2;
+        .not_available {
+            background-color: rgba(var(--colour-grey-300), 1);
+            text-align: center;
+            padding: 12px;
+            width: 100%;
         }
 
-        .product_information {
-            flex: 3;
-            margin-left: 48px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+        @media screen and (min-width: 768px) {
+            .option_images {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                grid-gap: 12px;
+            }
+
+            .continue_button_container {
+                display: flex;
+                justify-content: flex-end;
+            }
+
+            .continue_button {
+                width: 400px;
+            }
         }
-    }
+
+        @media screen and (min-width: 1024px) {
+            .product_container {
+                display: flex;
+            }
+
+            .gallery_container {
+                flex: 2;
+            }
+
+            .product_information {
+                flex: 3;
+                margin-left: 48px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+        }
 
 </style>

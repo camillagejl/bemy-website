@@ -1,7 +1,19 @@
 <template>
     <div class="price_footer">
-        <div class="footer_product_price">
-        {{ price }} kr
+        <div
+            v-if="isAvailable"
+            v-bind:class="{ price_available : isAvailable }"
+            class="footer_product_price"
+        >
+            {{ price }} kr
+        </div>
+
+        <div
+            v-else
+            v-bind:class="{ price_unavailable : !isAvailable }"
+            class="footer_product_price"
+        >
+            Denne indpakning findes desværre ikke!
         </div>
     </div>
 </template>
@@ -10,7 +22,8 @@
     export default {
         name: 'PriceFooter',
         props: {
-            price: String
+            price: String,
+            isAvailable: Boolean
         }
     }
 </script>
@@ -23,7 +36,6 @@
         bottom: 0;
         left: 0;
         right: 0;
-        background-color: rgba(var(--colour-secondary-100), 1);
         height: 105px;
         box-shadow: var(--box-shadow-400-top);
     }
@@ -32,18 +44,32 @@
         display: flex;
         justify-content: flex-end;
         align-items: center;
-        height: 50px;
-        font-size: 24px;
+        height: 55px;
         padding: var(--page-margin);
         padding-top: 0;
         padding-bottom: 0;
-        padding-left: 0;
     }
+
+    .price_available {
+        background-color: rgba(var(--colour-secondary-100), 1);
+        font-size: 24px;
+    }
+
+    .price_unavailable {
+        background-color: rgba(var(--colour-grey-400), 1);
+        font-size: 20px;
+    }
+
+
 
     @media screen and (min-width: 1024px) {
         .price_footer {
             height: 50px;
+        }
+
+        .footer_product_price {
             padding-right: 20px;
+            padding-left: 0;
         }
     }
 

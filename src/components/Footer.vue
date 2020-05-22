@@ -41,6 +41,11 @@
                         placeholder="min@mail.dk"
                     >
                 </label>
+                <MainButton
+                    :emph="false"
+                    :text="'Skriv mig op'"
+                    :icon="'envelope'"
+                />
             </div>
 
             <div class="navigation_1">
@@ -79,15 +84,18 @@
 </template>
 
 <script>
+    import MainButton from "./MainButton";
+
     export default {
-        name: 'Footer'
+        name: 'Footer',
+        components: {MainButton}
     }
 </script>
 
 <style scoped lang="scss">
 
     footer {
-        margin: 48px 0 74px 0;
+        margin: 48px 0 96px 0;
     }
 
     .footer_content {
@@ -116,6 +124,19 @@
         line-height: 24px;
     }
 
+    .subscribe {
+        .main_button,
+        input[type="text"] {
+            width: 200px;
+            box-sizing: border-box;
+        }
+
+        .main_button {
+            margin-top: 12px;
+            padding: 8px;
+        }
+    }
+
     @media screen and (min-width: 768px) {
         .footer_content {
             margin: 24px;
@@ -124,10 +145,13 @@
         }
     }
 
-    @media screen and (min-width: 1200px) {
+    @media screen and (min-width: 1024px) {
         footer {
-            margin: 48px 0 0 0;
+            margin: 48px 0 24px 0;
         }
+    }
+
+    @media screen and (min-width: 1200px) {
 
         .footer_content {
             grid-template-columns: repeat(4, auto);

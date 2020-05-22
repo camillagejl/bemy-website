@@ -195,6 +195,11 @@ export default new Vuex.Store({
                 Vue.set(state.packages[payload.packageIndex].products, payload.productIndex, _.cloneDeep(payload.product));
             }
         },
+        setIsWrappingAvailable(state, payload) {
+            console.log(payload.isAvailable);
+            Vue.set(state.packages[state.activePackage].wrapping, 'isAvailable', payload.isAvailable)
+
+        },
         deleteProductFromPackage(state, payload) {
             // Filters the package products to remove the one that is being deleted
             let newPackageState = state.packages[payload.packageIndex].products.filter(function(product) {

@@ -1,7 +1,9 @@
 <template>
     <div class="package_item">
 
-        <div class="package_item_flex">
+        <div
+            class="package_item_flex"
+        >
 
             <div class="package_item_image relative_image rounded_box">
                 <img
@@ -78,7 +80,6 @@
             </div>
 
         </div>
-
     </div>
 
 </template>

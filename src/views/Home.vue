@@ -96,15 +96,6 @@
                 </div>
 
                 <div class="home_continue_buttons">
-                    <a href="#our_packages"
-                    >
-                        <MainButton
-                            :emph="true"
-                            :text="'Bliv inspireret af vores pakker'"
-                            :icon="'arrow_down'"
-                        />
-                    </a>
-
                     <router-link
                         :to="{ name: 'Wrapping' }">
                         <MainButton
@@ -113,6 +104,15 @@
                             :icon="'arrow_right'"
                         />
                     </router-link>
+
+                    <a href="#our_packages"
+                    >
+                        <MainButton
+                            :emph="true"
+                            :text="'Bliv inspireret af vores pakker'"
+                            :icon="'arrow_down'"
+                        />
+                    </a>
                 </div>
             </div>
 
@@ -421,6 +421,7 @@
 
         .home_continue_buttons {
             display: flex;
+            flex-direction: row-reverse;
             justify-content: center;
             margin: 64px 0;
 
@@ -433,7 +434,7 @@
                 text-decoration: none;
 
                 + a {
-                    margin-left: 24px;
+                    margin-right : 24px;
                 }
             }
         }
