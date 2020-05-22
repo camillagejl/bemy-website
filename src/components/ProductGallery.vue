@@ -24,10 +24,10 @@
             <div class="gallery_content">
                 <div class="gallery_thumbs">
                     <div
-                        v-for="image in currentImages"
+                        v-for="(image, index) in currentImages"
                         :style="{ transform: `translateY(${imagesTranslation(thumbsPosition)}%) translateY(calc(${thumbsPosition} * (-11px))`}"
                         class="gallery_thumbnail relative_image rounded_box selected"
-                        @click="selectImage(image)"
+                        @click="selectedImageIndex = index"
                     >
                         <img :src="image">
                     </div>
@@ -74,8 +74,8 @@
         data() {
             return {
                 thumbsPosition: 0,
-                selectedImage: this.images[0],
-                activeTab: 'imagesTab'
+                activeTab: 'imagesTab',
+                selectedImageIndex: 0
             }
         },
         computed: {
@@ -91,6 +91,9 @@
                 if (this.activeTab === 'designTab') {
                     return this.packages[this.activePackage].wrapping.designImages;
                 }
+            },
+            selectedImage() {
+                return this.currentImages[this.selectedImageIndex]
             }
         },
         methods: {
@@ -113,7 +116,7 @@
             },
             changeTabs(showImages, clickedTab) {
                 this.activeTab = clickedTab;
-                this.selectedImage = this.currentImages[0];
+                this.selectedImageIndex = 0;
             }
         }
     }
