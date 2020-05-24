@@ -36,24 +36,42 @@
                 <div
                     class="package_buttons"
                 >
-                    <router-link
-                        :to="{ name: 'Inspiration' }"
+
+                    <div
+                        v-if="packages.length > 1"
+                        class="button_container"
                     >
                         <MainButton
-                            :emph="true"
-                            :text="'Bliv inspireret af vores pakker'"
-                            :icon="'boxes'"
-                        />
-                    </router-link>
-
-                    <router-link
-                        :to="{ name: 'Wrapping' }">
-                        <MainButton
+                            class="margin_bottom_button"
                             :emph="false"
-                            :text="'Design din egen pakke'"
-                            :icon="'arrow_right'"
+                            :text="'Slet pakke'"
+                            :icon="'trash'"
+                            @click.native="deletePackageInStore(index)"
                         />
-                    </router-link>
+                    </div>
+
+                    <div class="button_container">
+                        <router-link
+                            :to="{ name: 'Inspiration' }"
+                        >
+                            <MainButton
+                                :emph="true"
+                                :text="'Bliv inspireret af vores pakker'"
+                                :icon="'boxes'"
+                            />
+                        </router-link>
+                    </div>
+
+                    <div class="button_container">
+                        <router-link
+                            :to="{ name: 'Wrapping' }">
+                            <MainButton
+                                :emph="true"
+                                :text="'Design din egen pakke'"
+                                :icon="'arrow_right'"
+                            />
+                        </router-link>
+                    </div>
 
                 </div>
             </div>
@@ -95,6 +113,8 @@
                         v-if="pack.wrapping && !pack.wrapping.isAvailable"
                     >
                         Din valgte indpakning er desværre ikke tilgængelig.
+
+                        <div class="button_container">
                         <router-link
                             :to="{ name: 'Wrapping' }"
                         >
@@ -106,6 +126,7 @@
                             />
 
                         </router-link>
+                        </div>
 
                     </div>
                 </div>
@@ -121,6 +142,7 @@
                         v-if="!pack.products.length">
                         <p>
                             Du har endnu ikke tilføjet noget indhold til din pakke.
+
                             <router-link
                                 :to="{ name: 'ContentCategoriesOverview' }">
                                 Tryk her for at tilføje indhold
@@ -155,28 +177,24 @@
                     v-if="pack.wrapping || pack.products.length"
                     class="package_buttons"
                 >
+
+                    <div class="button_container">
                     <MainButton
                         :emph="false"
                         :text="'Slet pakke'"
                         :icon="'trash'"
                         @click.native="deletePackageInStore(index)"
                     />
+                    </div>
 
-                    <MainButton
-                        v-if="activePackage !== index"
-                        :emph="true"
-                        :text="'Redigér pakke'"
-                        :icon="'edit'"
-                        @click.native="changeActivePackageInStore(index)"
-                    />
-
+                    <div class="button_container">
                     <MainButton
                         :emph="true"
                         :text="'Duplikér pakke'"
                         :icon="'duplicate'"
                         @click.native="addPackageInStore(index)"
                     />
-
+                    </div>
                 </div>
             </div>
         </section>
@@ -212,6 +230,20 @@
                 <div
                     class="package_buttons"
                 >
+                    <div
+                        v-if="packages.length > 1"
+                        class="button_container"
+                    >
+                        <MainButton
+                            class="margin_bottom_button"
+                            :emph="false"
+                            :text="'Slet pakke'"
+                            :icon="'trash'"
+                            @click.native="deletePackageInStore(index)"
+                        />
+                    </div>
+
+                    <div class="button_container">
                     <router-link
                         :to="{ name: 'Inspiration' }"
                     >
@@ -221,7 +253,9 @@
                             :icon="'boxes'"
                         />
                     </router-link>
+                    </div>
 
+                    <div class="button_container">
                     <router-link
                         :to="{ name: 'Wrapping' }">
                         <MainButton
@@ -230,6 +264,7 @@
                             :icon="'arrow_right'"
                         />
                     </router-link>
+                    </div>
 
                 </div>
             </div>
@@ -271,6 +306,7 @@
                         v-if="pack.wrapping && !pack.wrapping.isAvailable"
                     >
                         Din valgte indpakning er desværre ikke tilgængelig.
+                        <div class="button_container">
                         <router-link
                             :to="{ name: 'Wrapping' }"
                         >
@@ -282,6 +318,7 @@
                             />
 
                         </router-link>
+                    </div>
 
                     </div>
                 </div>
@@ -331,28 +368,35 @@
                     v-if="pack.wrapping || pack.products.length"
                     class="package_buttons"
                 >
+                    <div class="button_container">
                     <MainButton
                         :emph="false"
                         :text="'Slet pakke'"
                         :icon="'trash'"
                         @click.native="deletePackageInStore(index)"
                     />
+                    </div>
 
-                    <MainButton
+                    <div
                         v-if="activePackage !== index"
+                        class="button_container"
+                    >
+                    <MainButton
                         :emph="true"
                         :text="'Redigér pakke'"
                         :icon="'edit'"
                         @click.native="changeActivePackageInStore(index)"
                     />
+                    </div>
 
+                    <div class="button_container">
                     <MainButton
                         :emph="true"
                         :text="'Duplikér pakke'"
                         :icon="'duplicate'"
                         @click.native="addPackageInStore(index)"
                     />
-
+                    </div>
                 </div>
             </div>
         </section>
@@ -366,18 +410,22 @@
             <div
                 class="package_buttons"
             >
+                <div class="button_container">
                 <MainButton
                     :emph="true"
                     :text="'Ny pakke'"
                     :icon="'plus'"
                     @click.native="addPackageInStore('new')"
                 />
+                </div>
 
+                <div class="button_container">
                 <MainButton
                     :color="'checkout'"
                     :text="'Gå til Checkout'"
                     :icon="'cart'"
                 />
+                </div>
 
             </div>
         </section>
@@ -408,9 +456,10 @@
             ]),
             addPackageInStore(pack) {
                 this.addNewPackage({pack: pack});
+                this.scrollToTop();
             },
             changeActivePackageInStore(index) {
-                this.changeActivePackage({ index: index });
+                this.changeActivePackage({index: index});
                 this.scrollToTop();
             },
             deletePackageInStore(packageIndex) {
@@ -439,19 +488,13 @@
         margin-bottom: 48px;
     }
 
-    .package_buttons {
+    .button_container {
         margin-top: 12px;
     }
 
+    .button_container,
+    .main_button,
     a {
-        width: 100%;
-
-        + a {
-            margin-top: 8px;
-        }
-    }
-
-    .main_button {
         width: 100%;
     }
 
@@ -487,19 +530,12 @@
             margin-top: 48px;
         }
 
-        a {
-            max-width: 50%;
+        .button_container {
+        margin: 0;
 
-            + a {
-                margin: 0 0 0 8px;
-            }
+        + .button_container {
+            margin-left: 12px;
         }
-
-        .main_button {
-
-            + .main_button {
-                margin: 0 0 0 8px;
-            }
         }
     }
 
