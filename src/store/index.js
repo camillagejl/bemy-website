@@ -69,6 +69,20 @@ export default new Vuex.Store({
         templateCategories: (state, getters) => {
             return state.collections.filter(collection => collection.type === 'Template-category');
         },
+        totalPrice(state, payload) {
+            let price = 0;
+
+            state.packages.forEach(pack => {
+
+                pack.products.forEach(product => {
+
+                    console.log(typeof(product.price));
+                    price = price+product.price
+                })
+            });
+
+            return price;
+        }
     },
     mutations: {
         setProducts(state, payload) {
@@ -89,7 +103,7 @@ export default new Vuex.Store({
             let activeProduct = {
                 title: product.title,
                 image: product.images[0],
-                price: product.price,
+                price: Number(product.price),
                 displayPrice: product.displayPrice,
                 id: product.id,
                 activeTab: 'imagesTab',

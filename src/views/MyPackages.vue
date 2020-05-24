@@ -450,6 +450,9 @@
                 'deletePackage'
             ]),
             addPackageInStore(pack) {
+                if (!this.packages[this.activePackage].wrapping && !this.packages[this.activePackage].products.length) {
+                    this.deletePackage({packageIndex: this.activePackage})
+                }
                 this.addNewPackage({pack: pack});
                 this.scrollToTop();
             },

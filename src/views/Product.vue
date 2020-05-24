@@ -80,7 +80,6 @@
                             @click.native="changeTabInStore('designTab')"
                         />
 
-
                         <!-- Personalisations -->
 
                         <PersonalisationInput
