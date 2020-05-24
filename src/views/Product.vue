@@ -22,7 +22,10 @@
 
                     <!--  -->
 
-                    <div class="description display_1024">
+                    <div
+                        v-if="product.options.length || product.designs || allPersonalisations.length"
+                        class="description display_1024"
+                    >
                         <h2>
                             Beskrivelse
                         </h2>
@@ -34,7 +37,10 @@
 
                 <section class="product_information">
 
-                    <div class="product_options">
+                    <div
+                        v-if="product.options.length || product.designs || allPersonalisations.length"
+                        class="product_options"
+                    >
 
                         <!-- Product option w. dropdown -->
                         <PersonalisationInput
@@ -85,7 +91,22 @@
 
                     </div>
 
-                    <div class="description hide_1024">
+                    <div
+                        v-if="!product.options.length && !product.designs && !allPersonalisations.length"
+                        class="description"
+                    >
+                        <h2>
+                            Beskrivelse
+                        </h2>
+
+                        <div v-html="product.description"></div>
+
+                    </div>
+
+                    <div
+                        v-if="product.options.length || product.designs || allPersonalisations.length"
+                        class="description hide_1024"
+                    >
                         <h2>
                             Beskrivelse
                         </h2>
@@ -440,6 +461,7 @@
 
     .add_buttons {
         margin-top: 36px;
+        margin-bottom: 8px;
 
         .main_button {
             width: 100%;
