@@ -59,6 +59,7 @@
                     v-if="popupType === 'addedToPackage' || popupType === 'addedToPackages'"
                     class="buttons"
                 >
+                    <div class="button_container">
                     <router-link
                         :to="{ name: 'MyPackages' }"
                     >
@@ -69,7 +70,9 @@
                             @click.native="closePopup"
                         />
                     </router-link>
+                    </div>
 
+                    <div class="button_container">
                         <MainButton
                             :emph="true"
                             :text="'Fortsæt shopping'"
@@ -77,19 +80,24 @@
                             @click.native="closePopup"
                         />
                 </div>
+                </div>
 
                 <!-- Buttons for popup when adding to several packages-->
                 <div
                     v-if="popupType === 'addToPackages'"
                     class="buttons"
                 >
+                    <div class="button_container">
                         <MainButton
                             :emph="false"
                             :text="'Gå tilbage uden at tilføje'"
                             :icon="'arrow_left'"
                             @click.native="closePopup"
                         />
+                    </div>
 
+
+                    <div class="button_container">
                     <router-link
                         :to="{ name: 'MyPackages' }"
                     >
@@ -99,6 +107,7 @@
                             :icon="'arrow_right'"
                         />
                     </router-link>
+                    </div>
                 </div>
             </div>
         </div>
@@ -194,16 +203,16 @@
 
     .buttons {
         margin-top: 48px;
+    }
 
-        a {
-            .main_button {
-                width: 100%;
-            }
+    .button_container,
+    .main_button,
+    a {
+        width: 100%;
+    }
 
-            + a {
-                margin-left: 12px;
-            }
-        }
+    .button_container + .button_container {
+        margin-top: 12px;
     }
 
     @media screen and (min-width: 768px) {
@@ -214,8 +223,12 @@
         .buttons {
             display: flex;
 
-            a {
-                flex: 1;
+            .button_container {
+                margin: 0;
+
+                + .button_container {
+                    margin-left: 12px;
+                }
             }
         }
     }
