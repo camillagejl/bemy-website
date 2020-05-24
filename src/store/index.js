@@ -21,6 +21,7 @@ export default new Vuex.Store({
                 title: 'Din pakke',
                 price: 0,
                 displayPrice: '0',
+                activeWrappingIndex: 0,
                 products: []
             }
         ],
@@ -68,6 +69,19 @@ export default new Vuex.Store({
         },
         templateCategories: (state, getters) => {
             return state.collections.filter(collection => collection.type === 'Template-category');
+        },
+        totalCartDisplayPrice(state, payload) {
+            let price = 0;
+
+            state.packages.forEach(pack => {
+                pack.products.forEach(product => {
+                    price = price+product.price
+                });
+
+                price = price + pack.wrapping.price;
+            });
+
+            return displayPrice(price.toFixed(2));
         }
     },
     mutations: {
@@ -175,7 +189,6 @@ export default new Vuex.Store({
         },
         setDesignImages(state, payload) {
             if (state.packages[state.activePackage] && payload.productType === 'wrapping') {
-                console.log(state.packages[state.activePackage].wrapping);
                 Vue.set(state.packages[state.activePackage].wrapping, 'designImages', payload.images)
             }
 
@@ -194,17 +207,14 @@ export default new Vuex.Store({
         },
         addProductToPackage(state, payload) {
             if (payload.packageIndex === undefined) {
-                console.log("Adding new product");
                 state.packages[state.activePackage].products.push(_.cloneDeep(payload.product));
                 this.commit('updateTotalPriceOfPackage', { packageIndex: state.activePackage });
             } else {
-                console.log("Changing product in package");
                 Vue.set(state.packages[payload.packageIndex].products, payload.productIndex, _.cloneDeep(payload.product));
                 this.commit('updateTotalPriceOfPackage', { packageIndex: state.packageIndex });
             }
         },
         setIsWrappingAvailable(state, payload) {
-            console.log(payload.isAvailable);
             Vue.set(state.packages[state.activePackage].wrapping, 'isAvailable', payload.isAvailable)
 
         },
@@ -233,8 +243,6 @@ export default new Vuex.Store({
                 )
             }
 
-            console.log(newPackageState);
-
             if (state.activePackage === payload.packageIndex) {
                 Vue.set(state, 'activePackage', 0)
             }
@@ -257,6 +265,7 @@ export default new Vuex.Store({
                         title: 'Din pakke',
                         price: 0,
                         displayPrice: '0',
+                        activeWrappingIndex: 0,
                         products: []
                     };
             } else {
@@ -274,7 +283,6 @@ export default new Vuex.Store({
             state.activePackage = payload.index;
         },
         updateTotalPriceOfPackage(state, payload) {
-            console.log("Updating price");
             let price = 0;
 
             state.packages[payload.packageIndex].products.forEach(product => {
@@ -288,19 +296,8 @@ export default new Vuex.Store({
             Vue.set(state.packages[payload.packageIndex], 'price', price.toFixed(2));
             Vue.set(state.packages[payload.packageIndex], 'displayPrice', displayPrice(price.toFixed(2)));
         },
-        updateTotalPrice(state, payload) {
-            let price = 0;
-
-            state.packages.forEach(pack => {
-
-                pack.products.forEach(product => {
-
-                    console.log(typeof(product.price));
-                    price = price+product.price
-                })
-            });
-
-            return price;
+        setActiveWrappingIndex(state, payload) {
+            Vue.set(state.packages[state.activePackage], 'activeWrappingIndex', payload.index)
         }
     },
     actions:

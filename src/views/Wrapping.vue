@@ -40,7 +40,7 @@
                         :optionKey="'Indpakning'"
                         :optionImages="products"
                         :productType="'wrappingProduct'"
-                        :setActiveProductIndex="setActiveProductIndex"
+                        :setWrappingIndexInStore="setWrappingIndexInStore"
                     />
 
                     <!-- Product option w. dropdown -->
@@ -158,11 +158,6 @@
     export default {
         name: 'Wrapping',
         components: {PersonalisationInput, MainButton, PriceFooter, ProductOptionWImages, ProductGallery},
-        data() {
-            return {
-                activeProductIndex: 0
-            }
-        },
         computed: {
             ...mapState([
                 'activePackage',
@@ -184,10 +179,12 @@
             activeWrapping() {
                 let activeWrapping = this.packages[this.activePackage].wrapping;
 
-                if (!activeWrapping || this.activeProductIndex > 0 && this.products[this.activeProductIndex].id !== this.packages[this.activePackage].wrapping.id) {
-                    if (this.products && this.products[this.activeProductIndex]) {
+                const activeWrappingIndex = this.packages[this.activePackage].activeWrappingIndex;
+
+                if (!activeWrapping || this.products[activeWrappingIndex].id !== this.packages[this.activePackage].wrapping.id) {
+                    if (this.products && this.products[activeWrappingIndex]) {
                         this.addActiveProductFromProductId({
-                            productId: this.products[this.activeProductIndex].id,
+                            productId: this.products[activeWrappingIndex].id,
                             type: 'wrapping'
                         });
                         this.setDesignImages({images: this.myDesignImages(), productType: 'wrapping'});
@@ -264,11 +261,11 @@
                 'updateSelectionValue',
                 'setDesignImages',
                 'setIsWrappingAvailable',
-                'changeGalleryTab'
+                'changeGalleryTab',
+                'setActiveWrappingIndex'
             ]),
-            setActiveProductIndex(productIndex) {
-                console.log("Setting...", productIndex);
-                this.activeProductIndex = productIndex
+            setWrappingIndexInStore(index) {
+                this.setActiveWrappingIndex({ index: index })
             },
             updateInputSelectionValueInStore(e) {
                 this.updateSelectionValue({

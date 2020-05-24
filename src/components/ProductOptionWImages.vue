@@ -39,7 +39,7 @@
                     v-if="productType === 'wrappingProduct'"
                     v-for="(variant, index) in optionImages"
                     class="images_container"
-                    @click="setActiveProductIndex(index)"
+                    @click="setWrappingIndexInStore(index)"
                 >
 
                     <div
@@ -76,7 +76,7 @@
             optionImages: Array,
             productId: String,
             productType: String,
-            setActiveProductIndex: Function,
+            setWrappingIndexInStore: Function,
             setDesignImagesInStore: Function
         },
         computed: {
