@@ -68,20 +68,6 @@ export default new Vuex.Store({
         },
         templateCategories: (state, getters) => {
             return state.collections.filter(collection => collection.type === 'Template-category');
-        },
-        totalPrice(state, payload) {
-            let price = 0;
-
-            state.packages.forEach(pack => {
-
-                pack.products.forEach(product => {
-
-                    console.log(typeof(product.price));
-                    price = price+product.price
-                })
-            });
-
-            return price;
         }
     },
     mutations: {
@@ -147,7 +133,6 @@ export default new Vuex.Store({
                 Object.keys(product.designs[0].personalisations).forEach(personalisation => {
                     activeProduct.selections[personalisation] = '';
 
-
                     if (
                         product.designs[0].personalisations[personalisation].type === 'line_text' ||
                         product.designs[0].personalisations[personalisation].type === 'multiline_text' ||
@@ -210,9 +195,11 @@ export default new Vuex.Store({
             if (payload.packageIndex === undefined) {
                 console.log("Adding new product");
                 state.packages[state.activePackage].products.push(_.cloneDeep(payload.product));
+                this.commit('updateTotalPriceOfPackage', { packageIndex: state.activePackage });
             } else {
                 console.log("Changing product in package");
                 Vue.set(state.packages[payload.packageIndex].products, payload.productIndex, _.cloneDeep(payload.product));
+                this.commit('updateTotalPriceOfPackage', { packageIndex: state.packageIndex });
             }
         },
         setIsWrappingAvailable(state, payload) {
@@ -284,6 +271,31 @@ export default new Vuex.Store({
         },
         changeActivePackage(state, payload) {
             state.activePackage = payload.index;
+        },
+        updateTotalPriceOfPackage(state, payload) {
+            console.log("Updating price");
+            let price = 0;
+
+            state.packages[payload.packageIndex].products.forEach(product => {
+                price = price+product.price
+            });
+
+            Vue.set(state.packages[payload.packageIndex], 'price', price.toFixed(2));
+            Vue.set(state.packages[payload.packageIndex], 'displayPrice', displayPrice(price.toFixed(2)));
+        },
+        updateTotalPrice(state, payload) {
+            let price = 0;
+
+            state.packages.forEach(pack => {
+
+                pack.products.forEach(product => {
+
+                    console.log(typeof(product.price));
+                    price = price+product.price
+                })
+            });
+
+            return price;
         }
     },
     actions:

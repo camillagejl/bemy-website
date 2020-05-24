@@ -1,6 +1,7 @@
 
 
 export function displayPrice(price) {
+    console.log(price, price.toString());
     return insertStringInString(price.toString().replace('.', ','), '.', -6);
 }
 
