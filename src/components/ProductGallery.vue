@@ -1,7 +1,9 @@
 <template>
     <div class="product_gallery">
 
-        <div class="gallery_tabs">
+        <div
+            class="gallery_tabs"
+             v-if="designTab">
             <div
                 @click="changeTabs('imagesTab')"
                 class="gallery_tab"
@@ -10,7 +12,6 @@
                 Inspiration
             </div>
             <div
-                v-if="designTab"
                 @click="changeTabs('designTab')"
                 class="gallery_tab"
                 v-bind:class="{ selected : activeTab === 'designTab' }"
@@ -137,6 +138,7 @@
     }
 
     .gallery_tab {
+        cursor: pointer;
         background-color: rgba(var(--colour-primary-300), 1);
         flex: 1;
         color: white;
@@ -145,6 +147,13 @@
         border-radius: 5px 5px 0 0;
         font-weight: 300;
         font-size: 14px;
+        transition: .3s;
+
+        &:hover {
+            background-color: rgba(var(--colour-primary-400), 1);
+            transition: .3s;
+        }
+
 
         + .gallery_tab {
             margin-left: 4px;
@@ -183,6 +192,7 @@
     }
 
     .gallery_thumbs {
+        cursor: pointer;
         display: flex;
         flex-direction: column;
         flex: 1;
@@ -211,6 +221,7 @@
         width: calc(20% - 7px);
         padding: 10px;
         text-align: center;
+        transition: .3s;
 
         &.top {
             top: 0;
@@ -220,6 +231,11 @@
         &.bottom {
             bottom: 5px;
             border-radius: 0 0 5px 5px;
+        }
+
+        &:hover {
+            transition: .3s;
+            background-color: rgba(var(--colour-grey-100), .85);
         }
     }
 
