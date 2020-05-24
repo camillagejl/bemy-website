@@ -21,6 +21,7 @@
                         :productType="'wrapping'"
                         :images="product.images"
                         :designTab="true"
+                        :changeTab="changeTabInStore"
                     />
 
                     <div class="description display_1024">
@@ -65,6 +66,7 @@
                         :productId="product.id"
                         :productType="'wrapping'"
                         :setDesignImagesInStore="setDesignImagesInStore"
+                        @click.native="changeTabInStore('designTab')"
                     />
 
                     <!-- Designs -->
@@ -76,6 +78,7 @@
                         :productId="product.id"
                         :productType="'wrapping'"
                         :setDesignImagesInStore="setDesignImagesInStore"
+                        @click.native="changeTabInStore('designTab')"
                     />
 
                     <!-- Personalisations -->
@@ -260,7 +263,8 @@
                 'addActiveProductFromProductId',
                 'updateSelectionValue',
                 'setDesignImages',
-                'setIsWrappingAvailable'
+                'setIsWrappingAvailable',
+                'changeGalleryTab'
             ]),
             setActiveProductIndex(productIndex) {
                 console.log("Setting...", productIndex);
@@ -331,6 +335,9 @@
             },
             setDesignImagesInStore() {
                 this.setDesignImages({images: this.myDesignImages(), productType: 'wrapping'});
+            },
+            changeTabInStore(tab) {
+                this.changeGalleryTab({ tab: tab, productId: this.productId, productType: 'wrapping' })
             }
         }
     }

@@ -152,17 +152,14 @@ export default new Vuex.Store({
             }
 
             if (payload.type === 'product') {
-                console.log("Creating new product");
                 Vue.set(state.activeProducts, payload.productId, activeProduct);
             }
 
             if (payload.type === 'wrapping') {
-                console.log("Creating new wrapping");
                 Vue.set(state.packages[state.activePackage], 'wrapping', activeProduct);
             }
 
             if (payload.type === 'editingProduct') {
-                console.log("Changing product");
                 if (state.activeProducts[payload.productId] !== state.packages[payload.packageIndex].products[payload.productIndex]) {
                     Vue.set(state.activeProducts, payload.productId, _.cloneDeep(state.packages[payload.packageIndex].products[payload.productIndex]));
                 }
@@ -183,12 +180,17 @@ export default new Vuex.Store({
             }
 
             if (state.activeProducts[payload.productId] && payload.productType === 'product') {
-                console.log("Setting!", state.activeProducts[payload.productId]);
                 Vue.set(state.activeProducts[payload.productId], 'designImages', payload.images)
             }
         },
         changeGalleryTab(state, payload) {
-            state.activeProducts[payload.productId].activeTab = payload.tab
+            if (payload.productType === 'product') {
+                state.activeProducts[payload.productId].activeTab = payload.tab
+            }
+
+            if (payload.productType === 'wrapping') {
+                state.packages[state.activePackage].wrapping.activeTab = payload.tab
+            }
         },
         addProductToPackage(state, payload) {
             if (payload.packageIndex === undefined) {

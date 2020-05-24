@@ -420,6 +420,9 @@
                     productId: this.productId
                 });
             },
+        changeTabInStore(tab) {
+            this.changeGalleryTab({ tab: tab, productId: this.productId, productType: 'product' })
+        },
             addToPackage() {
                 if (!this.editingCurrentProduct) {
                     this.displayAddedToPackage = true;
@@ -434,9 +437,6 @@
                         productIndex: this.editingProductIndex
                     });
                 }
-            },
-            changeTabInStore(tab) {
-                this.changeGalleryTab({ tab: tab, productId: this.productId })
             }
         }
     }

@@ -3,18 +3,18 @@
 
         <div
             class="gallery_tabs"
-             v-if="designTab">
+            v-if="designTab">
             <div
                 @click="changeTabs('imagesTab')"
                 class="gallery_tab"
-                v-bind:class="{ selected : this.activeProducts[this.productId].activeTab === 'imagesTab' }"
+                v-bind:class="{ selected : activeTab === 'imagesTab' }"
             >
                 Inspiration
             </div>
             <div
                 @click="changeTabs('designTab')"
                 class="gallery_tab"
-                v-bind:class="{ selected : this.activeProducts[this.productId].activeTab === 'designTab' }"
+                v-bind:class="{ selected : activeTab === 'designTab' }"
             >
                 Mit design
             </div>
@@ -84,17 +84,28 @@
                 'packages',
                 'activeProducts'
             ]),
+            activeTab() {
+                if (this.productType === 'product') {
+                    return this.activeProducts[this.productId].activeTab
+                }
+
+                if (this.productType === 'wrapping' && this.packages[this.activePackage].wrapping) {
+                    return this.packages[this.activePackage].wrapping.activeTab
+                }
+            },
             currentImages() {
-                if (this.activeProducts[this.productId].activeTab === 'imagesTab') {
-                    return this.images
-                }
+                if (this.activeTab) {
+                    if (this.activeTab === 'imagesTab') {
+                        return this.images
+                    }
 
-                if (this.activeProducts[this.productId].activeTab === 'designTab' && this.productType === 'wrapping') {
-                    return this.packages[this.activePackage].wrapping.designImages;
-                }
+                    if (this.activeTab === 'designTab' && this.productType === 'wrapping') {
+                        return this.packages[this.activePackage].wrapping.designImages;
+                    }
 
-                if (this.activeProducts[this.productId].activeTab === 'designTab' && this.productType === 'product' && this.activeProducts[this.productId]) {
-                    return this.activeProducts[this.productId].designImages;
+                    if (this.activeTab === 'designTab' && this.productType === 'product' && this.activeProducts[this.productId]) {
+                        return this.activeProducts[this.productId].designImages;
+                    }
                 }
             },
             selectedImage() {
