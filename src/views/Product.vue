@@ -23,7 +23,7 @@
                     <!--  -->
 
                     <div
-                        v-if="product.options.length || product.designs || allPersonalisations.length"
+                        v-if="product.options.length || product.designs || allPersonalisations"
                         class="description display_1024"
                     >
                         <h2>
@@ -38,7 +38,7 @@
                 <section class="product_information">
 
                     <div
-                        v-if="product.options.length || product.designs || allPersonalisations.length"
+                        v-if="product.options.length || product.designs || allPersonalisations"
                         class="product_options"
                     >
 
@@ -81,7 +81,7 @@
                         <!-- Personalisations -->
 
                         <PersonalisationInput
-                            v-for="(personalisation, key) in allPersonalisations()"
+                            v-for="(personalisation, key) in allPersonalisations"
                             :personalisation="personalisation"
                             :personalisationKey="key"
                             :productId="product.id"
@@ -92,7 +92,7 @@
                     </div>
 
                     <div
-                        v-if="!product.options.length && !product.designs && !allPersonalisations.length"
+                        v-if="!product.options.length && !product.designs && !allPersonalisations"
                         class="description"
                     >
                         <h2>
@@ -104,7 +104,7 @@
                     </div>
 
                     <div
-                        v-if="product.options.length || product.designs || allPersonalisations.length"
+                        v-if="product.options.length || product.designs || allPersonalisations"
                         class="description hide_1024"
                     >
                         <h2>
@@ -293,6 +293,21 @@
                     return true;
                 }
             },
+            allPersonalisations() {
+                let personalisations = {};
+
+                Object.keys(this.product.personalisations).forEach((personalisation) => {
+                    personalisations[personalisation] = this.product.personalisations[personalisation]
+                });
+
+                if (this.activeDesign) {
+                    Object.keys(this.activeDesign.personalisations).forEach(personalisation => {
+                        personalisations[personalisation] = this.activeDesign.personalisations[personalisation];
+                    });
+                }
+
+                return personalisations
+            },
             isVariantAvailable() {
                 const variantsMatching = [];
                 let isVariant;
@@ -355,22 +370,6 @@
                 return variants.filter((obj, pos, arr) => {
                     return arr.map(mapObj => mapObj[key]).indexOf(obj[key]) === pos;
                 });
-            },
-
-            allPersonalisations() {
-                let personalisations = {};
-
-                Object.keys(this.product.personalisations).forEach((personalisation) => {
-                    personalisations[personalisation] = this.product.personalisations[personalisation]
-                });
-
-                if (this.activeDesign) {
-                    Object.keys(this.activeDesign.personalisations).forEach(personalisation => {
-                        personalisations[personalisation] = this.activeDesign.personalisations[personalisation];
-                    });
-                }
-
-                return personalisations
             },
 
             myDesignImages() {

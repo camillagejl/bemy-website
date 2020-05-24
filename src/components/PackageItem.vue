@@ -26,7 +26,6 @@
                         :selection="selection"
                         :selectionKey="key"
                     />
-
                 </table>
 
                 <div class="product_price">

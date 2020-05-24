@@ -2,7 +2,7 @@
     <div class="product_option_w_images product_option">
 
         <div
-        v-if="optionKey"
+        v-if="optionKey && optionImages"
         >
             <span class="line_break">
                 <strong>{{ optionKey }}</strong>: {{ selectedOption }}
