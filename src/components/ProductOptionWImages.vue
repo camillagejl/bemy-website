@@ -104,7 +104,6 @@
 
 <style scoped lang="scss">
 
-
     .line_break {
         display: block;
         margin-bottom: 8px;
