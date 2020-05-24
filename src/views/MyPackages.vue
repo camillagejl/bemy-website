@@ -172,9 +172,10 @@
 "
                     />
 
-                    <div class="package_price">
+                </div>
+
+                <div class="package_price">
                     Pakkens pris: {{ pack.displayPrice }} kr
-                    </div>
                 </div>
 
                 <div
@@ -339,6 +340,11 @@
                     }
 "
                     />
+
+                </div>
+
+                <div class="package_price">
+                    Pakkens pris: {{ pack.displayPrice }} kr
                 </div>
 
                 <div
@@ -382,8 +388,16 @@
             class="packages_end"
         >
             <hr>
+
             <div
-                class="package_buttons"
+                v-if="totalCartDisplayPrice"
+                 class="cart_price"
+            >
+                Din kurv: {{ totalCartDisplayPrice }} kr
+            </div>
+
+            <div
+                class="package_buttons last_package_buttons"
             >
                 <div
                     v-if="packages[activePackage].wrapping || packages[activePackage].products.length"
@@ -425,7 +439,7 @@
 <script>
     import PackageItem from "../components/PackageItem";
     import MainButton from "../components/MainButton";
-    import {mapMutations, mapState} from "vuex";
+    import {mapGetters, mapMutations, mapState} from "vuex";
 
     export default {
         name: 'MyPackages',
@@ -434,6 +448,9 @@
             ...mapState([
                 'activePackage',
                 'packages'
+            ]),
+            ...mapGetters([
+                'totalCartDisplayPrice'
             ]),
             allPackageHaveWrapping() {
                 let packagesHaveWrapping = true;
@@ -534,10 +551,19 @@
     }
 
     .package_price {
-        text-decoration: underline;
+        font-family: var(--font-family-header);
         text-align: center;
         font-size: 18px;
-        font-weight: 500;
+        font-weight: 600;
+        color: green;
+    }
+
+    .cart_price {
+        font-family: var(--font-family-header);
+        margin-top: 64px;
+        text-align: right;
+        font-size: 22px;
+        font-weight: 600;
         color: green;
     }
 
@@ -546,13 +572,18 @@
         .package_buttons,
         .nothing_found,
         .missing_wrappings,
-        .package_price {
+        .package_price,
+        .cart_price {
             max-width: 1000px;
         }
 
         .package_buttons {
             display: flex;
             margin-top: 48px;
+        }
+
+        .last_package_buttons {
+            margin-top: 24px;
         }
 
         .button_container {

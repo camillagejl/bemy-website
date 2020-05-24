@@ -74,12 +74,21 @@ export default new Vuex.Store({
             let price = 0;
 
             state.packages.forEach(pack => {
-                pack.products.forEach(product => {
-                    price = price+product.price
-                });
 
-                price = price + pack.wrapping.price;
+                if (pack.products) {
+                    pack.products.forEach(product => {
+                        price = price + product.price
+                    });
+                }
+
+                if (pack.wrapping) {
+                    price = price + pack.wrapping.price;
+                }
             });
+
+            if (price === 0) {
+                return
+            }
 
             return displayPrice(price.toFixed(2));
         }
@@ -170,7 +179,7 @@ export default new Vuex.Store({
 
             if (payload.type === 'wrapping') {
                 Vue.set(state.packages[state.activePackage], 'wrapping', activeProduct);
-                this.commit('updateTotalPriceOfPackage', { packageIndex: state.activePackage });
+                this.commit('updateTotalPriceOfPackage', {packageIndex: state.activePackage});
             }
 
             if (payload.type === 'editingProduct') {
@@ -208,10 +217,10 @@ export default new Vuex.Store({
         addProductToPackage(state, payload) {
             if (payload.packageIndex === undefined) {
                 state.packages[state.activePackage].products.push(_.cloneDeep(payload.product));
-                this.commit('updateTotalPriceOfPackage', { packageIndex: state.activePackage });
+                this.commit('updateTotalPriceOfPackage', {packageIndex: state.activePackage});
             } else {
                 Vue.set(state.packages[payload.packageIndex].products, payload.productIndex, _.cloneDeep(payload.product));
-                this.commit('updateTotalPriceOfPackage', { packageIndex: state.packageIndex });
+                this.commit('updateTotalPriceOfPackage', {packageIndex: state.packageIndex});
             }
         },
         setIsWrappingAvailable(state, payload) {
@@ -220,7 +229,7 @@ export default new Vuex.Store({
         },
         deleteProductFromPackage(state, payload) {
             // Filters the package products to remove the one that is being deleted
-            let newPackageState = state.packages[payload.packageIndex].products.filter(function(product) {
+            let newPackageState = state.packages[payload.packageIndex].products.filter(function (product) {
                 return product !== state.packages[payload.packageIndex].products[payload.productIndex]
             });
 
@@ -228,7 +237,7 @@ export default new Vuex.Store({
         },
         deletePackage(state, payload) {
             // Filters the package products to remove the one that is being deleted
-            let newPackageState = state.packages.filter(function(product) {
+            let newPackageState = state.packages.filter(function (product) {
                 return product !== state.packages[payload.packageIndex]
             });
 
@@ -245,11 +254,9 @@ export default new Vuex.Store({
 
             if (state.activePackage === payload.packageIndex) {
                 Vue.set(state, 'activePackage', 0)
-            }
+            } else if (state.activePackage > payload.packageIndex) {
 
-            else if (state.activePackage > payload.packageIndex) {
-
-                Vue.set(state, 'activePackage', state.activePackage-1)
+                Vue.set(state, 'activePackage', state.activePackage - 1)
             }
 
             Vue.set(state, 'packages', newPackageState)
