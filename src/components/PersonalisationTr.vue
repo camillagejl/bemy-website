@@ -6,8 +6,18 @@
                 {{ selectionKey }}
             </strong>
         </td>
-        <td class="value">
+        <td
+            v-if="selection"
+            class="selection"
+        >
             {{ selection }}
+        </td>
+
+        <td
+            v-else
+            class="no_selection"
+        >
+            Ingen tekst
         </td>
 
     </tr>
@@ -32,13 +42,18 @@
     }
 
     td {
-        &.value {
+        &.selection,
+        &.no_selection {
             color: rgba(var(--colour-grey-700), 1);
         }
 
         &.key {
             padding-right: 24px;
         }
+    }
+
+    .no_selection {
+        font-style: italic;
     }
 
 </style>

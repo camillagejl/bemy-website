@@ -115,17 +115,17 @@
                         Din valgte indpakning er desværre ikke tilgængelig.
 
                         <div class="button_container">
-                        <router-link
-                            :to="{ name: 'Wrapping' }"
-                        >
-                            <MainButton
-                                class="unavailable_wrapping"
-                                :emph="true"
-                                :text="'Klik her for at designe din indpakning'"
-                                :icon="'wrapping'"
-                            />
+                            <router-link
+                                :to="{ name: 'Wrapping' }"
+                            >
+                                <MainButton
+                                    class="unavailable_wrapping"
+                                    :emph="true"
+                                    :text="'Klik her for at designe din indpakning'"
+                                    :icon="'wrapping'"
+                                />
 
-                        </router-link>
+                            </router-link>
                         </div>
 
                     </div>
@@ -179,21 +179,21 @@
                 >
 
                     <div class="button_container">
-                    <MainButton
-                        :emph="false"
-                        :text="'Slet pakke'"
-                        :icon="'trash'"
-                        @click.native="deletePackageInStore(index)"
-                    />
+                        <MainButton
+                            :emph="false"
+                            :text="'Slet pakke'"
+                            :icon="'trash'"
+                            @click.native="deletePackageInStore(index)"
+                        />
                     </div>
 
                     <div class="button_container">
-                    <MainButton
-                        :emph="true"
-                        :text="'Duplikér pakke'"
-                        :icon="'duplicate'"
-                        @click.native="addPackageInStore(index)"
-                    />
+                        <MainButton
+                            :emph="true"
+                            :text="'Duplikér pakke'"
+                            :icon="'duplicate'"
+                            @click.native="addPackageInStore(index)"
+                        />
                     </div>
                 </div>
             </div>
@@ -232,26 +232,26 @@
                     </div>
 
                     <div class="button_container">
-                    <router-link
-                        :to="{ name: 'Inspiration' }"
-                    >
-                        <MainButton
-                            :emph="true"
-                            :text="'Bliv inspireret af vores pakker'"
-                            :icon="'boxes'"
-                        />
-                    </router-link>
+                        <router-link
+                            :to="{ name: 'Inspiration' }"
+                        >
+                            <MainButton
+                                :emph="true"
+                                :text="'Bliv inspireret af vores pakker'"
+                                :icon="'boxes'"
+                            />
+                        </router-link>
                     </div>
 
                     <div class="button_container">
-                    <router-link
-                        :to="{ name: 'Wrapping' }">
-                        <MainButton
-                            :emph="false"
-                            :text="'Design din egen pakke'"
-                            :icon="'arrow_right'"
-                        />
-                    </router-link>
+                        <router-link
+                            :to="{ name: 'Wrapping' }">
+                            <MainButton
+                                :emph="false"
+                                :text="'Design din egen pakke'"
+                                :icon="'arrow_right'"
+                            />
+                        </router-link>
                     </div>
 
                 </div>
@@ -271,11 +271,7 @@
                         class="nothing_found"
                         v-if="!pack.wrapping">
                         <p>
-                            Du har endnu ikke designet din indpakning.
-                            <router-link
-                                :to="{ name: 'Wrapping' }">
-                                Klik her for at designe din indpakning.
-                            </router-link>
+                            Du har endnu ikke designet din indpakning til denne pakke.
                         </p>
 
                     </div>
@@ -295,18 +291,18 @@
                     >
                         Din valgte indpakning er desværre ikke tilgængelig.
                         <div class="button_container">
-                        <router-link
-                            :to="{ name: 'Wrapping' }"
-                        >
-                            <MainButton
-                                class="unavailable_wrapping"
-                                :emph="true"
-                                :text="'Klik her for at designe din indpakning'"
-                                :icon="'wrapping'"
-                            />
+                            <router-link
+                                :to="{ name: 'Wrapping' }"
+                            >
+                                <MainButton
+                                    class="unavailable_wrapping"
+                                    :emph="true"
+                                    :text="'Klik her for at designe din indpakning'"
+                                    :icon="'wrapping'"
+                                />
 
-                        </router-link>
-                    </div>
+                            </router-link>
+                        </div>
 
                     </div>
                 </div>
@@ -346,65 +342,76 @@
                     class="package_buttons"
                 >
                     <div class="button_container">
-                    <MainButton
-                        :emph="false"
-                        :text="'Slet pakke'"
-                        :icon="'trash'"
-                        @click.native="deletePackageInStore(index)"
-                    />
+                        <MainButton
+                            :emph="false"
+                            :text="'Slet pakke'"
+                            :icon="'trash'"
+                            @click.native="deletePackageInStore(index)"
+                        />
                     </div>
 
                     <div
                         v-if="activePackage !== index"
                         class="button_container"
                     >
-                    <MainButton
-                        :emph="true"
-                        :text="'Redigér pakke'"
-                        :icon="'edit'"
-                        @click.native="changeActivePackageInStore(index)"
-                    />
+                        <MainButton
+                            :emph="true"
+                            :text="'Redigér pakke'"
+                            :icon="'edit'"
+                            @click.native="changeActivePackageInStore(index)"
+                        />
                     </div>
 
                     <div class="button_container">
-                    <MainButton
-                        :emph="true"
-                        :text="'Duplikér pakke'"
-                        :icon="'duplicate'"
-                        @click.native="addPackageInStore(index)"
-                    />
+                        <MainButton
+                            :emph="true"
+                            :text="'Duplikér pakke'"
+                            :icon="'duplicate'"
+                            @click.native="addPackageInStore(index)"
+                        />
                     </div>
                 </div>
             </div>
         </section>
 
-
         <section
-            v-if="packages[activePackage].wrapping"
             class="packages_end"
         >
             <hr>
             <div
                 class="package_buttons"
             >
-                <div class="button_container">
-                <MainButton
-                    :emph="true"
-                    :text="'Ny pakke'"
-                    :icon="'plus'"
-                    @click.native="addPackageInStore('new')"
-                />
+                <div
+                    v-if="packages[activePackage].wrapping || packages[activePackage].products.length"
+                    class="button_container">
+                    <MainButton
+                        :emph="true"
+                        :text="'Ny pakke'"
+                        :icon="'plus'"
+                        @click.native="addPackageInStore('new')"
+                    />
                 </div>
 
-                <div class="button_container">
-                <MainButton
-                    :color="'checkout'"
-                    :text="'Gå til Checkout'"
-                    :icon="'cart'"
-                />
+                <div
+                    v-if="allPackageHaveWrapping"
+                    class="button_container"
+                >
+                    <MainButton
+                        :color="'checkout'"
+                        :text="'Gå til Checkout'"
+                        :icon="'cart'"
+                    />
                 </div>
 
             </div>
+
+            <div
+                v-if="!allPackageHaveWrapping"
+                class="missing_wrappings rounded_box"
+            >
+                Alle dine pakker skal have en indpakning, før du kan gå til checkout.
+            </div>
+
         </section>
 
 
@@ -424,6 +431,17 @@
                 'activePackage',
                 'packages'
             ]),
+            allPackageHaveWrapping() {
+                let packagesHaveWrapping = true;
+
+                this.packages.forEach(pack => {
+                    if (!pack.wrapping) {
+                        packagesHaveWrapping = false
+                    }
+                });
+
+                return packagesHaveWrapping;
+            }
         },
         methods: {
             ...mapMutations([
@@ -471,6 +489,7 @@
 
     .button_container {
         margin-top: 12px;
+        height: 100%;
     }
 
     .button_container,
@@ -499,6 +518,13 @@
         margin-top: 24px;
     }
 
+    .missing_wrappings {
+        margin-top: 24px;
+        background-color: rgba(var(--colour-grey-300), 1);
+        text-align: center;
+        padding: 12px;
+    }
+
     @media screen and (min-width: 1024px) {
         .package_item,
         .package_buttons,
@@ -512,11 +538,11 @@
         }
 
         .button_container {
-        margin: 0;
+            margin: 0;
 
-        + .button_container {
-            margin-left: 12px;
-        }
+            + .button_container {
+                margin-left: 12px;
+            }
         }
     }
 
