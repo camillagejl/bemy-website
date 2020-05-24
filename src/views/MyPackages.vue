@@ -171,6 +171,10 @@
                     }
 "
                     />
+
+                    <div class="package_price">
+                    Pakkens pris: {{ pack.displayPrice }} kr
+                    </div>
                 </div>
 
                 <div
@@ -529,11 +533,20 @@
         padding: 12px;
     }
 
+    .package_price {
+        text-decoration: underline;
+        text-align: center;
+        font-size: 18px;
+        font-weight: 500;
+        color: green;
+    }
+
     @media screen and (min-width: 1024px) {
         .package_item,
         .package_buttons,
         .nothing_found,
-        .missing_wrappings {
+        .missing_wrappings,
+        .package_price {
             max-width: 1000px;
         }
 

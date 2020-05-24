@@ -156,6 +156,7 @@ export default new Vuex.Store({
 
             if (payload.type === 'wrapping') {
                 Vue.set(state.packages[state.activePackage], 'wrapping', activeProduct);
+                this.commit('updateTotalPriceOfPackage', { packageIndex: state.activePackage });
             }
 
             if (payload.type === 'editingProduct') {
@@ -277,8 +278,12 @@ export default new Vuex.Store({
             let price = 0;
 
             state.packages[payload.packageIndex].products.forEach(product => {
-                price = price+product.price
+                price = price + product.price
             });
+
+            if (state.packages[payload.packageIndex].wrapping) {
+                price = price + state.packages[payload.packageIndex].wrapping.price
+            }
 
             Vue.set(state.packages[payload.packageIndex], 'price', price.toFixed(2));
             Vue.set(state.packages[payload.packageIndex], 'displayPrice', displayPrice(price.toFixed(2)));
