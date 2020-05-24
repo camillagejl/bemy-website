@@ -519,6 +519,7 @@
     }
 
     .missing_wrappings {
+        box-sizing: border-box;
         margin-top: 24px;
         background-color: rgba(var(--colour-grey-300), 1);
         text-align: center;
@@ -528,7 +529,8 @@
     @media screen and (min-width: 1024px) {
         .package_item,
         .package_buttons,
-        .nothing_found {
+        .nothing_found,
+        .missing_wrappings {
             max-width: 1000px;
         }
 

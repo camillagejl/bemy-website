@@ -18,12 +18,13 @@
                         :designTab="hasOptionImages"
                         :productType="'product'"
                         :productId="productId"
+                        :changeTab="changeTabInStore"
                     />
 
                     <!--  -->
 
                     <div
-                        v-if="product.options.length || product.designs || allPersonalisations"
+                        v-if="product.options.length || product.designs || Object.keys(allPersonalisations).length"
                         class="description display_1024"
                     >
                         <h2>
@@ -38,7 +39,7 @@
                 <section class="product_information">
 
                     <div
-                        v-if="product.options.length || product.designs || allPersonalisations"
+                        v-if="product.options.length || product.designs || Object.keys(allPersonalisations).length"
                         class="product_options"
                     >
 
@@ -64,6 +65,7 @@
                             :productId="product.id"
                             :productType="'product'"
                             :setDesignImagesInStore="setDesignImagesInStore"
+                            @click.native="changeTabInStore('designTab')"
                         />
 
                         <!-- Designs -->
@@ -75,6 +77,7 @@
                             :productId="product.id"
                             :productType="'product'"
                             :setDesignImagesInStore="setDesignImagesInStore"
+                            @click.native="changeTabInStore('designTab')"
                         />
 
 
@@ -92,7 +95,7 @@
                     </div>
 
                     <div
-                        v-if="!product.options.length && !product.designs && !allPersonalisations"
+                        v-if="!product.options.length && !product.designs && !Object.keys(allPersonalisations).length"
                         class="description"
                     >
                         <h2>
@@ -104,7 +107,7 @@
                     </div>
 
                     <div
-                        v-if="product.options.length || product.designs || allPersonalisations"
+                        v-if="product.options.length || product.designs || Object.keys(allPersonalisations).length"
                         class="description hide_1024"
                     >
                         <h2>
@@ -350,7 +353,8 @@
                 'updateSelectionValue',
                 'addProductToPackage',
                 'toggleAppOverflow',
-                'setDesignImages'
+                'setDesignImages',
+                'changeGalleryTab'
             ]),
             closePopup() {
                 this.displayAddedToPackage = false;
@@ -430,6 +434,9 @@
                         productIndex: this.editingProductIndex
                     });
                 }
+            },
+            changeTabInStore(tab) {
+                this.changeGalleryTab({ tab: tab, productId: this.productId })
             }
         }
     }

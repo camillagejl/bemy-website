@@ -92,6 +92,7 @@ export default new Vuex.Store({
                 price: product.price,
                 displayPrice: product.displayPrice,
                 id: product.id,
+                activeTab: 'imagesTab',
                 selections: {}
             };
 
@@ -185,6 +186,9 @@ export default new Vuex.Store({
                 console.log("Setting!", state.activeProducts[payload.productId]);
                 Vue.set(state.activeProducts[payload.productId], 'designImages', payload.images)
             }
+        },
+        changeGalleryTab(state, payload) {
+            state.activeProducts[payload.productId].activeTab = payload.tab
         },
         addProductToPackage(state, payload) {
             if (payload.packageIndex === undefined) {

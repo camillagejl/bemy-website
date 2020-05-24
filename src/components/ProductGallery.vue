@@ -7,14 +7,14 @@
             <div
                 @click="changeTabs('imagesTab')"
                 class="gallery_tab"
-                v-bind:class="{ selected : activeTab === 'imagesTab' }"
+                v-bind:class="{ selected : this.activeProducts[this.productId].activeTab === 'imagesTab' }"
             >
                 Inspiration
             </div>
             <div
                 @click="changeTabs('designTab')"
                 class="gallery_tab"
-                v-bind:class="{ selected : activeTab === 'designTab' }"
+                v-bind:class="{ selected : this.activeProducts[this.productId].activeTab === 'designTab' }"
             >
                 Mit design
             </div>
@@ -69,12 +69,12 @@
             images: Array,
             designTab: Boolean,
             productType: String,
-            productId: String
+            productId: String,
+            changeTab: Function
         },
         data() {
             return {
                 thumbsPosition: 0,
-                activeTab: 'imagesTab',
                 selectedImageIndex: 0
             }
         },
@@ -85,15 +85,15 @@
                 'activeProducts'
             ]),
             currentImages() {
-                if (this.activeTab === 'imagesTab') {
+                if (this.activeProducts[this.productId].activeTab === 'imagesTab') {
                     return this.images
                 }
 
-                if (this.activeTab === 'designTab' && this.productType === 'wrapping') {
+                if (this.activeProducts[this.productId].activeTab === 'designTab' && this.productType === 'wrapping') {
                     return this.packages[this.activePackage].wrapping.designImages;
                 }
 
-                if (this.activeTab === 'designTab' && this.productType === 'product' && this.activeProducts[this.productId]) {
+                if (this.activeProducts[this.productId].activeTab === 'designTab' && this.productType === 'product' && this.activeProducts[this.productId]) {
                     return this.activeProducts[this.productId].designImages;
                 }
             },
@@ -117,7 +117,7 @@
                 }
             },
             changeTabs(clickedTab) {
-                this.activeTab = clickedTab;
+                this.changeTab(clickedTab);
                 this.selectedImageIndex = 0;
             }
         }
