@@ -9,7 +9,8 @@ export function insertStringInString(main_string, ins_string, pos) {
     if (!pos) {
         pos = 0;
     }
-    if (!ins_string || main_string.length < pos * -2) {
+    if (!ins_string || main_string.length -1 < pos * -1) {
+        console.log("Not working", main_string);
         ins_string = '';
     }
     return main_string.slice(0, pos) + ins_string + main_string.slice(pos);

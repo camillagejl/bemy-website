@@ -416,8 +416,9 @@
                 >
                     <MainButton
                         :color="'checkout'"
-                        :text="'Gå til Checkout'"
+                        :text="cartText"
                         :icon="'cart'"
+                        @click.native=" cartText = 'Denne funktion kommer snart!'"
                     />
                 </div>
 
@@ -444,6 +445,11 @@
     export default {
         name: 'MyPackages',
         components: {MainButton, PackageItem},
+        data() {
+            return {
+                cartText: 'Gå til Checkout'
+            }
+        },
         computed: {
             ...mapState([
                 'activePackage',
