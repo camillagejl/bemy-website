@@ -201,6 +201,7 @@
             :headline="'Produktet er tilføjet til dine pakker'"
             :popupType="'addedToPackages'"
             :closePopup="closePopup"
+            :addedTo="addedTo"
         />
 
     </div>
@@ -222,7 +223,8 @@
                 displayAddedToPackage: false,
                 displayAddToPackages: false,
                 displayAddedToPackages: false,
-                activeProductUpdated: false
+                activeProductUpdated: false,
+                addedTo: [],
             }
         },
         props: {
@@ -355,14 +357,16 @@
                 'setDesignImages',
                 'changeGalleryTab'
             ]),
-            closePopup(nextFunction) {
+            closePopup(nextFunction, prop) {
                 this.displayAddedToPackage = false;
                 this.displayAddToPackages = false;
                 this.displayAddedToPackages = false;
                 this.toggleAppOverflow({bool: true});
 
                 if (nextFunction === 'addedToPackages') {
-                    this.addedToPackages = true;
+                    this.displayAddedToPackages = true;
+                    this.addedTo = prop;
+                    console.log(this.addedTo);
                 }
 
             },

@@ -53,9 +53,9 @@
 
                     <div
                         class="package_title"
-                        v-for="pack in packages"
+                        v-for="packageIndex in addedTo"
                     >
-                        &#10003; {{ pack.title }}
+                        &#10003; {{ packages[packageIndex].title }}
                     </div>
 
                 </section>
@@ -135,6 +135,7 @@
             headline: String,
             popupType: String,
             closePopup: Function,
+            addedTo: Array
         },
         computed: {
             ...mapState([
@@ -146,14 +147,11 @@
                 'addProductToPackage',
             ]),
 
-            addingToThisPackage(index) {
-                console.log(index, this.checkedPackages);
-            },
-
             addToPackages() {
                 this.checkedPackages.forEach(pack => {
                     this.addProductToPackage({ product: this.product, packageIndex: pack });
                 });
+                this.closePopup('addedToPackages', this.checkedPackages);
                 // this.toggleAppOverflow({bool: false})
             }
         }
