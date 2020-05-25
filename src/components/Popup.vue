@@ -31,26 +31,32 @@
 
                     <label
                         class="package_title"
-                        v-for="pack in packages"
+                        v-for="(pack, index) in packages"
                     >
-                        <input type="checkbox"> {{ pack.title }}
+                        <input
+                            type="checkbox"
+                            :value="index"
+                            v-model="checkedPackages"
+                        >
+<!--                            @click="addingToThisPackage(index)"-->
+                        {{ pack.title }}
                     </label>
 
                 </section>
 
-                    <!-- Shows packages the product has been added to -->
+                <!-- Shows packages the product has been added to -->
 
-                    <section
-                        v-if="popupType === 'addedToPackages'"
-                        class="add_to_packages"
+                <section
+                    v-if="popupType === 'addedToPackages'"
+                    class="add_to_packages"
+                >
+
+                    <div
+                        class="package_title"
+                        v-for="pack in packages"
                     >
-
-                        <div
-                            class="package_title"
-                            v-for="pack in packages"
-                        >
-                            &#10003; {{ pack.title }}
-                        </div>
+                        &#10003; {{ pack.title }}
+                    </div>
 
                 </section>
 
@@ -60,16 +66,16 @@
                     class="buttons"
                 >
                     <div class="button_container">
-                    <router-link
-                        :to="{ name: 'MyPackages' }"
-                    >
-                        <MainButton
-                            :emph="false"
-                            :text="'Se dine pakker'"
-                            :icon="'boxes'"
-                            @click.native="closePopup"
-                        />
-                    </router-link>
+                        <router-link
+                            :to="{ name: 'MyPackages' }"
+                        >
+                            <MainButton
+                                :emph="false"
+                                :text="'Se dine pakker'"
+                                :icon="'boxes'"
+                                @click.native="closePopup"
+                            />
+                        </router-link>
                     </div>
 
                     <div class="button_container">
@@ -79,7 +85,7 @@
                             :icon="'arrow_right'"
                             @click.native="closePopup"
                         />
-                </div>
+                    </div>
                 </div>
 
                 <!-- Buttons for popup when adding to several packages-->
@@ -98,15 +104,12 @@
 
 
                     <div class="button_container">
-                    <router-link
-                        :to="{ name: 'MyPackages' }"
-                    >
-                        <MainButton
-                            :emph="true"
-                            :text="'Tilføj til pakker'"
-                            :icon="'arrow_right'"
-                        />
-                    </router-link>
+                            <MainButton
+                                :emph="true"
+                                :text="'Tilføj til pakker'"
+                                :icon="'arrow_right'"
+                                @click.native="addToPackages"
+                            />
                     </div>
                 </div>
             </div>
@@ -117,11 +120,16 @@
 <script>
     import PackageItem from "./PackageItem";
     import MainButton from "./MainButton";
-    import {mapState} from "vuex";
+    import {mapMutations, mapState} from "vuex";
 
     export default {
         name: 'ProductPopup',
         components: {MainButton, PackageItem},
+        data() {
+            return {
+                checkedPackages: [],
+            }
+        },
         props: {
             product: Object,
             headline: String,
@@ -132,6 +140,22 @@
             ...mapState([
                 'packages'
             ]),
+        },
+        methods: {
+            ...mapMutations([
+                'addProductToPackage',
+            ]),
+
+            addingToThisPackage(index) {
+                console.log(index, this.checkedPackages);
+            },
+
+            addToPackages() {
+                this.checkedPackages.forEach(pack => {
+                    this.addProductToPackage({ product: this.product, packageIndex: pack });
+                });
+                // this.toggleAppOverflow({bool: false})
+            }
         }
     }
 </script>

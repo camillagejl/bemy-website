@@ -215,12 +215,20 @@ export default new Vuex.Store({
             }
         },
         addProductToPackage(state, payload) {
+
             if (payload.packageIndex === undefined) {
                 state.packages[state.activePackage].products.push(_.cloneDeep(payload.product));
                 this.commit('updateTotalPriceOfPackage', {packageIndex: state.activePackage});
-            } else {
+            }
+
+            else if (payload.packageIndex && payload.productIndex) {
                 Vue.set(state.packages[payload.packageIndex].products, payload.productIndex, _.cloneDeep(payload.product));
                 this.commit('updateTotalPriceOfPackage', {packageIndex: state.packageIndex});
+            }
+
+            else if (payload.packageIndex !== undefined && !payload.productIndex) {
+                state.packages[payload.packageIndex].products.push(_.cloneDeep(payload.product));
+                this.commit('updateTotalPriceOfPackage', {packageIndex: payload.packageIndex});
             }
         },
         setIsWrappingAvailable(state, payload) {

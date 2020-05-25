@@ -355,11 +355,16 @@
                 'setDesignImages',
                 'changeGalleryTab'
             ]),
-            closePopup() {
+            closePopup(nextFunction) {
                 this.displayAddedToPackage = false;
                 this.displayAddToPackages = false;
                 this.displayAddedToPackages = false;
-                this.toggleAppOverflow({bool: true})
+                this.toggleAppOverflow({bool: true});
+
+                if (nextFunction === 'addedToPackages') {
+                    this.addedToPackages = true;
+                }
+
             },
             updateInputSelectionValueInStore(e) {
                 this.updateSelectionValue({
