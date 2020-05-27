@@ -3,11 +3,21 @@
 
         <div
             v-if="packages[activePackage] && packages[activePackage].products"
-            v-for="product in packages[activePackage].products"
+            v-for="(product, productIndex) in packages[activePackage].products"
             class="recap_list_item"
         >
-            <div class="list_item_title">
+            <router-link
+                :to="{ name: 'Product', params: {
+                    productId: product.id,
+                    editingCurrentProduct: true,
+                    editingProductIndex: productIndex
+                    }
+                    }"
+                class="list_item_title"
+            >
                 {{ product.title }}
+
+
                 <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="pencil-alt"
                      class="basic_icon svg-inline--fa fa-pencil-alt fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
                      viewBox="0 0 512 512">
@@ -19,7 +29,9 @@
                               d="M.37 483.85a24 24 0 0 0 19.47 27.8 24.27 24.27 0 0 0 8.33 0l67.32-16.16-79-79zM412.3 210.78l-111-111a12.13 12.13 0 0 0-17.1 0L32 352h64v64h64v64l252.27-252.25a12 12 0 0 0 .03-16.97zm-114.41-24.93l-154 154a14 14 0 1 1-19.8-19.8l154-154a14 14 0 1 1 19.8 19.8z"></path>
                     </g>
                 </svg>
-            </div>
+
+            </router-link>
+
         </div>
 
     </div>
@@ -45,12 +57,16 @@
         display: flex;
         align-items: center;
         margin-top: 12px;
-        color: rgba(var(--colour-primary-700), 1);
 
         &:before {
             content: '\2022';
             width: 1em;
         }
+    }
+
+    .list_item_title {
+        text-decoration: none;
+        color: rgba(var(--colour-primary-700), 1);
     }
 
     @media screen and (min-width: 1024px) {

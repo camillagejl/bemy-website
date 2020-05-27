@@ -183,10 +183,26 @@ export default new Vuex.Store({
             }
 
             if (payload.type === 'editingProduct') {
-                if (state.activeProducts[payload.productId] !== state.packages[payload.packageIndex].products[payload.productIndex]) {
-                    Vue.set(state.activeProducts, payload.productId, _.cloneDeep(state.packages[payload.packageIndex].products[payload.productIndex]));
+                if (state.activeProducts[payload.productId] !== state.packages[state.activePackage].products[payload.productIndex]) {
+                    Vue.set(state.activeProducts, payload.productId, _.cloneDeep(state.packages[state.activePackage].products[payload.productIndex]));
                 }
             }
+        },
+        deleteSelectionKeys(state, payload) {
+            const product = _.find(state.products, ['id', payload.productId]);
+            const productOptionKeys = Object.keys(product.options);
+            const activeProduct = _.find(state.activeProducts, ['id', payload.productId]);
+
+            // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/fromEntries
+            let newSelections = Object.fromEntries(
+                Object.entries(activeProduct.selections)
+                    .filter(function ([key, value]) {
+                            return productOptionKeys.includes(key);
+                        }
+                    )
+            );
+
+            Vue.set(state.activeProducts[payload.productId], 'selections', newSelections);
         },
         updateSelectionValue(state, payload) {
             if (payload.type === 'product') {
@@ -214,18 +230,22 @@ export default new Vuex.Store({
                 state.packages[state.activePackage].wrapping.activeTab = payload.tab
             }
         },
+
         addProductToPackage(state, payload) {
 
-            if (payload.packageIndex === undefined) {
+            // Adding new product to active package
+            if (!payload.type && !payload.packageIndex) {
                 state.packages[state.activePackage].products.push(_.cloneDeep(payload.product));
                 this.commit('updateTotalPriceOfPackage', {packageIndex: state.activePackage});
             }
 
-            else if (payload.packageIndex && payload.productIndex) {
-                Vue.set(state.packages[payload.packageIndex].products, payload.productIndex, _.cloneDeep(payload.product));
-                this.commit('updateTotalPriceOfPackage', {packageIndex: state.packageIndex});
+            // Editing product
+            if (payload.type === 'editingProduct') {
+                Vue.set(state.packages[state.activePackage].products, payload.productIndex, _.cloneDeep(payload.product));
+                this.commit('updateTotalPriceOfPackage', {packageIndex: state.activePackage});
             }
 
+            // Adding to several packages
             else if (payload.packageIndex !== undefined && !payload.productIndex) {
                 state.packages[payload.packageIndex].products.push(_.cloneDeep(payload.product));
                 this.commit('updateTotalPriceOfPackage', {packageIndex: payload.packageIndex});
@@ -245,8 +265,8 @@ export default new Vuex.Store({
         },
         deletePackage(state, payload) {
             // Filters the package products to remove the one that is being deleted
-            let newPackageState = state.packages.filter(function (product) {
-                return product !== state.packages[payload.packageIndex]
+            let newPackageState = state.packages.filter(function (pack) {
+                return pack !== state.packages[payload.packageIndex]
             });
 
             if (!newPackageState.length) {

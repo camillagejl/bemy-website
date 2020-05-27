@@ -80,6 +80,15 @@
                             @click.native="changeTabInStore('designTab')"
                         />
 
+                        <div
+                            class="developer_note"
+                                v-if="designErrorMessage">
+                            <strong>
+                                Developer note:
+                            </strong>
+                            Designs kunne desværre ikke loades! Reload siden og prøv igen.
+                        </div>
+
                         <!-- Personalisations -->
 
                         <PersonalisationInput
@@ -225,12 +234,12 @@
                 displayAddedToPackages: false,
                 activeProductUpdated: false,
                 addedTo: [],
+                designErrorMessage: false,
             }
         },
         props: {
             productId: String,
             editingCurrentProduct: Boolean,
-            editingPackageIndex: Number,
             editingProductIndex: Number
         },
         computed: {
@@ -261,12 +270,10 @@
                 }
 
                 if (this.editingCurrentProduct && !this.activeProductUpdated) {
-                    console.log("productId:", this.productId, "packageIndex", this.editingPackageIndex, "productIndex:", this.editingProductIndex);
 
                     this.addActiveProductFromProductId({
                         productId: this.productId,
                         type: 'editingProduct',
-                        packageIndex: this.editingPackageIndex,
                         productIndex: this.editingProductIndex
                     });
 
@@ -282,6 +289,9 @@
                 if (this.product.designs) {
                     this.product.designs.forEach(design => {
                         if (!design) {
+                            // There's a problem here!
+                            console.log("There's a problem loading the designs!");
+                            this.designErrorMessage = true;
                             return;
                         }
 
@@ -428,9 +438,9 @@
                     productId: this.productId
                 });
             },
-        changeTabInStore(tab) {
-            this.changeGalleryTab({ tab: tab, productId: this.productId, productType: 'product' })
-        },
+            changeTabInStore(tab) {
+                this.changeGalleryTab({tab: tab, productId: this.productId, productType: 'product'})
+            },
             addToPackage() {
                 if (!this.editingCurrentProduct) {
                     this.displayAddedToPackage = true;
@@ -441,8 +451,8 @@
                 if (this.editingCurrentProduct) {
                     this.addProductToPackage({
                         product: this.activeProduct,
-                        packageIndex: this.editingPackageIndex,
-                        productIndex: this.editingProductIndex
+                        productIndex: this.editingProductIndex,
+                        type: 'editingProduct'
                     });
                 }
             }

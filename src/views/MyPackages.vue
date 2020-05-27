@@ -13,7 +13,9 @@
             <hr>
             <h2>
                 Denne pakke: {{ pack.title }}
-                <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="pencil-alt"
+                <svg
+                    @click="editTitle"
+                    aria-hidden="true" focusable="false" data-prefix="fad" data-icon="pencil-alt"
                      class="basic_icon svg-inline--fa fa-pencil-alt fa-w-16" role="img"
                      xmlns="http://www.w3.org/2000/svg"
                      viewBox="0 0 512 512">
@@ -165,7 +167,6 @@
                     params: {
                     productId: product.id,
                     editingCurrentProduct: true,
-                    editingPackageIndex: index,
                     editingProductIndex: productIndex
                     }
                     }
@@ -391,7 +392,7 @@
 
             <div
                 v-if="totalCartDisplayPrice"
-                 class="cart_price"
+                class="cart_price"
             >
                 Din kurv: {{ totalCartDisplayPrice }} kr
             </div>
@@ -497,6 +498,10 @@
             scrollToTop() {
                 document.querySelector(".my_packages").scrollIntoView();
                 console.log("Scrolling");
+            },
+            editTitle() {
+                let title = window.prompt("Ny titel på pakken:");
+
             }
         }
     }

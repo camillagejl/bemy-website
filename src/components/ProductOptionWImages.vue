@@ -2,7 +2,7 @@
     <div class="product_option_w_images product_option">
 
         <div
-        v-if="optionKey && optionImages"
+            v-if="optionKey && optionImages"
         >
             <span class="line_break">
                 <strong>{{ optionKey }}</strong>: {{ selectedOption }}
@@ -16,6 +16,7 @@
                     @click="updateImageSelectionValueInStore(optionKey, variant[optionKey])"
                 >
                     <div
+                        v-if="variant"
                         class="option_image relative_image rounded_box"
                         v-bind:class="{ selected : variant[optionKey] === selectedOption || variant.title === selectedOption }"
                     >
@@ -34,6 +35,7 @@
                 </div>
             </div>
 
+            <!-- For selecting wrapping product -->
             <div class="option_images">
                 <div
                     v-if="productType === 'wrappingProduct'"
@@ -87,9 +89,17 @@
         methods: {
             ...mapMutations([
                 'addActiveProductFromProductId',
-                'updateSelectionValue'
+                'updateSelectionValue',
+                'deleteSelectionKeys'
             ]),
             updateImageSelectionValueInStore(key, option) {
+
+                if (key === 'Design') {
+                this.deleteSelectionKeys({
+                    productId: this.productId
+                });
+                }
+
                 this.updateSelectionValue({
                     productId: this.productId,
                     value: option,

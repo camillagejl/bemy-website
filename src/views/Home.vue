@@ -211,7 +211,7 @@
             </p>
             <p class="developer_note">
                 <strong>
-                    Developer-note:
+                    Developer note:
                 </strong>
                 Nedenstående er et mockup af, hvordan færdige pakker skal se ud på desktop. Når man trykker på en
                 "kategori", dukker de færdige pakker i denne kategori op. Tryk for at få en "demo".
