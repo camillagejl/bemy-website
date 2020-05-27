@@ -110,8 +110,8 @@
                         :productId="pack.id"
                         :editDestination="{
                         name: 'Wrapping', params: {
-                fromDest: { name: 'MyPackages' },
-                fromDestTitle: 'Mine pakker (uden at gemme)'
+                        fromDest: { name: 'MyPackages' },
+                        fromDestTitle: 'Mine pakker'
                 }}"
                     />
 
@@ -172,8 +172,8 @@
                     productId: product.id,
                     editingCurrentProduct: true,
                     editingProductIndex: productIndex,
-                fromDest: { name: 'MyPackages' },
-                fromDestTitle: 'Mine pakker (uden at gemme)'
+                    fromDest: { name: 'MyPackages' },
+                    fromDestTitle: 'Mine pakker (uden at gemme)'
                     }
                     }
 "

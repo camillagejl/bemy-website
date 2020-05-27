@@ -193,7 +193,7 @@
             }
         },
         props: {
-            fromDest: String,
+            fromDest: Object,
             fromDestTitle: String
         },
         computed: {

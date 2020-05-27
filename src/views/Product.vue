@@ -259,7 +259,7 @@
             productId: String,
             editingCurrentProduct: Boolean,
             editingProductIndex: Number,
-            fromDest: String,
+            fromDest: Object,
             fromDestTitle: String
         },
         computed: {
