@@ -16,8 +16,14 @@ export function createProductData(allRawProducts) {
             options: createProductOptions(product.node.options),
             variants: [],
             personalisations: createPersonalisations(product.node.metafields.edges),
-            designs: product // To be changed later
+            designIds: getProductDesigns(product),
+            designs: []
         };
+
+        if (thisProduct.designIds.length === 0) {
+            delete thisProduct.designIds;
+            delete thisProduct.designs;
+        }
 
         // ----- Creating product variants -----
         product.node.variants.edges.forEach(variant => {
@@ -40,23 +46,14 @@ export function createProductData(allRawProducts) {
 
     });
 
-    products.forEach(product => {
-        product.designs = getProductDesigns(product.designs, products);
-
-        if (product.designs.length === 0) {
-            delete product.designs;
-        }
-    });
     return products;
 }
 
 
 export function getProductDesigns(product) {
-
     let productDesigns = [];
 
     product.node.metafields.edges.forEach(metafield => {
-
         if (metafield.node.key === "product_design_import") {
             productDesigns = getProductIds(metafield.node.value.split('|'));
         }

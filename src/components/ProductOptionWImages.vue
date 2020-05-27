@@ -96,7 +96,8 @@
 
                 if (key === 'Design') {
                 this.deleteSelectionKeys({
-                    productId: this.productId
+                    productId: this.productId,
+                    productType: this.productType
                 });
                 }
 

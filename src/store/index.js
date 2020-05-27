@@ -42,14 +42,15 @@ export default new Vuex.Store({
         computedProducts: (state, getters) => {
             return state.products
                 .map(product => {
-                    if (product.designs) {
-                        const rawProductDesigns = product.designs.map(value => getters.designsById[value]);
+                    if (product.designIds && getters.designsById) {
 
+                        const rawProductDesigns = product.designIds.map(value => getters.designsById[value]);
                         product.designs = [];
-
                         rawProductDesigns.forEach(design => {
-                            product.designs.push(design);
-                        })
+                            if (design) {
+                                product.designs.push(design);
+                            }
+                        });
                     }
 
                     product.displayPrice = displayPrice(product.price);
@@ -191,7 +192,16 @@ export default new Vuex.Store({
         deleteSelectionKeys(state, payload) {
             const product = _.find(state.products, ['id', payload.productId]);
             const productOptionKeys = Object.keys(product.options);
-            const activeProduct = _.find(state.activeProducts, ['id', payload.productId]);
+
+            let activeProduct;
+
+            if (payload.productType === 'product') {
+            activeProduct = _.find(state.activeProducts, ['id', payload.productId]);
+            }
+
+            if (payload.productType === 'wrapping') {
+                activeProduct = state.packages[state.activePackage].wrapping
+            }
 
             // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/fromEntries
             let newSelections = Object.fromEntries(
@@ -202,7 +212,17 @@ export default new Vuex.Store({
                     )
             );
 
-            Vue.set(state.activeProducts[payload.productId], 'selections', newSelections);
+            if (payload.productType === 'product') {
+                Vue.set(state.activeProducts[payload.productId], 'selections', newSelections);
+            }
+
+
+
+            if (payload.productType === 'wrapping') {
+                Vue.set(state.packages[state.activePackage].wrapping, 'selections', newSelections);
+            }
+
+
         },
         updateSelectionValue(state, payload) {
             if (payload.type === 'product') {

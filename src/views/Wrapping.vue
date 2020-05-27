@@ -81,6 +81,15 @@
                         @click.native="changeTabInStore('designTab')"
                     />
 
+                    <div
+                        class="developer_note"
+                        v-if="designErrorMessage">
+                        <strong>
+                            Developer note:
+                        </strong>
+                        Designs kunne desværre ikke loades! Reload siden og prøv igen.
+                    </div>
+
                     <!-- Personalisations -->
                     <PersonalisationInput
                         v-for="(personalisation, key) in allPersonalisations()"
@@ -158,6 +167,11 @@
     export default {
         name: 'Wrapping',
         components: {PersonalisationInput, MainButton, PriceFooter, ProductOptionWImages, ProductGallery},
+        data() {
+            return {
+                designErrorMessage: false
+            }
+        },
         computed: {
             ...mapState([
                 'activePackage',
@@ -183,6 +197,7 @@
 
                 if (!activeWrapping || this.products[activeWrappingIndex].id !== this.packages[this.activePackage].wrapping.id) {
                     if (this.products && this.products[activeWrappingIndex]) {
+                        console.log("Adding");
                         this.addActiveProductFromProductId({
                             productId: this.products[activeWrappingIndex].id,
                             type: 'wrapping'
@@ -207,6 +222,7 @@
                 if (this.product.designs) {
                     this.product.designs.forEach(design => {
                         if (!design) {
+                            this.designErrorMessage = true;
                             return;
                         }
 

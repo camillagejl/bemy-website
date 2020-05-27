@@ -289,8 +289,6 @@
                 if (this.product.designs) {
                     this.product.designs.forEach(design => {
                         if (!design) {
-                            // There's a problem here!
-                            console.log("There's a problem loading the designs!");
                             this.designErrorMessage = true;
                             return;
                         }
