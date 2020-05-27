@@ -26,7 +26,7 @@
                 <div class="gallery_thumbs">
                     <div
                         v-for="(image, index) in currentImages"
-                        :style="{ transform: `translateY(${imagesTranslation(thumbsPosition)}%) translateY(calc(${thumbsPosition} * (-12px))`}"
+                        :style="{ transform: `translateY(${imagesTranslation(activeThumbsPosition)}%) translateY(calc(${activeThumbsPosition} * (-12px))`}"
                         class="gallery_thumbnail relative_image rounded_box selected"
                         @click="selectedImageIndex = index"
                     >
@@ -61,7 +61,7 @@
 </template>
 
 <script>
-    import {mapState} from "vuex";
+    import {mapMutations, mapState} from "vuex";
 
     export default {
         name: 'ProductGallery',
@@ -70,11 +70,10 @@
             designTab: Boolean,
             productType: String,
             productId: String,
-            changeTab: Function
+            changeTab: Function,
         },
         data() {
             return {
-                thumbsPosition: 0,
                 selectedImageIndex: 0
             }
         },
@@ -91,6 +90,15 @@
 
                 if (this.productType === 'wrapping' && this.packages[this.activePackage].wrapping) {
                     return this.packages[this.activePackage].wrapping.activeTab
+                }
+            },
+            activeThumbsPosition() {
+                if (this.productType === 'product') {
+                    return this.activeProducts[this.productId].thumbsPosition
+                }
+
+                if (this.productType === 'wrapping' && this.packages[this.activePackage].wrapping) {
+                    return this.packages[this.activePackage].wrapping.thumbsPosition
                 }
             },
             currentImages() {
@@ -113,10 +121,21 @@
             }
         },
         methods: {
+            ...mapMutations([
+                'moveThumbsPosition'
+            ]),
             imagesTranslation(position) {
                 return position * -100;
             },
             moveThumbs(direction, images) {
+
+                this.moveThumbsPosition({
+                    direction: direction,
+                    images: images,
+                    productId: this.productId,
+                    productType: this.productType
+                });
+
                 if (direction === 'down') {
                     if (this.thumbsPosition >= 0 && this.thumbsPosition < images.length - 4) {
                         this.thumbsPosition++;

@@ -117,6 +117,7 @@ export default new Vuex.Store({
                 displayPrice: product.displayPrice,
                 id: product.id,
                 activeTab: 'imagesTab',
+                thumbsPosition: 0,
                 selections: {}
             };
 
@@ -216,13 +217,9 @@ export default new Vuex.Store({
                 Vue.set(state.activeProducts[payload.productId], 'selections', newSelections);
             }
 
-
-
             if (payload.productType === 'wrapping') {
                 Vue.set(state.packages[state.activePackage].wrapping, 'selections', newSelections);
             }
-
-
         },
         updateSelectionValue(state, payload) {
             if (payload.type === 'product') {
@@ -243,12 +240,46 @@ export default new Vuex.Store({
         },
         changeGalleryTab(state, payload) {
             if (payload.productType === 'product') {
-                state.activeProducts[payload.productId].activeTab = payload.tab
+                state.activeProducts[payload.productId].activeTab = payload.tab;
+                state.activeProducts[payload.productId].thumbsPosition = 0
             }
 
             if (payload.productType === 'wrapping') {
-                state.packages[state.activePackage].wrapping.activeTab = payload.tab
+                state.packages[state.activePackage].wrapping.activeTab = payload.tab;
+                state.packages[state.activePackage].wrapping.thumbsPosition = 0
             }
+        },
+
+        moveThumbsPosition(state, payload) {
+
+            let thisThumbsPosition;
+
+            if (payload.productType === 'wrapping') {
+                thisThumbsPosition = state.packages[state.activePackage].wrapping.thumbsPosition;
+            }
+
+            if (payload.productType === 'product') {
+                thisThumbsPosition = state.activeProducts[payload.productId].thumbsPosition;
+            }
+
+            if (payload.direction === 'down') {
+                if (thisThumbsPosition >= 0 && thisThumbsPosition < payload.images.length - 4) {
+                    thisThumbsPosition++;
+                }
+            }
+            if (payload.direction === 'up') {
+                if (thisThumbsPosition > 0)
+                    thisThumbsPosition--;
+            }
+
+            if (payload.productType === 'wrapping') {
+                Vue.set(state.packages[state.activePackage].wrapping, 'thumbsPosition', thisThumbsPosition);
+            }
+
+            if (payload.productType === 'product') {
+                Vue.set(state.activeProducts[payload.productId], 'thumbsPosition', thisThumbsPosition);
+            }
+
         },
 
         addProductToPackage(state, payload) {
