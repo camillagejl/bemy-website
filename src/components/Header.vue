@@ -4,7 +4,7 @@
 
         <nav>
             <router-link
-                class="header_link"
+                class="header_link not_allowed"
                 :to="{ name: 'About' }"
             >
                 Om os
@@ -27,7 +27,6 @@
                         <text transform="translate(7.83 10.46)" font-size="12" font-family="Merriweather-Bold, Merriweather" font-weight="700">BEMY</text>
                     </g>
                 </svg>
-
 
             </router-link>
 

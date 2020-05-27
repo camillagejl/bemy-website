@@ -391,6 +391,9 @@ export default new Vuex.Store({
         },
         setActiveWrappingIndex(state, payload) {
             Vue.set(state.packages[state.activePackage], 'activeWrappingIndex', payload.index)
+        },
+        updatePackageTitle(state, payload) {
+            Vue.set(state.packages[state.activePackage], 'title', payload.title)
         }
     },
     actions:

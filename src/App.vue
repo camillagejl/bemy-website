@@ -258,6 +258,10 @@
         cursor: pointer;
     }
 
+    .not_allowed {
+        cursor: not-allowed;
+    }
+
     /* Components */
     .main_navigation {
         z-index: 2;

@@ -475,7 +475,8 @@
             ...mapMutations([
                 'addNewPackage',
                 'changeActivePackage',
-                'deletePackage'
+                'deletePackage',
+                'updatePackageTitle'
             ]),
             addPackageInStore(pack) {
                 if (!this.packages[this.activePackage].wrapping && !this.packages[this.activePackage].products.length) {
@@ -501,7 +502,7 @@
             },
             editTitle() {
                 let title = window.prompt("Ny titel på pakken:");
-
+                this.updatePackageTitle({ title: title })
             }
         }
     }

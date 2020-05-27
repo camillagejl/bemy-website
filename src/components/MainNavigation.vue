@@ -6,7 +6,9 @@
                 class="package_name display_1024"
             >
                 {{ packages[activePackage].title}}
-                <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="pencil-alt"
+                <svg
+                    @click="editTitle"
+                    aria-hidden="true" focusable="false" data-prefix="fad" data-icon="pencil-alt"
                      class="basic_icon svg-inline--fa fa-pencil-alt fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
                      viewBox="0 0 512 512">
                     <g class="fa-group">
@@ -134,7 +136,7 @@
 
 <script>
     import ContentRecapList from "./ContentRecapList";
-    import {mapState} from "vuex";
+    import {mapMutations, mapState} from "vuex";
     import WrappingRecapList from "./WrappingRecapList";
 
     export default {
@@ -145,6 +147,20 @@
                 'activePackage',
                 'packages'
             ]),
+        },
+        methods: {
+            ...mapMutations([
+                'updatePackageTitle'
+            ]),
+            editTitle() {
+                let title = window.prompt("Ny titel på pakken:");
+
+                if (title.length > 20) {
+                    title = title.slice(0,20)
+                }
+
+                this.updatePackageTitle({ title: title })
+            }
         }
     }
 </script>
