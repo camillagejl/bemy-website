@@ -163,7 +163,7 @@
                         :packageIndex="index"
                         :productIndex="productIndex"
                         :editDestination="{
-                    name: 'Product',
+                    name: 'ProductEdit',
                     params: {
                     productId: product.id,
                     editingCurrentProduct: true,
@@ -587,6 +587,14 @@
         .package_price,
         .cart_price {
             max-width: 1000px;
+        }
+
+        .package_wrapping {
+            margin-bottom: 96px;
+        }
+
+        .package_item + .package_item {
+            margin: 96px 0;
         }
 
         .package_buttons {

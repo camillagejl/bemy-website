@@ -447,10 +447,9 @@
             },
 
             changeSelectedImageIndexInStore(index) {
-                console.log("changing");
                 this.changeSelectedImageIndex({
                     index: index,
-                    productType: 'wrapping',
+                    productType: 'product',
                     productId: this.productId
                 })
             },

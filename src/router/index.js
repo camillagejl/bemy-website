@@ -47,6 +47,12 @@ const routes = [
         props: true
     },
     {
+        path: '/product/:productId/:editingProductIndex',
+        name: 'ProductEdit',
+        component: Product,
+        props: true
+    },
+    {
         path: '/wrapping',
         name: 'Wrapping',
         component: Wrapping,

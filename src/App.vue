@@ -8,7 +8,7 @@
             <MainNavigation/>
             <div class="main_section" ref="scrolled">
                 <main>
-                    <router-view/>
+                    <router-view :key="$route.fullPath"/>
                 </main>
                 <Footer/>
             </div>

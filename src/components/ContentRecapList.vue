@@ -7,7 +7,7 @@
             class="recap_list_item"
         >
             <router-link
-                :to="{ name: 'Product', params: {
+                :to="{ name: 'ProductEdit', params: {
                     productId: product.id,
                     editingCurrentProduct: true,
                     editingProductIndex: productIndex
