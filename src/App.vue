@@ -262,6 +262,11 @@
         cursor: not-allowed;
     }
 
+    .back_link_bottom {
+        display: block;
+        margin-top: 48px;
+    }
+
     /* Components */
     .main_navigation {
         z-index: 2;

@@ -16,9 +16,9 @@
                 <svg
                     @click="editTitle"
                     aria-hidden="true" focusable="false" data-prefix="fad" data-icon="pencil-alt"
-                     class="basic_icon svg-inline--fa fa-pencil-alt fa-w-16" role="img"
-                     xmlns="http://www.w3.org/2000/svg"
-                     viewBox="0 0 512 512">
+                    class="basic_icon svg-inline--fa fa-pencil-alt fa-w-16" role="img"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512 512">
                     <g class="fa-group">
                         <path class="fa-secondary"
                               d="M96 352H32l-16 64 80 80 64-16v-64H96zM498 74.26l-.11-.11L437.77 14a48.09 48.09 0 0 0-67.9 0l-46.1 46.1a12 12 0 0 0 0 17l111 111a12 12 0 0 0 17 0l46.1-46.1a47.93 47.93 0 0 0 .13-67.74z"
@@ -108,7 +108,11 @@
                         :editButton="true"
                         :deleteButton="false"
                         :productId="pack.id"
-                        :editDestination="{ name: 'Wrapping' }"
+                        :editDestination="{
+                        name: 'Wrapping', params: {
+                fromDest: { name: 'MyPackages' },
+                fromDestTitle: 'Mine pakker (uden at gemme)'
+                }}"
                     />
 
                     <div
@@ -167,7 +171,9 @@
                     params: {
                     productId: product.id,
                     editingCurrentProduct: true,
-                    editingProductIndex: productIndex
+                    editingProductIndex: productIndex,
+                fromDest: { name: 'MyPackages' },
+                fromDestTitle: 'Mine pakker (uden at gemme)'
                     }
                     }
 "
@@ -502,7 +508,7 @@
             },
             editTitle() {
                 let title = window.prompt("Ny titel på pakken:");
-                this.updatePackageTitle({ title: title })
+                this.updatePackageTitle({title: title})
             }
         }
     }

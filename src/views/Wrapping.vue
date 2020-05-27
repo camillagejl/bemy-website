@@ -6,6 +6,15 @@
         </div>
 
         <div v-else>
+
+            <router-link
+                v-if="fromDest"
+                class="back_link"
+                :to="fromDest"
+            >
+                &#8592; Tilbage til {{ fromDestTitle }}
+            </router-link>
+
             <h1>
                 Indpakning
             </h1>
@@ -16,6 +25,7 @@
                 v-else
                 class="product_container"
             >
+
                 <section class="gallery_container">
                     <ProductGallery
                         :productType="'wrapping'"
@@ -145,6 +155,15 @@
 
             </div>
 
+
+            <router-link
+                v-if="fromDest"
+                class="back_link back_link_bottom"
+                :to="fromDest"
+            >
+                &#8592; Tilbage til {{ fromDestTitle }}
+            </router-link>
+
             <PriceFooter
                 v-if="activeWrapping"
                 :price="activeWrapping.displayPrice"
@@ -173,15 +192,21 @@
                 designErrorMessage: false
             }
         },
+        props: {
+            fromDest: String,
+            fromDestTitle: String
+        },
         computed: {
-            ...mapState([
-                'activePackage',
-                'packages',
-            ]),
-            ...mapGetters([
-                'productsById',
-                'wrappings'
-            ]),
+            ...
+                mapState([
+                    'activePackage',
+                    'packages',
+                ]),
+            ...
+                mapGetters([
+                    'productsById',
+                    'wrappings'
+                ]),
             products() {
                 if (!this.wrappings) {
                     return []
@@ -190,7 +215,8 @@
                     return []
                 }
                 return this.wrappings.products.map(value => this.productsById[value]);
-            },
+            }
+            ,
             activeWrapping() {
                 let activeWrapping = this.packages[this.activePackage].wrapping;
 
@@ -209,14 +235,16 @@
                 }
 
                 return activeWrapping;
-            },
+            }
+            ,
             product() {
                 if (!this.activeWrapping) {
                     return;
                 }
 
                 return this.productsById[this.activeWrapping.id];
-            },
+            }
+            ,
             activeDesign() {
                 let thisDesign = null;
 
@@ -234,7 +262,8 @@
                 }
 
                 return thisDesign;
-            },
+            }
+            ,
             isVariantAvailable() {
                 const variantsMatching = [];
                 let isVariant;
@@ -265,26 +294,29 @@
 
                 });
 
-                this.setIsWrappingAvailable({ isAvailable: isVariant });
+                this.setIsWrappingAvailable({isAvailable: isVariant});
 
                 if (this.product.variants.length > 1) {
                     return isVariant;
                 }
             }
-        },
+        }
+        ,
         methods: {
-            ...mapMutations([
-                'addActiveProductFromProductId',
-                'updateSelectionValue',
-                'setDesignImages',
-                'setIsWrappingAvailable',
-                'changeGalleryTab',
-                'setActiveWrappingIndex',
-                'changeSelectedImageIndex'
-            ]),
+            ...
+                mapMutations([
+                    'addActiveProductFromProductId',
+                    'updateSelectionValue',
+                    'setDesignImages',
+                    'setIsWrappingAvailable',
+                    'changeGalleryTab',
+                    'setActiveWrappingIndex',
+                    'changeSelectedImageIndex'
+                ]),
             setWrappingIndexInStore(index) {
-                this.setActiveWrappingIndex({ index: index })
-            },
+                this.setActiveWrappingIndex({index: index})
+            }
+            ,
             updateInputSelectionValueInStore(e) {
                 this.updateSelectionValue({
                     productId: this.productId,
@@ -292,12 +324,14 @@
                     name: e.target.name,
                     type: 'wrapping'
                 });
-            },
+            }
+            ,
             optionImages(variants, key) {
                 return variants.filter((obj, pos, arr) => {
                     return arr.map(mapObj => mapObj[key]).indexOf(obj[key]) === pos;
                 });
-            },
+            }
+            ,
             allPersonalisations() {
                 let personalisations = {};
 
@@ -314,7 +348,8 @@
                 }
 
                 return personalisations
-            },
+            }
+            ,
 
             myDesignImages() {
                 let images = [];
@@ -347,19 +382,23 @@
                 }
 
                 return images;
-            },
+            }
+            ,
             setDesignImagesInStore() {
                 this.setDesignImages({images: this.myDesignImages(), productType: 'wrapping'});
-            },
+            }
+            ,
             onOptionImageClick() {
                 if (this.activeWrapping.activeTab !== 'designTab') {
                     this.changeTabInStore('designTab');
                     this.changeSelectedImageIndexInStore(0);
                 }
-            },
+            }
+            ,
             changeTabInStore(tab) {
-                this.changeGalleryTab({ tab: tab, productId: this.productId, productType: 'wrapping' })
-            },
+                this.changeGalleryTab({tab: tab, productId: this.productId, productType: 'wrapping'})
+            }
+            ,
 
             changeSelectedImageIndexInStore(index) {
                 console.log("changing");
@@ -368,7 +407,8 @@
                     productType: 'wrapping',
                     productId: this.productId
                 })
-            },
+            }
+            ,
         }
     }
 </script>
@@ -424,49 +464,49 @@
         }
     }
 
+    .continue_button {
+        width: 100%;
+    }
+
+    .not_available {
+        background-color: rgba(var(--colour-grey-300), 1);
+        text-align: center;
+        padding: 12px;
+        width: 100%;
+    }
+
+    @media screen and (min-width: 768px) {
+        .option_images {
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            grid-gap: 12px;
+        }
+
+        .continue_button_container {
+            display: flex;
+            justify-content: flex-end;
+        }
+
         .continue_button {
-            width: 100%;
+            width: 400px;
+        }
+    }
+
+    @media screen and (min-width: 1024px) {
+        .product_container {
+            display: flex;
         }
 
-        .not_available {
-            background-color: rgba(var(--colour-grey-300), 1);
-            text-align: center;
-            padding: 12px;
-            width: 100%;
+        .gallery_container {
+            flex: 2;
         }
 
-        @media screen and (min-width: 768px) {
-            .option_images {
-                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-                grid-gap: 12px;
-            }
-
-            .continue_button_container {
-                display: flex;
-                justify-content: flex-end;
-            }
-
-            .continue_button {
-                width: 400px;
-            }
+        .product_information {
+            flex: 3;
+            margin-left: 48px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
-
-        @media screen and (min-width: 1024px) {
-            .product_container {
-                display: flex;
-            }
-
-            .gallery_container {
-                flex: 2;
-            }
-
-            .product_information {
-                flex: 3;
-                margin-left: 48px;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-            }
-        }
+    }
 
 </style>

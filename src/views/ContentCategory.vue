@@ -7,6 +7,14 @@
             Vent venligst...
         </div>
         <div v-else>
+
+            <router-link
+                class="back_link"
+                :to="{ name: 'ContentCategoriesOverview' }"
+            >
+                &#8592; Tilbage til Indhold
+            </router-link>
+
             <h1>
                 {{ category.title }}
             </h1>
@@ -18,7 +26,12 @@
                 <router-link
                     v-else
                     v-for="productId in category.products"
-                    :to="{ name: 'Product', params: { productId: productId, editingCurrentProduct: false } }"
+                    :to="{ name: 'Product', params: {
+                    productId: productId,
+                    editingCurrentProduct: false,
+                fromDest: { name: 'Category', params: { categoryId: category.id } },
+                fromDestTitle: category.title
+                }}"
                     class="product_preview"
                 >
                     <div
@@ -39,6 +52,14 @@
                     </div>
                 </router-link>
             </section>
+
+            <router-link
+                class="back_link back_link_bottom"
+                :to="{ name: 'ContentCategoriesOverview' }"
+            >
+                &#8592; Tilbage til Indhold
+            </router-link>
+
         </div>
     </div>
 </template>
@@ -52,7 +73,7 @@
         name: 'ContentCategory',
         components: {MobileContentRecap},
         props: {
-            categoryId: String
+            categoryId: String,
         },
         computed: {
             ...mapGetters([
@@ -100,7 +121,10 @@
         .product_price {
             color: rgba(var(--colour-grey-700), 1);
         }
+    }
 
+    .back_link {
+        text-decoration: underline;
     }
 
     @media screen and (min-width: 1200px) {

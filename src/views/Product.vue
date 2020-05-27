@@ -6,6 +6,15 @@
         </div>
 
         <div v-else>
+
+            <router-link
+                v-if="fromDest"
+                class="back_link"
+                :to="fromDest"
+            >
+                &#8592; Tilbage til {{ fromDestTitle }}
+            </router-link>
+
             <h1>
                 {{ product.title}}
             </h1>
@@ -180,6 +189,15 @@
 
             </div>
 
+
+            <router-link
+                v-if="fromDest"
+                class="back_link back_link_bottom"
+                :to="fromDest"
+            >
+                &#8592; Tilbage til {{ fromDestTitle }}
+            </router-link>
+
         </div>
 
 
@@ -240,7 +258,9 @@
         props: {
             productId: String,
             editingCurrentProduct: Boolean,
-            editingProductIndex: Number
+            editingProductIndex: Number,
+            fromDest: String,
+            fromDestTitle: String
         },
         computed: {
             ...mapState([
