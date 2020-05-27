@@ -118,6 +118,7 @@ export default new Vuex.Store({
                 id: product.id,
                 activeTab: 'imagesTab',
                 thumbsPosition: 0,
+                selectedImageIndex: 0,
                 selections: {}
             };
 
@@ -249,9 +250,7 @@ export default new Vuex.Store({
                 state.packages[state.activePackage].wrapping.thumbsPosition = 0
             }
         },
-
         moveThumbsPosition(state, payload) {
-
             let thisThumbsPosition;
 
             if (payload.productType === 'wrapping') {
@@ -279,9 +278,17 @@ export default new Vuex.Store({
             if (payload.productType === 'product') {
                 Vue.set(state.activeProducts[payload.productId], 'thumbsPosition', thisThumbsPosition);
             }
-
         },
+        changeSelectedImageIndex(state, payload) {
+            console.log(payload.index);
+            if (payload.productType === 'wrapping') {
+                Vue.set(state.packages[state.activePackage].wrapping, 'selectedImageIndex', payload.index);
+            }
 
+            if (payload.productType === 'product') {
+                Vue.set(state.activeProducts[payload.productId], 'selectedImageIndex', payload.index);
+            }
+        },
         addProductToPackage(state, payload) {
 
             // Adding new product to active package

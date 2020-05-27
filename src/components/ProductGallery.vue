@@ -5,14 +5,14 @@
             class="gallery_tabs"
             v-if="designTab">
             <div
-                @click="changeTabs('imagesTab')"
+                @click="changeTabs('imagesTab', 0)"
                 class="gallery_tab"
                 v-bind:class="{ selected : activeTab === 'imagesTab' }"
             >
                 Inspiration
             </div>
             <div
-                @click="changeTabs('designTab')"
+                @click="changeTabs('designTab', 0)"
                 class="gallery_tab"
                 v-bind:class="{ selected : activeTab === 'designTab' }"
             >
@@ -28,7 +28,7 @@
                         v-for="(image, index) in currentImages"
                         :style="{ transform: `translateY(${imagesTranslation(activeThumbsPosition)}%) translateY(calc(${activeThumbsPosition} * (-12px))`}"
                         class="gallery_thumbnail relative_image rounded_box selected"
-                        @click="selectedImageIndex = index"
+                        @click="changeSelectedImageIndex(index)"
                     >
                         <img :src="image">
                     </div>
@@ -71,11 +71,7 @@
             productType: String,
             productId: String,
             changeTab: Function,
-        },
-        data() {
-            return {
-                selectedImageIndex: 0
-            }
+            changeSelectedImageIndex: Function
         },
         computed: {
             ...mapState([
@@ -101,6 +97,15 @@
                     return this.packages[this.activePackage].wrapping.thumbsPosition
                 }
             },
+            activeImageIndex() {
+                if (this.productType === 'product') {
+                    return this.activeProducts[this.productId].selectedImageIndex
+                }
+
+                if (this.productType === 'wrapping' && this.packages[this.activePackage].wrapping) {
+                    return this.packages[this.activePackage].wrapping.selectedImageIndex
+                }
+            },
             currentImages() {
                 if (this.activeTab) {
                     if (this.activeTab === 'imagesTab') {
@@ -117,12 +122,12 @@
                 }
             },
             selectedImage() {
-                return this.currentImages[this.selectedImageIndex]
+                return this.currentImages[this.activeImageIndex]
             }
         },
         methods: {
             ...mapMutations([
-                'moveThumbsPosition'
+                'moveThumbsPosition',
             ]),
             imagesTranslation(position) {
                 return position * -100;
@@ -146,9 +151,9 @@
                         this.thumbsPosition--;
                 }
             },
-            changeTabs(clickedTab) {
+            changeTabs(clickedTab, index) {
                 this.changeTab(clickedTab);
-                this.selectedImageIndex = 0;
+                this.changeSelectedImageIndex(index)
             }
         }
     }

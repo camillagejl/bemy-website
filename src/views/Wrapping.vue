@@ -22,6 +22,7 @@
                         :images="product.images"
                         :designTab="true"
                         :changeTab="changeTabInStore"
+                        :changeSelectedImageIndex="changeSelectedImageIndexInStore"
                     />
 
                     <div class="description display_1024">
@@ -66,7 +67,7 @@
                         :productId="product.id"
                         :productType="'wrapping'"
                         :setDesignImagesInStore="setDesignImagesInStore"
-                        @click.native="changeTabInStore('designTab')"
+                        @click.native="onOptionImageClick"
                     />
 
                     <!-- Designs -->
@@ -78,7 +79,7 @@
                         :productId="product.id"
                         :productType="'wrapping'"
                         :setDesignImagesInStore="setDesignImagesInStore"
-                        @click.native="changeTabInStore('designTab')"
+                        @click.native="onOptionImageClick"
                     />
 
                     <div
@@ -278,7 +279,8 @@
                 'setDesignImages',
                 'setIsWrappingAvailable',
                 'changeGalleryTab',
-                'setActiveWrappingIndex'
+                'setActiveWrappingIndex',
+                'changeSelectedImageIndex'
             ]),
             setWrappingIndexInStore(index) {
                 this.setActiveWrappingIndex({ index: index })
@@ -349,9 +351,24 @@
             setDesignImagesInStore() {
                 this.setDesignImages({images: this.myDesignImages(), productType: 'wrapping'});
             },
+            onOptionImageClick() {
+                if (this.activeWrapping.activeTab !== 'designTab') {
+                    this.changeTabInStore('designTab');
+                    this.changeSelectedImageIndexInStore(0);
+                }
+            },
             changeTabInStore(tab) {
                 this.changeGalleryTab({ tab: tab, productId: this.productId, productType: 'wrapping' })
-            }
+            },
+
+            changeSelectedImageIndexInStore(index) {
+                console.log("changing");
+                this.changeSelectedImageIndex({
+                    index: index,
+                    productType: 'wrapping',
+                    productId: this.productId
+                })
+            },
         }
     }
 </script>

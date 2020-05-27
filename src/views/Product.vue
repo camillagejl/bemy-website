@@ -19,9 +19,8 @@
                         :productType="'product'"
                         :productId="productId"
                         :changeTab="changeTabInStore"
+                        :changeSelectedImageIndex="changeSelectedImageIndexInStore"
                     />
-
-                    <!--  -->
 
                     <div
                         v-if="product.options.length || product.designs || Object.keys(allPersonalisations).length"
@@ -65,7 +64,7 @@
                             :productId="product.id"
                             :productType="'product'"
                             :setDesignImagesInStore="setDesignImagesInStore"
-                            @click.native="changeTabInStore('designTab')"
+                        @click.native="onOptionImageClick"
                         />
 
                         <!-- Designs -->
@@ -77,7 +76,7 @@
                             :productId="product.id"
                             :productType="'product'"
                             :setDesignImagesInStore="setDesignImagesInStore"
-                            @click.native="changeTabInStore('designTab')"
+                        @click.native="onOptionImageClick"
                         />
 
                         <div
@@ -363,7 +362,8 @@
                 'addProductToPackage',
                 'toggleAppOverflow',
                 'setDesignImages',
-                'changeGalleryTab'
+                'changeGalleryTab',
+                'changeSelectedImageIndex'
             ]),
             closePopup(nextFunction, prop) {
                 this.displayAddedToPackage = false;
@@ -436,8 +436,23 @@
                     productId: this.productId
                 });
             },
+            onOptionImageClick() {
+                if (this.activeProduct.activeTab !== 'designTab') {
+                    this.changeTabInStore('designTab');
+                    this.changeSelectedImageIndexInStore(0);
+                }
+            },
             changeTabInStore(tab) {
                 this.changeGalleryTab({tab: tab, productId: this.productId, productType: 'product'})
+            },
+
+            changeSelectedImageIndexInStore(index) {
+                console.log("changing");
+                this.changeSelectedImageIndex({
+                    index: index,
+                    productType: 'wrapping',
+                    productId: this.productId
+                })
             },
             addToPackage() {
                 if (!this.editingCurrentProduct) {
