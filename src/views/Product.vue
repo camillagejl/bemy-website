@@ -147,6 +147,7 @@
                             />
 
                             <MainButton
+                                v-if="packages.length > 1"
                                 :emph="false"
                                 :text="'Tilføj til flere pakker'"
                                 :icon="'plus-plus'"
@@ -243,6 +244,7 @@
         },
         computed: {
             ...mapState([
+                'packages',
                 'activeProducts'
             ]),
             ...mapGetters([
