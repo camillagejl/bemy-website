@@ -286,10 +286,22 @@
 
     .emphasized {
         background-color: rgba(var(--colour-primary-400), 1);
+        transition: .3s;
+
+        &:hover {
+            background-color: rgba(var(--colour-primary-410), 1);
+            transition: .3s;
+        }
     }
 
     .de_emphasized {
         background-color: rgba(var(--colour-primary-300), 1);
+        transition: .3s;
+
+        &:hover {
+            background-color: rgba(var(--colour-primary-310), 1);
+            transition: .3s;
+        }
     }
 
     .checkout_color {

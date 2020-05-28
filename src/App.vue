@@ -74,7 +74,9 @@
         --colour-primary-100: 252, 247, 248;
         --colour-primary-200: 238, 227, 231;
         --colour-primary-300: 224, 193, 205;
+        --colour-primary-310: 220, 183, 197;
         --colour-primary-400: 197, 158, 173;
+        --colour-primary-410: 193, 147, 165;
         --colour-primary-500: 172, 122, 142;
         --colour-primary-600: 144, 107, 121;
         --colour-primary-700: 116, 87, 98;
@@ -153,6 +155,7 @@
     a {
         color: rgba(var(--colour-primary-600), 1);
         text-decoration: underline;
+        cursor: pointer;
     }
 
     h1,
