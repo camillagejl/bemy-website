@@ -444,6 +444,12 @@
         margin: 4px 0;
     }
 
+    .text_section {
+        margin: 64px 0;
+        display: grid;
+        grid-gap: 24px;
+    }
+
     .text_image {
         height: fit-content;
     }
@@ -457,7 +463,7 @@
         /* Infographic */
         .home_infographic {
             grid-template-columns: repeat(4, 1fr);
-            grid-gap: 24px;
+            grid-gap: 48px;
             font-size: 16px;
             padding: 0;
         }
@@ -503,8 +509,8 @@
         }
 
         .text_section {
-            display: grid;
             grid-template-columns: 1fr 2fr;
+            grid-gap: 0;
             margin: 96px auto;
 
             .text_element {
