@@ -159,50 +159,64 @@
 
         <section
             class="text_section"
-            id="our_concept">
-            <h2 class="h2_sub_section">
-                Vores koncept
-            </h2>
-            <h3 class="h3_handwriting">
-                Du designer &#8226; Vi leverer
-            </h3>
+            id="our_concept"
+        >
 
-            <p>
-                Hos BEMY har vi fokus på design; dit helt eget, personlige design.
-            </p>
+            <div class="text_image rounded_box">
+            <img src="../assets/images/home_1.jpg">
+            </div>
 
-            <p>
-                Vores mål er, at det skal være nemt for dig at lave den helt perfekte, personlige gave, og få den
-                leveret
-                direkte til modtageren. Vi har et hav af kvalitetsprodukter, som du kan personalisere med et af vores
-                designs, modtagerens navn og dine egne tekster. Det eneste, du skal gøre, er at sammensætte din pakke
-                - så klarer vi indpakningen og afsendelsen for dig.
-            </p>
+            <div class="text_element">
+                <h2 class="h2_sub_section">
+                    Vores koncept
+                </h2>
+                <h3 class="h3_handwriting">
+                    Du designer &#8226; Vi leverer
+                </h3>
 
-            <p>
-                <a href="#our_packages">
-                    Vælg en af vores pakker forneden,
-                </a>
-                eller start rejsen ved at
+                <p>
+                    Hos BEMY har vi fokus på design; dit helt eget, personlige design.
+                </p>
 
-                <router-link
-                    :to="{ name: 'Wrapping' }"
-                >
-                    designe din egen indpakning.
-                </router-link>
-            </p>
+                <p>
+                    Vores mål er, at det skal være nemt for dig at lave den helt perfekte, personlige gave, og få
+                    den
+                    leveret
+                    direkte til modtageren. Vi har et hav af kvalitetsprodukter, som du kan personalisere med et af
+                    vores
+                    designs, modtagerens navn og dine egne tekster. Det eneste, du skal gøre, er at sammensætte din
+                    pakke
+                    - så klarer vi indpakningen og afsendelsen for dig.
+                </p>
 
-            <p>
-                Har du specielle krav, eller ønsker du et design, som vi ikke har?
-                <a class="not_allowed"
-                >
-                    Så hører vi gerne fra dig!
-                </a>
-            </p>
+                <p>
+                    <a href="#our_packages">
+                        Vælg en af vores pakker forneden,
+                    </a>
+                    eller start rejsen ved at
+
+                    <router-link
+                        :to="{ name: 'Wrapping' }"
+                    >
+                        designe din egen indpakning.
+                    </router-link>
+                </p>
+
+                <p>
+                    Har du specielle krav, eller ønsker du et design, som vi ikke har?
+                    <a class="not_allowed"
+                    >
+                        Så hører vi gerne fra dig!
+                    </a>
+                </p>
+            </div>
         </section>
 
         <section
-            class="text_section">
+            class="text_section"
+        >
+
+            <div class="text_element">
             <h2 class="h2_sub_section">
                 BEMY & B2B
             </h2>
@@ -213,8 +227,10 @@
             </p>
 
             <p>
-                Med en personlig gave fra BEMY er det nemt at vise dine medarbejdere, hvor meget du sætter pris på dem,
-                da de alle får noget helt unikt - og med vores pakke-system her på hjemmesiden er det nemt og hurtigt
+                Med en personlig gave fra BEMY er det nemt at vise dine medarbejdere, hvor meget du sætter pris på
+                dem,
+                da de alle får noget helt unikt - og med vores pakke-system her på hjemmesiden er det nemt og
+                hurtigt
                 at sætte pakkerne sammen til dem alle.
             </p>
             <p>
@@ -225,11 +241,17 @@
                 </a>
                 og så skal vi nok finde en løsning.
             </p>
+            </div>
+
+            <div class="text_image rounded_box">
+            <img src="../assets/images/home_2.jpg">
+            </div>
 
         </section>
 
+
         <section id="our_packages">
-            <div class="text_section">
+            <div>
                 <h2 class="h2_sub_section">
                     Gør en af vores pakker til din helt egen
                 </h2>
@@ -238,13 +260,17 @@
                     Vælg en pakke, og personalisér til den er perfekt
                 </h3>
 
+                <div class="limit_text_width">
+
                 <p>
                     Søger du gaven til brudepigerne? Konfirmanden? Medarbejderne?
-                    Vi ved, hvor vigtigt det er, at skabe den perfekte gave, og derfor vil vi gerne hjælpe dig på vej.
+                    Vi ved, hvor vigtigt det er, at skabe den perfekte gave, og derfor vil vi gerne hjælpe dig på
+                    vej.
                 </p>
 
                 <p>
-                    Bliv inspireret af vores pakker, eller tilføj en pakke direkte til din egen pakke. Derefter kan du
+                    Bliv inspireret af vores pakker, eller tilføj en pakke direkte til din egen pakke. Derefter kan
+                    du
                     selv
                     ændre og personalisere alt, du har lyst til, og tilføje så mange personer, du har brug for.
                 </p>
@@ -252,9 +278,11 @@
                     <strong>
                         Developer note:
                     </strong>
-                    Nedenstående er et mockup af, hvordan færdige pakker skal se ud på desktop. Når man trykker på en
+                    Nedenstående er et mockup af, hvordan færdige pakker skal se ud på desktop. Når man trykker på
+                    en
                     "kategori", dukker de færdige pakker i denne kategori op. Tryk for at få en "demo".
                 </p>
+                </div>
             </div>
 
             <div
@@ -360,18 +388,19 @@
     }
 
     .home_continue_buttons {
-        margin: 24px 0;
+        max-width: 1000px;
+        margin: 24px auto;
 
         .main_button {
             padding: 16px;
             text-transform: uppercase;
-            width: 100%;
             margin-top: 12px;
             font-weight: 600;
         }
 
         a {
             text-decoration: none;
+            width: 100%;
         }
     }
 
@@ -398,12 +427,7 @@
         }
     }
 
-    .text_section {
-        max-width: 800px;
-    }
-
     .h2_sub_section {
-        padding-top: 48px;
         font-size: 24px;
         font-weight: 400;
     }
@@ -420,6 +444,10 @@
         margin: 4px 0;
     }
 
+    .text_image {
+        height: fit-content;
+    }
+
     @media screen and (min-width: 768px) {
         /* Header */
         .h2_handwriting {
@@ -431,6 +459,7 @@
             grid-template-columns: repeat(4, 1fr);
             grid-gap: 24px;
             font-size: 16px;
+            padding: 0;
         }
         .infographic_text {
             transform: translateY(-50px);
@@ -460,7 +489,7 @@
 
             .main_button {
                 padding: 24px;
-                width: 500px;
+                width: 100%;
                 text-transform: uppercase;
             }
 
@@ -473,6 +502,43 @@
             }
         }
 
+        .text_section {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            margin: 96px auto;
+
+            .text_element {
+                margin: auto 0 auto 48px;
+            }
+
+            + .text_section {
+                grid-template-columns: 2fr 1fr;
+
+                .text_element {
+                    margin: auto 48px auto 0;
+                }
+            }
+        }
+
+        .limit_text_width {
+            max-width: 750px;
+        }
+    }
+
+
+    @media screen and (min-width: 1024px) {
+
+        .text_section {
+            .text_element {
+                margin: auto 0 auto 96px;
+            }
+
+            + .text_section {
+                .text_element {
+                    margin: auto 96px auto 0;
+                }
+            }
+        }
     }
 
 </style>
