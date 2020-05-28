@@ -3,19 +3,17 @@
         <div class="header_line"></div>
 
         <nav>
-            <router-link
+            <a
                 class="header_link not_allowed"
-                :to="{ name: 'About' }"
             >
                 Om os
-            </router-link>
+            </a>
 
-            <router-link
-                class="header_link display_1024"
-                :to="{ name: 'Delivery' }"
+            <a
+                class="header_link display_1024 not_allowed"
             >
                 Levering
-            </router-link>
+            </a>
 
             <router-link
                 class="header_logo"
@@ -30,19 +28,17 @@
 
             </router-link>
 
-            <router-link
-                class="header_link"
-                :to="{ name: 'Inspiration' }"
+            <a
+                class="header_link not_allowed"
             >
                 Inspiration
-            </router-link>
+            </a>
 
-            <router-link
-                class="header_link display_1024"
-                :to="{ name: 'B2B' }"
+            <a
+                class="header_link display_1024 not_allowed"
             >
                 B2B
-            </router-link>
+            </a>
         </nav>
     </div>
 </template>

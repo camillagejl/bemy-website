@@ -19,13 +19,13 @@
                 </div>
 
                 <div class="footer_split">
-                    <a>
+                    <a class="not_allowed">
                         +45 12 34 56 78
                     </a>
                     <a>
                         +45 98 76 54 32
                     </a>
-                    <a>
+                    <a class="not_allowed">
                         kontakt@bemy.dk
                     </a>
                 </div>
