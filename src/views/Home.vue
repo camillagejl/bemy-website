@@ -166,7 +166,7 @@
             </p>
 
             <p>
-                <a>
+                <a href="#our_packages">
                     Vælg en af vores pakker forneden,
                 </a>
                 eller start rejsen ved at
@@ -180,13 +180,37 @@
 
             <p>
                 Har du specielle krav, eller ønsker du et design, som vi ikke har?
-                <router-link
-                    :to="{ name: 'Contact' }"
+                <a class="not_allowed"
                 >
                     Så hører vi gerne fra dig!
-                </router-link>
+                </a>
+            </p>
+        </section>
+
+        <section
+            class="text_section">
+            <h2 class="h2_sub_section">
+                BEMY & B2B
+            </h2>
+
+            <p>
+                Er du ved at planlægge årets firmajulegaver, 20 års jubilæum, eller fortjener dine medarbejdere bare
+                lidt forkælelse?
             </p>
 
+            <p>
+                Med en personlig gave fra BEMY er det nemt at vise dine medarbejdere, hvor meget du sætter pris på dem,
+                da de alle får noget helt unikt - og med vores pakke-system her på hjemmesiden er det nemt og hurtigt
+                at sætte pakkerne sammen til dem alle.
+            </p>
+            <p>
+                Hvis du har andre ønsker, såsom indpakninger til dine produkter med dit eget logo,
+                <a class="not_allowed"
+                >
+                    hører vi gerne fra dig,
+                </a>
+                og så skal vi nok finde en løsning.
+            </p>
 
         </section>
 

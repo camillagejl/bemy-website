@@ -54,7 +54,7 @@
 
                     <div class="button_container">
                         <router-link
-                            :to="{ name: 'Inspiration' }"
+                            :to="{ name: 'Home' }"
                         >
                             <MainButton
                                 :emph="true"
@@ -246,7 +246,7 @@
 
                     <div class="button_container">
                         <router-link
-                            :to="{ name: 'Inspiration' }"
+                            :to="{ name: 'Home' }"
                         >
                             <MainButton
                                 :emph="true"
