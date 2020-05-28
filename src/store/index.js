@@ -192,6 +192,7 @@ export default new Vuex.Store({
             }
         },
         deleteSelectionKeys(state, payload) {
+            console.log("Deleting selections");
             const product = _.find(state.products, ['id', payload.productId]);
             const productOptionKeys = Object.keys(product.options);
 
@@ -223,12 +224,30 @@ export default new Vuex.Store({
             }
         },
         updateSelectionValue(state, payload) {
+            console.log("Updating selections");
             if (payload.type === 'product') {
                 Vue.set(state.activeProducts[payload.productId].selections, payload.name, payload.value);
             }
             if (payload.type === 'wrapping') {
                 Vue.set(state.packages[state.activePackage].wrapping.selections, payload.name, payload.value);
             }
+
+            if (payload.name === 'Design') {
+
+                const design = _.find(state.designs, ['Design', payload.value]);
+
+                Object.keys(design.personalisations).forEach(personalisation => {
+                    if (payload.type === 'product') {
+                        Vue.set(state.activeProducts[payload.productId].selections, personalisation, '');
+                    }
+
+                    if (payload.type === 'wrapping') {
+                        Vue.set(state.packages[state.activePackage].wrapping.selections, personalisation, '');
+                    }
+
+                });
+            }
+
         },
         setDesignImages(state, payload) {
             if (state.packages[state.activePackage] && payload.productType === 'wrapping') {

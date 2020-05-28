@@ -164,8 +164,9 @@
                             />
                         </div>
 
-                        <div
+                        <router-link
                             v-if="editingCurrentProduct && isVariantAvailable"
+                            :to="{ name: 'MyPackages' }"
                             class="save_edit_button"
                         >
                             <MainButton
@@ -174,7 +175,7 @@
                                 :icon="'save'"
                                 @click.native="addToPackage"
                             />
-                        </div>
+                        </router-link>
 
                         <div
                             v-if="!isVariantAvailable"
@@ -521,6 +522,10 @@
         margin-top: 36px;
         margin-bottom: 8px;
 
+        a {
+            text-decoration: none;
+        }
+
         .main_button {
             width: 100%;
 
@@ -528,6 +533,10 @@
                 margin-top: 12px;
             }
         }
+    }
+
+    .product_bottom a {
+        text-decoration: none;
     }
 
     .not_available {
