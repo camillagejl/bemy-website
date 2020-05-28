@@ -111,7 +111,8 @@
                         :editDestination="{
                         name: 'Wrapping', params: {
                         fromDest: { name: 'MyPackages' },
-                        fromDestTitle: 'Mine pakker'
+                        fromDestTitle: 'Mine pakker',
+                    editingCurrentProduct: true
                 }}"
                     />
 

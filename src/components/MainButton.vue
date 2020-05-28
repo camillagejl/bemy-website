@@ -306,6 +306,10 @@
 
     .checkout_color {
         background-color: green;
+
+        &:hover {
+            background-color: #007300;
+        }
     }
 
     /* For arrow right */

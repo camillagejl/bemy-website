@@ -132,14 +132,26 @@
                     <div class="continue_button_container">
 
                         <router-link
-                            v-if="isVariantAvailable"
+                            v-if="isVariantAvailable && !editingCurrentProduct"
                             :to="{ name: 'ContentCategoriesOverview' }"
+                            class="continue_button"
                         >
                             <MainButton
-                                class="continue_button"
                                 :emph="true"
                                 :text="'Gå videre til indhold'"
                                 :icon="'arrow_right'"
+                            />
+                        </router-link>
+
+                        <router-link
+                            v-if="editingCurrentProduct && isVariantAvailable"
+                            :to="{ name: 'MyPackages' }"
+                            class="continue_button"
+                        >
+                            <MainButton
+                                :emph="true"
+                                :text="'Gå tilbage til Mine pakker'"
+                                :icon="'boxes'"
                             />
                         </router-link>
 
@@ -194,7 +206,8 @@
         },
         props: {
             fromDest: Object,
-            fromDestTitle: String
+            fromDestTitle: String,
+            editingCurrentProduct: Boolean
         },
         computed: {
             ...
@@ -482,12 +495,14 @@
         }
 
         .continue_button_container {
+            width: 100%;
             display: flex;
             justify-content: flex-end;
         }
 
-        .continue_button {
-            width: 400px;
+        .continue_button,
+        .continue_button .main_button {
+            width: 100%;
         }
     }
 
