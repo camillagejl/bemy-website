@@ -310,22 +310,25 @@ export default new Vuex.Store({
         },
         addProductToPackage(state, payload) {
 
+            // Adding to several packages
+            if (payload.packageIndex !== undefined && !payload.productIndex) {
+                console.log("Adding 3");
+                state.packages[payload.packageIndex].products.push(_.cloneDeep(payload.product));
+                this.commit('updateTotalPriceOfPackage', {packageIndex: payload.packageIndex});
+            }
+
             // Adding new product to active package
-            if (!payload.type && !payload.packageIndex) {
+            else if (!payload.type && !payload.packageIndex) {
+                console.log("Adding 1");
                 state.packages[state.activePackage].products.push(_.cloneDeep(payload.product));
                 this.commit('updateTotalPriceOfPackage', {packageIndex: state.activePackage});
             }
 
             // Editing product
             if (payload.type === 'editingProduct') {
+                console.log("Adding 2");
                 Vue.set(state.packages[state.activePackage].products, payload.productIndex, _.cloneDeep(payload.product));
                 this.commit('updateTotalPriceOfPackage', {packageIndex: state.activePackage});
-            }
-
-            // Adding to several packages
-            else if (payload.packageIndex !== undefined && !payload.productIndex) {
-                state.packages[payload.packageIndex].products.push(_.cloneDeep(payload.product));
-                this.commit('updateTotalPriceOfPackage', {packageIndex: payload.packageIndex});
             }
         },
         setIsWrappingAvailable(state, payload) {

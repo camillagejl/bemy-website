@@ -477,6 +477,9 @@
                 })
             },
             addToPackage() {
+
+                console.log("adding to package");
+
                 if (!this.editingCurrentProduct) {
                     this.displayAddedToPackage = true;
                     this.addProductToPackage({product: this.activeProduct});
