@@ -429,6 +429,7 @@
         /* Infographic */
         .home_infographic {
             grid-template-columns: repeat(4, 1fr);
+            grid-gap: 24px;
             font-size: 16px;
         }
         .infographic_text {
