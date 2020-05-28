@@ -52,28 +52,28 @@
                 <strong class="footer_header">
                     Information
                 </strong>
-                <a>
+                <a class="not_allowed">
                     FAQ
                 </a>
-                <a>
+                <a class="not_allowed">
                     Kontakt
                 </a>
-                <a>
+                <a class="not_allowed">
                     Om BEMY
                 </a>
-                <a>
+                <a class="not_allowed">
                     Vores historie
                 </a>
             </div>
 
             <div class="navigation_2">
-                <a>
+                <a class="not_allowed">
                     Leveringstider
                 </a>
-                <a>
+                <a class="not_allowed">
                     B2B & Portfolio
                 </a>
-                <a>
+                <a class="not_allowed">
                     Handelsbetingelser
                 </a>
             </div>
