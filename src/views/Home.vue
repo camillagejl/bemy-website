@@ -17,7 +17,11 @@
                         class="infographic_element"
                     >
 
-                        <img src="../assets/images/info_1.jpg" class="rounded_box">
+                        <img
+                            src="../assets/images/info_1.jpg"
+                            class="rounded_box"
+                            alt="Eksempel på indpakning - æske med teksten 'Verdens bedste mor, Charlotte'"
+                        >
 
                         <div class="infographic_icon_container">
                             <div class="infographic_icon">
@@ -44,7 +48,11 @@
                         :to="{ name: 'ContentCategoriesOverview' }"
                         class="infographic_element">
 
-                        <img src="../assets/images/info_2.jpg" class="rounded_box">
+                        <img
+                            src="../assets/images/info_2.jpg"
+                            class="rounded_box"
+                            alt="Eksempel på indhold - æske med gin, chokolade og slikkepinde samt personligt gavebånd"
+                        >
 
                         <div class="infographic_icon_container">
                             <div class="infographic_icon">
@@ -70,7 +78,12 @@
                     <router-link
                         :to="{ name: 'MyPackages' }"
                         class="infographic_element">
-                        <img src="../assets/images/info_3.jpg" class="rounded_box">
+                        <img
+                            src="../assets/images/info_3.jpg"
+                            class="rounded_box"
+                            alt="Eksempler på forskellige pakker - en pose med teksten 'Inger, mom to be' og æske med
+                            teksten 'It's a boy'"
+                        >
                         <div class="infographic_icon_container">
                             <div class="infographic_icon">
                                 <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="boxes"
@@ -94,7 +107,11 @@
 
                     <div class="infographic_element">
                         <div class="infographic_icon_container">
-                            <img src="../assets/images/info_4.jpg" class="rounded_box">
+                            <img
+                                src="../assets/images/info_4.jpg"
+                                class="rounded_box"
+                                alt="Smilende kvinde som modtager en gaveæske"
+                            >
                             <div class="infographic_icon">
                                 <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="hands-heart"
                                      class="svg-inline--fa fa-hands-heart fa-w-20" role="img"
@@ -141,20 +158,20 @@
                 href="#our_concept"
                 class="arrow_down">
                 <svg xmlns="http://www.w3.org/2000/svg" width="28.504" height="28.485" viewBox="0 0 28.504 28.485">
-                    <g id="Group_36" data-name="Group 36" transform="translate(-173 -561.586)">
-                        <g id="angle-down-duotone" transform="translate(173 418.733)">
-                            <path id="Path_23" data-name="Path 23"
+                    <g data-name="Group 36" transform="translate(-173 -561.586)">
+                        <g transform="translate(173 418.733)">
+                            <path data-name="Path 23"
                                   d="M14.25,162.324l-5.033,5.029L.628,158.79A2.117,2.117,0,0,1,.612,155.8l.016-.016,2.012-2a2.132,2.132,0,0,1,3.015,0Z"
                                   transform="translate(0 -0.146)" fill="#c59ead" opacity="0.4"/>
-                            <path id="Path_24" data-name="Path 24"
+                            <path data-name="Path 24"
                                   d="M122.131,155.626l-2.03-2.01a2.132,2.132,0,0,0-3.015,0L103.47,167.207l3.521,3.508.005.005a2.137,2.137,0,0,0,3.022-.014l12.113-12.071.016-.015A2.118,2.118,0,0,0,122.131,155.626Z"
                                   transform="translate(-94.255)" fill="#c59ead"/>
                         </g>
-                        <g id="angle-down-duotone-2" data-name="angle-down-duotone" transform="translate(179 408.595)">
-                            <path id="Path_23-2" data-name="Path 23"
+                        <g data-name="angle-down-duotone" transform="translate(179 408.595)">
+                            <path data-name="Path 23"
                                   d="M8.251,158.462l-2.914,2.912L.364,156.416a1.226,1.226,0,0,1-.009-1.733l.009-.009,1.165-1.161a1.234,1.234,0,0,1,1.746,0Z"
                                   transform="translate(0 -0.152)" fill="#c59ead" opacity="0.4"/>
-                            <path id="Path_24-2" data-name="Path 24"
+                            <path data-name="Path 24"
                                   d="M114.275,154.517l-1.175-1.164a1.234,1.234,0,0,0-1.746,0l-7.884,7.87,2.038,2.031,0,0a1.238,1.238,0,0,0,1.75-.008l7.014-6.989.009-.009A1.226,1.226,0,0,0,114.275,154.517Z"
                                   transform="translate(-98.134)" fill="#c59ead"/>
                         </g>
@@ -170,7 +187,10 @@
         >
 
             <div class="text_image rounded_box">
-            <img src="../assets/images/home_1.jpg">
+                <img
+                    src="../assets/images/home_1.jpg"
+                    alt="Gaveæske med indersidetekst, samt slippers, vingummier, gin, smykkepose og en slikkepind"
+                >
             </div>
 
             <div class="text_element">
@@ -224,34 +244,36 @@
         >
 
             <div class="text_element">
-            <h2 class="h2_sub_section">
-                BEMY & B2B
-            </h2>
+                <h2 class="h2_sub_section">
+                    BEMY & B2B
+                </h2>
 
-            <p>
-                Er du ved at planlægge årets firmajulegaver, 20 års jubilæum, eller fortjener dine medarbejdere bare
-                lidt forkælelse?
-            </p>
+                <p>
+                    Er du ved at planlægge årets firmajulegaver, 20 års jubilæum, eller fortjener dine medarbejdere bare
+                    lidt forkælelse?
+                </p>
 
-            <p>
-                Med en personlig gave fra BEMY er det nemt at vise dine medarbejdere, hvor meget du sætter pris på
-                dem,
-                da de alle får noget helt unikt - og med vores pakke-system her på hjemmesiden er det nemt og
-                hurtigt
-                at sætte pakkerne sammen til dem alle.
-            </p>
-            <p>
-                Hvis du har andre ønsker, såsom indpakninger til dine produkter med dit eget logo,
-                <a class="not_allowed"
-                >
-                    hører vi gerne fra dig,
-                </a>
-                og så skal vi nok finde en løsning.
-            </p>
+                <p>
+                    Med en personlig gave fra BEMY er det nemt at vise dine medarbejdere, hvor meget du sætter pris på
+                    dem,
+                    da de alle får noget helt unikt - og med vores pakke-system her på hjemmesiden er det nemt og
+                    hurtigt
+                    at sætte pakkerne sammen til dem alle.
+                </p>
+                <p>
+                    Hvis du har andre ønsker, såsom indpakninger til dine produkter med dit eget logo,
+                    <a class="not_allowed"
+                    >
+                        hører vi gerne fra dig,
+                    </a>
+                    og så skal vi nok finde en løsning.
+                </p>
             </div>
 
             <div class="text_image rounded_box">
-            <img src="../assets/images/home_2.jpg">
+                <img
+                    src="../assets/images/home_2.jpg"
+                    alt="Fire ens gaveæsker med firmalogo">
             </div>
 
         </section>
@@ -269,26 +291,26 @@
 
                 <div class="limit_text_width">
 
-                <p>
-                    Søger du gaven til brudepigerne? Konfirmanden? Medarbejderne?
-                    Vi ved, hvor vigtigt det er, at skabe den perfekte gave, og derfor vil vi gerne hjælpe dig på
-                    vej.
-                </p>
+                    <p>
+                        Søger du gaven til brudepigerne? Konfirmanden? Medarbejderne?
+                        Vi ved, hvor vigtigt det er, at skabe den perfekte gave, og derfor vil vi gerne hjælpe dig på
+                        vej.
+                    </p>
 
-                <p>
-                    Bliv inspireret af vores pakker, eller tilføj en pakke direkte til din egen pakke. Derefter kan
-                    du
-                    selv
-                    ændre og personalisere alt, du har lyst til, og tilføje så mange personer, du har brug for.
-                </p>
-                <p class="developer_note">
-                    <strong>
-                        Developer note:
-                    </strong>
-                    Nedenstående er et mockup af, hvordan færdige pakker skal se ud på desktop. Når man trykker på
-                    en
-                    "kategori", dukker de færdige pakker i denne kategori op. Tryk for at få en "demo".
-                </p>
+                    <p>
+                        Bliv inspireret af vores pakker, eller tilføj en pakke direkte til din egen pakke. Derefter kan
+                        du
+                        selv
+                        ændre og personalisere alt, du har lyst til, og tilføje så mange personer, du har brug for.
+                    </p>
+                    <p class="developer_note">
+                        <strong>
+                            Developer note:
+                        </strong>
+                        Nedenstående er et mockup af, hvordan færdige pakker skal se ud på desktop. Når man trykker på
+                        en
+                        "kategori", dukker de færdige pakker i denne kategori op. Tryk for at få en "demo".
+                    </p>
                 </div>
             </div>
 
@@ -298,6 +320,7 @@
             >
 
                 <img :src="ourPackagesPlaceholder"
+                     alt="Placeholder billede af, hvordan 'Vores færdige pakker' kunne se ud"
                 >
 
             </div>

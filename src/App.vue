@@ -78,7 +78,7 @@
         --colour-primary-400: 197, 158, 173;
         --colour-primary-410: 193, 147, 165;
         --colour-primary-500: 172, 122, 142;
-        --colour-primary-600: 144, 107, 121;
+        --colour-primary-600: 143, 107, 121;
         --colour-primary-700: 116, 87, 98;
         --colour-primary-800: 86, 56, 68;
         --colour-primary-900: 65, 33, 46;
