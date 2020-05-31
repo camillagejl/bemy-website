@@ -158,6 +158,10 @@
         cursor: pointer;
     }
 
+    .clickable {
+        cursor: pointer;
+    }
+
     h1,
     h2,
     h3,

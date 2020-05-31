@@ -128,6 +128,11 @@
                     </div>
                     </router-link>
                 </div>
+
+                <PackagesRecapList
+                    class="display_1024"
+                />
+
             </div>
 
         </nav>
@@ -138,10 +143,11 @@
     import ContentRecapList from "./ContentRecapList";
     import {mapMutations, mapState} from "vuex";
     import WrappingRecapList from "./WrappingRecapList";
+    import PackagesRecapList from "./PackagesRecapList";
 
     export default {
         name: 'MainNavigation',
-        components: {WrappingRecapList, ContentRecapList},
+        components: {PackagesRecapList, WrappingRecapList, ContentRecapList},
         computed: {
             ...mapState([
                 'activePackage',

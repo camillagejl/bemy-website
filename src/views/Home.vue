@@ -12,7 +12,10 @@
 
                 <div class="home_infographic">
 
-                    <div class="infographic_element">
+                    <router-link
+                        :to="{ name: 'Wrapping' }"
+                        class="infographic_element"
+                    >
 
                         <img src="../assets/images/info_1.jpg" class="rounded_box">
 
@@ -35,9 +38,11 @@
                                 1. Design din indpakning
                             </div>
                         </div>
-                    </div>
+                    </router-link>
 
-                    <div class="infographic_element">
+                    <router-link
+                        :to="{ name: 'ContentCategoriesOverview' }"
+                        class="infographic_element">
 
                         <img src="../assets/images/info_2.jpg" class="rounded_box">
 
@@ -60,9 +65,11 @@
                                 2. Tilføj personligt indhold
                             </div>
                         </div>
-                    </div>
+                    </router-link>
 
-                    <div class="infographic_element">
+                    <router-link
+                        :to="{ name: 'MyPackages' }"
+                        class="infographic_element">
                         <img src="../assets/images/info_3.jpg" class="rounded_box">
                         <div class="infographic_icon_container">
                             <div class="infographic_icon">
@@ -83,7 +90,7 @@
                                 3. Tilføj flere pakker
                             </div>
                         </div>
-                    </div>
+                    </router-link>
 
                     <div class="infographic_element">
                         <div class="infographic_icon_container">
@@ -357,6 +364,11 @@
         font-family: var(--font-family-header);
         color: rgba(var(--colour-grey-800), 1);
         padding: 24px 48px 0 48px;
+    }
+
+    .infographic_element {
+        text-decoration: none;
+        color: rgba(var(--colour-grey-800), 1);
     }
 
     .infographic_icon_container {
