@@ -511,7 +511,7 @@
             },
             editTitle() {
 
-                let title = window.prompt("Ny titel på pakken:");
+                let title = window.prompt("Navn på modtageren af denne pakke:");
 
                 if (title && title.length > 20) {
                     title = title.slice(0, 20)
