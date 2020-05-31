@@ -7,10 +7,11 @@
             >
                 {{ packages[activePackage].title}}
                 <svg
-                    @click="editTitle"
+                    @click="editTitle(true)"
                     aria-hidden="true" focusable="false" data-prefix="fad" data-icon="pencil-alt"
-                     class="basic_icon svg-inline--fa fa-pencil-alt fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
-                     viewBox="0 0 512 512">
+                    class="basic_icon svg-inline--fa fa-pencil-alt fa-w-16" role="img"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512 512">
                     <g class="fa-group">
                         <path class="fa-secondary"
                               d="M96 352H32l-16 64 80 80 64-16v-64H96zM498 74.26l-.11-.11L437.77 14a48.09 48.09 0 0 0-67.9 0l-46.1 46.1a12 12 0 0 0 0 17l111 111a12 12 0 0 0 17 0l46.1-46.1a47.93 47.93 0 0 0 .13-67.74z"
@@ -25,6 +26,7 @@
                 <div class="nav_section_top">
                     <router-link
                         class="nav_icon_container flex_center_align_1024"
+                        @click.native="editTitle(false)"
                         :to="{ name: 'Wrapping' }"
                     >
                         <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="gift"
@@ -63,6 +65,7 @@
                 <div class="nav_section_top">
                     <router-link
                         class="nav_icon_container flex_center_align_1024 selected"
+                        @click.native="editTitle(false)"
                         :to="{ name: 'ContentCategoriesOverview' }"
                     >
                         <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="tshirt"
@@ -78,16 +81,16 @@
                             </g>
                         </svg>
 
-                    <div class="nav_section_title_container display_1024">
-                        <div class="nav_section_title">
-                            Indhold
+                        <div class="nav_section_title_container display_1024">
+                            <div class="nav_section_title">
+                                Indhold
+                            </div>
+                            <div
+                                class="nav_section_edit"
+                            >
+                                Tilføj indhold
+                            </div>
                         </div>
-                        <div
-                            class="nav_section_edit"
-                        >
-                            Tilføj indhold
-                        </div>
-                    </div>
                     </router-link>
                 </div>
 
@@ -100,6 +103,7 @@
                 <div class="nav_section_top">
                     <router-link
                         class="nav_icon_container flex_center_align_1024"
+                        @click.native="editTitle(false)"
                         :to="{ name: 'MyPackages' }"
                     >
                         <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="boxes"
@@ -116,16 +120,16 @@
                             </g>
                         </svg>
 
-                    <div class="nav_section_title_container display_1024">
-                        <div class="nav_section_title">
-                            Mine pakker
+                        <div class="nav_section_title_container display_1024">
+                            <div class="nav_section_title">
+                                Mine pakker
+                            </div>
+                            <div
+                                class="nav_section_edit"
+                            >
+                                Se mine pakker
+                            </div>
                         </div>
-                        <div
-                            class="nav_section_edit"
-                        >
-                            Se mine pakker
-                        </div>
-                    </div>
                     </router-link>
                 </div>
 
@@ -158,14 +162,18 @@
             ...mapMutations([
                 'updatePackageTitle'
             ]),
-            editTitle() {
-                let title = window.prompt("Ny titel på pakken:");
+            editTitle(isForced) {
+                if (isForced || this.packages[this.activePackage].title === 'Din pakke') {
+                    let title = window.prompt("Ny titel på pakken:");
 
-                if (title.length > 20) {
-                    title = title.slice(0,20)
+                    if (title && title.length > 20) {
+                        title = title.slice(0, 20)
+                    }
+
+                    if (title) {
+                    this.updatePackageTitle({title: title})
+                    }
                 }
-
-                this.updatePackageTitle({ title: title })
             }
         }
     }

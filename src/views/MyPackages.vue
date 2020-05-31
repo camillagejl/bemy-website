@@ -491,6 +491,8 @@
                 }
                 this.addNewPackage({pack: pack});
                 this.scrollToTop();
+
+                this.editTitle();
             },
             changeActivePackageInStore(index) {
                 if (!this.packages[this.activePackage].wrapping && !this.packages[this.activePackage].products.length) {
@@ -508,8 +510,16 @@
                 console.log("Scrolling");
             },
             editTitle() {
+
                 let title = window.prompt("Ny titel på pakken:");
-                this.updatePackageTitle({title: title})
+
+                if (title && title.length > 20) {
+                    title = title.slice(0, 20)
+                }
+
+                if (title) {
+                    this.updatePackageTitle({title: title})
+                }
             }
         }
     }
