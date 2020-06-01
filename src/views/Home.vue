@@ -431,6 +431,7 @@
             text-transform: uppercase;
             margin-top: 12px;
             font-weight: 600;
+            width: 100%;
         }
 
         a {

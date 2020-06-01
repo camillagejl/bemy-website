@@ -12,7 +12,7 @@
         >
             <hr>
             <h2>
-                Denne pakke: {{ pack.title }}
+                Du redigerer pakken til: {{ pack.title }}
                 <svg
                     @click="editTitle"
                     aria-hidden="true" focusable="false" data-prefix="fad" data-icon="pencil-alt"
@@ -219,7 +219,7 @@
         >
             <hr>
             <h2>
-                {{ pack.title }}
+                Modtager: {{ pack.title }}
             </h2>
 
             <div
