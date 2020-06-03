@@ -547,16 +547,26 @@
         .text_section {
             grid-template-columns: 1fr 2fr;
             grid-gap: 0;
-            margin: 96px auto;
+            margin: 0 auto;
+
+            .text_image {
+                margin: 96px 0 0 0;
+            }
 
             .text_element {
+                padding-top: 96px;
                 margin: auto 0 auto 48px;
             }
 
             + .text_section {
                 grid-template-columns: 2fr 1fr;
 
+                .text_image {
+                    margin: 96px 0;
+                }
+
                 .text_element {
+                    padding-top: 0;
                     margin: auto 48px auto 0;
                 }
             }

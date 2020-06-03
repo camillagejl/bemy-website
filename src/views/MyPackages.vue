@@ -158,6 +158,7 @@
                         </p>
                     </div>
 
+                    <!-- Inserts PackageItem for each product in the package -->
                     <PackageItem
                         v-if="pack.products.length"
                         v-for="(product, productIndex) in pack.products"
@@ -175,10 +176,7 @@
                     editingProductIndex: productIndex,
                     fromDest: { name: 'MyPackages' },
                     fromDestTitle: 'Mine pakker (uden at gemme)'
-                    }
-                    }
-"
-                    />
+                    }}"/>
 
                 </div>
 

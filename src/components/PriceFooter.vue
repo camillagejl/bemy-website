@@ -36,7 +36,7 @@
         bottom: 0;
         left: 0;
         right: 0;
-        height: 105px;
+        height: 134px;
         box-shadow: var(--box-shadow-400-top);
     }
 

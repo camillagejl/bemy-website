@@ -278,6 +278,7 @@
             activeProduct() {
                 let activeProduct = this.getActiveProductById(this.productId);
 
+                // Sets new activeProduct in Store, if it doesn't exist already
                 if (!this.editingCurrentProduct) {
                     if (!activeProduct) {
                         this.addActiveProductFromProductId({productId: this.productId, type: 'product'});
@@ -286,7 +287,6 @@
                             productType: 'product',
                             productId: this.productId
                         });
-
                         activeProduct = this.getActiveProductById(this.productId);
                     }
                 }

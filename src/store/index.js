@@ -109,7 +109,6 @@ export default new Vuex.Store({
         },
         addActiveProductFromProductId(state, payload) {
             const product = _.find(state.products, ['id', payload.productId]);
-
             let activeProduct = {
                 title: product.title,
                 image: product.images[0],
@@ -122,6 +121,7 @@ export default new Vuex.Store({
                 selections: {}
             };
 
+            // Sets product selections
             Object.keys(product.options).forEach(option => {
                 if (product.options[option][0] !== 'Default Title') {
                     activeProduct.selections[option] = product.options[option][0]
@@ -132,7 +132,6 @@ export default new Vuex.Store({
                     activeProduct.selections[option] = product.options[option].selectOptions[0]
                 }
             });
-
             if (product.personalisations) {
                 Object.keys(product.personalisations).forEach(personalisation => {
 
@@ -151,8 +150,6 @@ export default new Vuex.Store({
 
                 });
             }
-
-
             if (product.designs && product.designs[0]) {
                 activeProduct.selections.Design = product.designs[0].Design;
 
@@ -176,6 +173,7 @@ export default new Vuex.Store({
 
             }
 
+            // Adds to activeProducts
             if (payload.type === 'product') {
                 Vue.set(state.activeProducts, payload.productId, activeProduct);
             }

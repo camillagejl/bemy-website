@@ -1,11 +1,9 @@
 export function createProductData(allRawProducts) {
-
     const rawProducts = allRawProducts.filter(product => product.node.productType !== 'Design-collection');
-
     console.log("rawProducts", rawProducts);
 
+    // Creates the 'beautified' products from data from rawProducts.
     const products = [];
-
     rawProducts.forEach(product => {
         const thisProduct = {
             title: product.node.title,

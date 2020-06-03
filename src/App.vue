@@ -87,13 +87,13 @@
 
         --colour-grey-100: 252, 252, 252;
         --colour-grey-200: 245, 245, 245;
-        --colour-grey-300: 220, 218, 222;
-        --colour-grey-400: 203, 201, 205;
-        --colour-grey-500: 167, 165, 169;
-        --colour-grey-600: 137, 135, 138;
+        --colour-grey-300: 220, 220, 220;
+        --colour-grey-400: 203, 203, 203;
+        --colour-grey-500: 167, 167, 167;
+        --colour-grey-600: 137, 137, 137;
         --colour-grey-700: 99, 99, 99;
         --colour-grey-800: 48, 48, 48;
-        --colour-grey-900: 36, 33, 38;
+        --colour-grey-900: 36, 36, 36;
 
         /* Header font */
         --font-family-header: 'Merriweather', serif;
@@ -106,6 +106,7 @@
         --font-size-primary: 16px;
 
         /* Shadows */
+        /* Tailwind medium shadow */
         --box-shadow-400: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         --box-shadow-400-top: 0 -4px 6px -1px rgba(0, 0, 0, 0.1), 0 -2px 4px -1px rgba(0, 0, 0, 0.06);
         --box-shadow-400-left: 0 4px 6px 1px rgba(0, 0, 0, 0.1), 0 2px 4px 1px rgba(0, 0, 0, 0.06);

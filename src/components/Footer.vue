@@ -95,7 +95,7 @@
 <style scoped lang="scss">
 
     footer {
-        margin: 48px 0 96px 0;
+        margin: 48px 0 150px 0;
     }
 
     .footer_content {

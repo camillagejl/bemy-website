@@ -1,5 +1,12 @@
 <template>
     <div class="main_navigation">
+        <div
+            v-if="packages[activePackage]"
+            class="package_name hide_1024"
+        >
+            {{ packages[activePackage].title}}
+        </div>
+
         <nav>
             <div
                 v-if="packages[activePackage]"
@@ -209,7 +216,7 @@
         justify-content: center;
 
         &.selected {
-            background-color: rgba(var(--colourgrey-00), 1);;
+            background-color: rgba(var(--colour-grey-300), 1);;
             box-shadow: var(--box-shadow-400);
         }
     }
@@ -227,11 +234,11 @@
     /* Desktop only stylings */
 
     .package_name {
-        width: 100%;
         text-align: center;
-        margin-bottom: 12px;
+        padding: 4px 0;
         color: rgba(var(--colour-primary-700), 1);
         font-family: var(--font-family-header);
+        border-bottom: 1px solid rgba(var(--colour-primary-200), 1);
     }
 
     .nav_section_top a {
@@ -250,6 +257,14 @@
     }
 
     @media screen and (min-width: 1024px) {
+        .package_name {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 12px;
+            color: rgba(var(--colour-primary-700), 1);
+            font-family: var(--font-family-header);
+        }
+
         .main_navigation {
             padding: 48px 0;
         }
