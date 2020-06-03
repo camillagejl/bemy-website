@@ -259,10 +259,9 @@
     @media screen and (min-width: 1024px) {
         .package_name {
             width: 100%;
-            text-align: center;
+            padding: 0;
+            border: none;
             margin-bottom: 12px;
-            color: rgba(var(--colour-primary-700), 1);
-            font-family: var(--font-family-header);
         }
 
         .main_navigation {
