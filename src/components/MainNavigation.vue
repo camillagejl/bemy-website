@@ -71,7 +71,7 @@
             <div class="nav_section">
                 <div class="nav_section_top">
                     <router-link
-                        class="nav_icon_container flex_center_align_1024 selected"
+                        class="nav_icon_container flex_center_align_1024"
                         @click.native="editTitle(false)"
                         :to="{ name: 'ContentCategoriesOverview' }"
                     >
@@ -198,6 +198,7 @@
     }
 
     .nav_section {
+        box-shadow: var(--box-shadow-400);
         height: 100%;
         display: flex;
         flex-direction: column;
@@ -216,7 +217,7 @@
         justify-content: center;
 
         &.selected {
-            background-color: rgba(var(--colour-grey-300), 1);;
+            background-color: rgba(var(--colour-grey-300), 1);
             box-shadow: var(--box-shadow-400);
         }
     }
@@ -296,6 +297,7 @@
             border-top: 2px solid rgba(var(--colour-primary-200), 1);
             height: fit-content;
             width: 100%;
+            box-shadow: none;
         }
 
         .nav_section_top {

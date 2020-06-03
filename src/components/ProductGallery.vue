@@ -176,7 +176,7 @@
         cursor: pointer;
         background-color: rgba(var(--colour-primary-300), 1);
         flex: 1;
-        color: white;
+        color: rgba(var(--colour-grey-100), 1);
         text-align: center;
         padding: 4px;
         border-radius: 5px 5px 0 0;
@@ -286,11 +286,11 @@
     }
 
     .arrow_up {
-        border-bottom: 8px solid black;
+        border-bottom: 8px solid rgba(var(--colour-grey-900), 1);
     }
 
     .arrow_down {
-        border-top: 8px solid black;
+        border-top: 8px solid rgba(var(--colour-grey-900), 1);
     }
 
 </style>

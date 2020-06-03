@@ -266,7 +266,7 @@
         box-shadow: var(--box-shadow-400);
         border-radius: 5px;
         padding: 12px;
-        color: white;
+        color: rgba(var(--colour-grey-100), 1);
         display: flex;
         align-items: center;
         justify-content: center;

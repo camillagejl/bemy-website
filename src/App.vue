@@ -8,7 +8,10 @@
             <MainNavigation/>
             <div class="main_section" ref="scrolled">
                 <main>
-                    <router-view :key="$route.fullPath"/>
+                    <router-view
+                        class="router_view"
+                        :key="$route.fullPath"
+                    />
                 </main>
                 <Footer/>
             </div>
@@ -149,6 +152,10 @@
         flex-direction: column;
         justify-content: space-between;
         padding: 0 var(--page-margin);
+    }
+
+    .router_view {
+        margin-top: 24px;
     }
 
     /* General styling */
