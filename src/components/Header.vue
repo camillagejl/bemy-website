@@ -37,7 +37,7 @@
             <a
                 class="header_link display_1024 not_allowed"
             >
-                B2B
+                For virksomheder
             </a>
         </nav>
     </div>

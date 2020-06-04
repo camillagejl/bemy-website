@@ -10,19 +10,21 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        products: [],
-        collections: [],
-        designs: [],
-        activeProducts: {},
-        activePackage: 0,
-        appOverflow: true,
+        products: [], // "Clean" products from Shopify - without personalisations from the user
+        collections: [], // Product categories, that contain references to the products in the category
+        designs: [], // Design data, that can be referenced to from other products
+        activeProducts: {}, // Data from products, the user has been/is editing - including design choice, texts etc.
+        activePackage: 0, // Index of the currently active package
+        appOverflow: true, // true: app can scroll; false: app cannot scroll. Used for popups
+
+        // packages contains all packages made by the user. Starts out with one empty package.
         packages: [
             {
-                title: 'Din pakke',
-                price: 0,
-                displayPrice: '0',
-                activeWrappingIndex: 0,
-                products: []
+                title: 'Din pakke', // Standard title, which user can change
+                price: 0, // Updates dynamically
+                displayPrice: '0', // Updates dynamically
+                activeWrappingIndex: 0, // Index of which wrapping is chosen
+                products: [] // Will contain products added to the package
             }
         ],
     },

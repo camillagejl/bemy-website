@@ -158,6 +158,7 @@
                 href="#our_concept"
                 class="arrow_down">
                 <svg xmlns="http://www.w3.org/2000/svg" width="28.504" height="28.485" viewBox="0 0 28.504 28.485">
+                    <title>Pil ned til indhold</title>
                     <g data-name="Group 36" transform="translate(-173 -561.586)">
                         <g transform="translate(173 418.733)">
                             <path data-name="Path 23"
