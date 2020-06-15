@@ -60,6 +60,7 @@
             </select>
 
         </label>
+
     </div>
 </template>
 
@@ -74,19 +75,34 @@
             activeProduct: Object,
             productId: String,
             productType: String,
-            type: String
+            type: String,
+            productIndex: Number,
+            editingInMyPackages: Boolean
         },
         methods: {
             ...mapMutations([
                 'updateSelectionValue',
             ]),
             updateInputSelectionValueInStore(e) {
-                this.updateSelectionValue({
-                    productId: this.productId,
-                    value: e.target.value,
-                    name: e.target.name,
-                    type: this.productType
-                });
+                if (!this.editingInMyPackages) {
+                    this.updateSelectionValue({
+                        productId: this.productId,
+                        value: e.target.value,
+                        name: e.target.name,
+                        type: this.productType
+                    });
+                }
+
+                if (this.editingInMyPackages) {
+                    this.updateSelectionValue({
+                        productId: this.productId,
+                        value: e.target.value,
+                        name: e.target.name,
+                        type: this.productType,
+                        productIndex: this.productIndex,
+                        editingInMyPackages: true
+                    });
+                }
             }
         }
     }
@@ -98,13 +114,6 @@
     .option_label {
         p {
             display: inline;
-        }
-    }
-
-    .selection_in_text {
-        strong,
-        div {
-            display: inline-block;
         }
     }
 

@@ -224,14 +224,14 @@ export default new Vuex.Store({
             }
         },
         updateSelectionValue(state, payload) {
-            console.log("Updating selections");
-            if (payload.type === 'product') {
+
+            // While editing on Product page
+            if (payload.type === 'product' && !payload.editingInMyPackages) {
                 Vue.set(state.activeProducts[payload.productId].selections, payload.name, payload.value);
             }
-            if (payload.type === 'wrapping') {
+            if (payload.type === 'wrapping'  && !payload.editingInMyPackages) {
                 Vue.set(state.packages[state.activePackage].wrapping.selections, payload.name, payload.value);
             }
-
             if (payload.name === 'Design') {
 
                 const design = _.find(state.designs, ['Design', payload.value]);
@@ -248,6 +248,14 @@ export default new Vuex.Store({
                 });
             }
 
+            // While editing in MyPackages
+            if (payload.type === 'product' && payload.editingInMyPackages) {
+                Vue.set(state.packages[state.activePackage].products[payload.productIndex].selections, payload.name, payload.value);
+            }
+
+            if (payload.type === 'wrapping' && payload.editingInMyPackages) {
+                Vue.set(state.packages[state.activePackage].wrapping.selections, payload.name, payload.value);
+            }
         },
         setDesignImages(state, payload) {
             if (state.packages[state.activePackage] && payload.productType === 'wrapping') {

@@ -12,30 +12,63 @@
                 v-if="packages[activePackage]"
                 class="package_name display_1024"
             >
+                <span v-if="!editableTitle">
                 {{ packages[activePackage].title}}
-                <svg
-                    @click="editTitle(true)"
-                    aria-hidden="true" focusable="false" data-prefix="fad" data-icon="pencil-alt"
-                    class="basic_icon svg-inline--fa fa-pencil-alt fa-w-16" role="img"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 512 512">
-                    <g class="fa-group">
-                        <path class="fa-secondary"
-                              d="M96 352H32l-16 64 80 80 64-16v-64H96zM498 74.26l-.11-.11L437.77 14a48.09 48.09 0 0 0-67.9 0l-46.1 46.1a12 12 0 0 0 0 17l111 111a12 12 0 0 0 17 0l46.1-46.1a47.93 47.93 0 0 0 .13-67.74z"
-                              opacity="0.4"></path>
-                        <path class="fa-primary"
-                              d="M.37 483.85a24 24 0 0 0 19.47 27.8 24.27 24.27 0 0 0 8.33 0l67.32-16.16-79-79zM412.3 210.78l-111-111a12.13 12.13 0 0 0-17.1 0L32 352h64v64h64v64l252.27-252.25a12 12 0 0 0 .03-16.97zm-114.41-24.93l-154 154a14 14 0 1 1-19.8-19.8l154-154a14 14 0 1 1 19.8 19.8z"></path>
-                    </g>
-                </svg>
+                </span>
+
+                <input
+                    v-if="editableTitle"
+                    type="text"
+                    :value="packages[activePackage].title"
+                    :maxlength="20"
+                    @input="updatePackageTitleInStore"
+                >
+
+                <div class="inline"
+                     v-if="!editableTitle"
+                     @click="editableTitle = !editableTitle"
+                >
+                    <svg
+                        aria-hidden="true" focusable="false" data-prefix="fad" data-icon="pencil-alt"
+                        class="basic_icon svg-inline--fa fa-pencil-alt fa-w-16" role="img"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 512 512">
+                        <g class="fa-group">
+                            <path class="fa-secondary"
+                                  d="M96 352H32l-16 64 80 80 64-16v-64H96zM498 74.26l-.11-.11L437.77 14a48.09 48.09 0 0 0-67.9 0l-46.1 46.1a12 12 0 0 0 0 17l111 111a12 12 0 0 0 17 0l46.1-46.1a47.93 47.93 0 0 0 .13-67.74z"
+                                  opacity="0.4"></path>
+                            <path class="fa-primary"
+                                  d="M.37 483.85a24 24 0 0 0 19.47 27.8 24.27 24.27 0 0 0 8.33 0l67.32-16.16-79-79zM412.3 210.78l-111-111a12.13 12.13 0 0 0-17.1 0L32 352h64v64h64v64l252.27-252.25a12 12 0 0 0 .03-16.97zm-114.41-24.93l-154 154a14 14 0 1 1-19.8-19.8l154-154a14 14 0 1 1 19.8 19.8z"></path>
+                        </g>
+                    </svg>
+                </div>
+
+                <div class="inline"
+                     v-if="editableTitle"
+                     @click="editableTitle = !editableTitle"
+                >
+                    <svg
+                        aria-hidden="true" focusable="false" data-prefix="fad" data-icon="check"
+                        class="basic_icon svg-inline--fa fa-check fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 512 512">
+                        <g class="fa-group">
+                            <path class="fa-secondary"
+                                  d="M504.5 144.42L264.75 385.5 192 312.59l240.11-241a25.49 25.49 0 0 1 36.06-.14l.14.14L504.5 108a25.86 25.86 0 0 1 0 36.42z"
+                                  opacity="0.4"></path>
+                            <path class="fa-primary"
+                                  d="M264.67 385.59l-54.57 54.87a25.5 25.5 0 0 1-36.06.14l-.14-.14L7.5 273.1a25.84 25.84 0 0 1 0-36.41l36.2-36.41a25.49 25.49 0 0 1 36-.17l.16.17z"></path>
+                        </g>
+                    </svg>
+                </div>
             </div>
 
             <div class="nav_section">
                 <div class="nav_section_top">
                     <router-link
                         class="nav_icon_container flex_center_align_1024"
-                        @click.native="editTitle(false)"
                         :to="{ name: 'Wrapping' }"
                     >
+                        <!--                        ^^ @click.native="editTitle(false)" ^^ -->
                         <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="gift"
                              class="nav_icon svg-inline--fa fa-gift fa-w-16" role="img"
                              xmlns="http://www.w3.org/2000/svg"
@@ -72,9 +105,9 @@
                 <div class="nav_section_top">
                     <router-link
                         class="nav_icon_container flex_center_align_1024"
-                        @click.native="editTitle(false)"
                         :to="{ name: 'ContentCategoriesOverview' }"
                     >
+                        <!--                        ^^ @click.native="editTitle(false)" ^^ -->
                         <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="tshirt"
                              class="nav_icon svg-inline--fa fa-tshirt fa-w-20" role="img"
                              xmlns="http://www.w3.org/2000/svg"
@@ -110,9 +143,9 @@
                 <div class="nav_section_top">
                     <router-link
                         class="nav_icon_container flex_center_align_1024"
-                        @click.native="editTitle(false)"
                         :to="{ name: 'MyPackages' }"
                     >
+                        <!--                        ^^ @click.native="editTitle(false)" ^^ -->
                         <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="boxes"
                              class="nav_icon svg-inline--fa fa-boxes fa-w-18" role="img"
                              xmlns="http://www.w3.org/2000/svg"
@@ -159,6 +192,11 @@
     export default {
         name: 'MainNavigation',
         components: {PackagesRecapList, WrappingRecapList, ContentRecapList},
+        data() {
+            return {
+                editableTitle: false
+            }
+        },
         computed: {
             ...mapState([
                 'activePackage',
@@ -169,18 +207,10 @@
             ...mapMutations([
                 'updatePackageTitle'
             ]),
-            editTitle(isForced) {
-                if (isForced || this.packages[this.activePackage].title === 'Din pakke') {
-                    let title = window.prompt("Navn på modtageren af denne pakke:");
-
-                    if (title && title.length > 20) {
-                        title = title.slice(0, 20)
-                    }
-
-                    if (title) {
-                    this.updatePackageTitle({title: title})
-                    }
-                }
+            updatePackageTitleInStore(e) {
+                this.updatePackageTitle({
+                    title: e.target.value,
+                });
             }
         }
     }

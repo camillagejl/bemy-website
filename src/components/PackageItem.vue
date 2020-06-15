@@ -21,12 +21,48 @@
 
                 <table>
                     <PersonalisationTr
-                        v-if="!editable"
                         v-for="(selection, key) in product.selections"
+                        v-if="!editable || !Object.keys(allPersonalisations).includes(key)"
                         :selection="selection"
                         :selectionKey="key"
                     />
                 </table>
+
+                <PersonalisationInput
+                    v-for="(personalisation, key) in allPersonalisations"
+                    v-if="editable && Object.keys(allPersonalisations).includes(key)"
+                    :personalisation="personalisation"
+                    :personalisationKey="key"
+                    :productId="product.id"
+                    :productType="productType"
+                    :activeProduct="product"
+                    :productIndex="productIndex"
+                    :editingInMyPackages="true"
+                />
+
+                <div
+                    class="editing_items_buttons"
+                    v-if="editable">
+                    <div class="button_container">
+                        <MainButton
+                            :emph="false"
+                            :text="'Gem ændringer'"
+                            :icon="'save'"
+                            @click.native="editable = !editable"
+                        />
+                    </div>
+
+                    <router-link
+                        class="button_container"
+                        :to="editDestination"
+                    >
+                        <MainButton
+                            :emph="true"
+                            :text="'Redigér design'"
+                            :icon="'edit'"
+                        />
+                    </router-link>
+                </div>
 
                 <div class="product_price">
                     <strong>
@@ -40,10 +76,10 @@
         <div
             class="edit_icons">
 
-            <router-link
-                :to="editDestination"
+            <div
+                @click="editable = !editable"
                 class="edit_button"
-                v-if="editButton"
+                v-if="editButton && !editable"
             >
                 <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="pencil-alt"
                      class="basic_icon svg-inline--fa fa-pencil-alt fa-w-16" role="img"
@@ -57,7 +93,25 @@
                               d="M.37 483.85a24 24 0 0 0 19.47 27.8 24.27 24.27 0 0 0 8.33 0l67.32-16.16-79-79zM412.3 210.78l-111-111a12.13 12.13 0 0 0-17.1 0L32 352h64v64h64v64l252.27-252.25a12 12 0 0 0 .03-16.97zm-114.41-24.93l-154 154a14 14 0 1 1-19.8-19.8l154-154a14 14 0 1 1 19.8 19.8z"></path>
                     </g>
                 </svg>
-            </router-link>
+            </div>
+
+            <div
+                @click="editable = !editable"
+                class="edit_button"
+                v-if="editButton && editable"
+            >
+                <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="check"
+                     class="basic_icon svg-inline--fa fa-check fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
+                     viewBox="0 0 512 512">
+                    <g class="fa-group">
+                        <path class="fa-secondary"
+                              d="M504.5 144.42L264.75 385.5 192 312.59l240.11-241a25.49 25.49 0 0 1 36.06-.14l.14.14L504.5 108a25.86 25.86 0 0 1 0 36.42z"
+                              opacity="0.4"></path>
+                        <path class="fa-primary"
+                              d="M264.67 385.59l-54.57 54.87a25.5 25.5 0 0 1-36.06.14l-.14-.14L7.5 273.1a25.84 25.84 0 0 1 0-36.41l36.2-36.41a25.49 25.49 0 0 1 36-.17l.16.17z"></path>
+                    </g>
+                </svg>
+            </div>
 
             <div
                 class="delete_button"
@@ -86,10 +140,12 @@
 <script>
     import PersonalisationTr from "./PersonalisationTr";
     import PersonalisationInput from "./PersonalisationInput";
-    import {mapMutations} from "vuex";
+    import {mapGetters, mapMutations, mapState} from "vuex";
+    import MainButton from "./MainButton";
+
     export default {
         name: 'PackageItem',
-        components: {PersonalisationInput, PersonalisationTr},
+        components: {MainButton, PersonalisationInput, PersonalisationTr},
         data() {
             return {
                 editable: false,
@@ -102,15 +158,48 @@
             productType: String,
             editDestination: Object,
             packageIndex: Number,
-            productIndex: Number
+            productIndex: Number,
         },
         methods: {
             ...mapMutations([
                 'deleteProductFromPackage'
             ]),
             deleteProductInStore() {
-                this.deleteProductFromPackage({ packageIndex: this.packageIndex, productIndex: this.productIndex })
+                this.deleteProductFromPackage({packageIndex: this.packageIndex, productIndex: this.productIndex})
+            }
+        },
+        computed: {
+            ...mapState([
+                'designs'
+            ]),
+            ...mapGetters([
+                'productsById'
+            ]),
+            originalProduct() {
+                return this.productsById[this.product.id];
             },
+            allPersonalisations() {
+                let personalisations = {};
+
+                if (this.originalProduct.personalisations) {
+                    Object.keys(this.originalProduct.personalisations).forEach((personalisation) => {
+
+                        personalisations[personalisation] = this.originalProduct.personalisations[personalisation]
+                    });
+
+                }
+
+                if (this.product.selections.Design) {
+                    const design = _.find(this.designs, ['Design', this.product.selections.Design]);
+
+                    Object.keys(design.personalisations).forEach(personalisation => {
+                        personalisations[personalisation] = design.personalisations[personalisation];
+                    });
+
+                }
+
+                return personalisations
+            }
         }
     }
 </script>
@@ -127,6 +216,7 @@
 
     .package_item_info {
         position: relative;
+        padding-bottom: 48px;
         flex: 3;
         margin-left: 12px;
 
@@ -150,7 +240,39 @@
     }
 
     .product_price {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+    }
+
+    .personalisation_input {
+        margin: 12px 0 0 3px;
+
+        +
+        .personalisation_input {
+            margin-top: 24px;
+        }
+    }
+
+
+    .editing_items_buttons {
+        display: flex;
+    }
+
+    .button_container {
+        flex: 1;
+        margin-top: 24px;
         text-align: right;
+        text-decoration: none;
+
+        .main_button {
+            width: 100%;
+        }
+
+        + .button_container {
+            margin-left: 12px;
+        }
+
     }
 
     @media screen and (min-width: 1024px) {
@@ -177,13 +299,6 @@
 
         .edit_icons {
             flex-direction: column;
-        }
-
-        .product_price {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            line-height: 36px;
         }
     }
 
