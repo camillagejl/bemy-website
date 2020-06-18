@@ -524,6 +524,9 @@
                     this.deletePackage({packageIndex: this.activePackage})
                 }
                 this.addNewPackage({pack: pack});
+
+                this.updatePackageTitleInStore();
+
                 this.scrollToTop();
             },
             changeActivePackageInStore(index) {
@@ -541,10 +544,23 @@
                 document.querySelector(".my_packages").scrollIntoView();
             },
             updatePackageTitleInStore(e) {
-                this.updatePackageTitle({
-                    title: e.target.value,
-                });
-            }
+                let title;
+
+                if (!e) {
+                title = window.prompt("Navn på modtageren af denne pakke:");
+                if (title && title.length > 20) {
+                    title = title.slice(0, 20)
+                }
+                }
+
+                if (e) {
+                    title = e.target.value
+                }
+
+                if (title) {
+                    this.updatePackageTitle({title: title})
+                }
+            },
         }
     }
 </script>

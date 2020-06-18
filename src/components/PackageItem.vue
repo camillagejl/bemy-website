@@ -254,11 +254,6 @@
         }
     }
 
-
-    .editing_items_buttons {
-        display: flex;
-    }
-
     .button_container {
         flex: 1;
         margin-top: 24px;
@@ -300,6 +295,11 @@
         .edit_icons {
             flex-direction: column;
         }
+
+        .editing_items_buttons {
+            display: flex;
+        }
+
     }
 
 
