@@ -20,7 +20,7 @@
     "@vue/cli-service": "~5.0.0",
     "axios": "^0.21.2",
     "sass": "^1.59.1",
-    "sass-loader": "^8.0.2",
+    "sass-loader": "^13.2.0",
     "vue-cli-plugin-axios": "0.0.4",
     "vue-template-compiler": "^2.6.11"
   },
